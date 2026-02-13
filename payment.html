@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Secure payment options for Gutenberg Languages Institute courses. Pay online or choose manual payment methods.">
+    <meta name="keywords" content="language course payment, online payment, tuition payment, Gutenberg payment">
+    <title>Payment - Gutenberg Languages Institute</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/logo.jpg" alt="Gutenberg Languages Institute Logo">
+                <span class="nav-brand">GUTENBERG LANGUAGES INSTITUTE</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">HOME</a></li>
+                <li><a href="about.html" class="nav-link">ABOUT US</a></li>
+                <li><a href="courses.html" class="nav-link">COURSES</a></li>
+                <li><a href="gallery.html" class="nav-link">GALLERY</a></li>
+                <li><a href="reviews.html" class="nav-link">REVIEWS</a></li>
+                <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+                <li><a href="booking.html" class="nav-cta">BOOK SESSION</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" style="min-height: 40vh;">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Secure Payment</h1>
+                <p class="hero-subtitle">Complete your course registration with flexible payment options</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container" style="max-width: 900px;">
+            <div class="section-header">
+                <h2 class="section-title">Choose Your Payment Method</h2>
+                <p class="section-subtitle">We offer multiple secure payment options for your convenience</p>
+            </div>
+            <div class="payment-methods">
+                <div class="payment-method" id="onlinePayment">
+                    <div class="payment-method-icon"><i class="fas fa-credit-card"></i></div>
+                    <h3 class="payment-method-title">Online Payment</h3>
+                    <p class="payment-method-desc">Credit/Debit Card, PayPal</p>
+                </div>
+                <div class="payment-method" id="bankTransfer">
+                    <div class="payment-method-icon"><i class="fas fa-university"></i></div>
+                    <h3 class="payment-method-title">Bank Transfer</h3>
+                    <p class="payment-method-desc">Direct bank transfer</p>
+                </div>
+                <div class="payment-method" id="cashPayment">
+                    <div class="payment-method-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <h3 class="payment-method-title">Cash Payment</h3>
+                    <p class="payment-method-desc">Pay in person at our office</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-light" id="onlinePaymentForm" style="display: none;">
+        <div class="container" style="max-width: 700px;">
+            <div class="card" style="padding: var(--spacing-lg);">
+                <h2 style="text-align: center; margin-bottom: var(--spacing-md);"><i class="fas fa-credit-card"
+                        style="color: var(--primary-yellow); margin-right: 0.5rem;"></i> Online Payment</h2>
+                <p style="text-align: center; color: var(--dark-gray); margin-bottom: var(--spacing-lg);">Complete your
+                    payment securely using our encrypted payment gateway</p>
+                <form id="paymentForm">
+                    <div class="form-group">
+                        <label class="form-label" for="courseSelection">Select Course *</label>
+                        <select id="courseSelection" name="courseSelection" class="form-select" required>
+                            <option value="">-- Choose your course --</option>
+                            <option value="super-intensive">Super Intensive Course - $2,500</option>
+                            <option value="intensive">Intensive Course - $1,800</option>
+                            <option value="normal">Normal Course - $1,200</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="studentName">Full Name *</label>
+                        <input type="text" id="studentName" name="studentName" class="form-input" required
+                            placeholder="As it appears on your card">
+                    </div>
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="studentEmail">Email Address *</label>
+                            <input type="email" id="studentEmail" name="studentEmail" class="form-input" required
+                                placeholder="your.email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="studentPhone">Phone Number *</label>
+                            <input type="tel" id="studentPhone" name="studentPhone" class="form-input" required
+                                placeholder="+1 (XXX) XXX-XXXX">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="cardNumber">Card Number *</label>
+                        <input type="text" id="cardNumber" name="cardNumber" class="form-input" required
+                            placeholder="1234 5678 9012 3456" maxlength="19">
+                    </div>
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="expiryDate">Expiry Date *</label>
+                            <input type="text" id="expiryDate" name="expiryDate" class="form-input" required
+                                placeholder="MM/YY" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="cvv">CVV *</label>
+                            <input type="text" id="cvv" name="cvv" class="form-input" required placeholder="123"
+                                maxlength="4">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="billingAddress">Billing Address *</label>
+                        <input type="text" id="billingAddress" name="billingAddress" class="form-input" required
+                            placeholder="Street Address">
+                    </div>
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="city">City *</label>
+                            <input type="text" id="city" name="city" class="form-input" required placeholder="City">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="zipCode">ZIP Code *</label>
+                            <input type="text" id="zipCode" name="zipCode" class="form-input" required
+                                placeholder="12345">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" id="paymentTerms" name="paymentTerms" required style="width: auto;">
+                            <span>I agree to the payment terms and conditions *</span>
+                        </label>
+                    </div>
+                    <div
+                        style="background: rgba(255, 215, 0, 0.1); padding: 1.5rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; text-align: center;">
+                        <h3 style="color: var(--primary-black); margin-bottom: 0.5rem;">Total Amount</h3>
+                        <p style="font-size: 2.5rem; font-weight: 800; color: var(--primary-black); margin: 0;"
+                            id="totalAmount">$0.00</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary"
+                        style="width: 100%; font-size: 1.125rem; padding: 1.25rem;">
+                        <i class="fas fa-lock"></i> Process Secure Payment
+                    </button>
+                    <p style="text-align: center; margin-top: 1rem; color: var(--dark-gray); font-size: 0.875rem;">
+                        <i class="fas fa-lock"></i> Your payment information is encrypted and secure
+                    </p>
+                </form>
+                <div id="paymentSuccess" class="alert alert-success" style="display: none; margin-top: 2rem;">
+                    <strong><i class="fas fa-check-circle"></i> Payment Successful!</strong><br>Thank you for your
+                    payment. A confirmation email has been sent to your email address. We'll contact you shortly with
+                    your course details.
+                </div>
+                <div id="paymentError" class="alert alert-error" style="display: none; margin-top: 2rem;">
+                    <strong><i class="fas fa-exclamation-triangle"></i> Payment Failed</strong><br>There was an error
+                    processing your payment. Please check your card details and try again, or contact us for assistance.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="bankTransferInfo" style="display: none;">
+        <div class="container" style="max-width: 700px;">
+            <div class="card" style="padding: var(--spacing-lg);">
+                <h2 style="text-align: center; margin-bottom: var(--spacing-md);"><i class="fas fa-university"
+                        style="color: var(--primary-yellow); margin-right: 0.5rem;"></i> Bank Transfer Details</h2>
+                <p style="text-align: center; color: var(--dark-gray); margin-bottom: var(--spacing-lg);">Please use the
+                    following bank details to complete your payment</p>
+                <div
+                    style="background: var(--light-gray); padding: 2rem; border-radius: var(--radius-md); margin-bottom: 2rem;">
+                    <table style="width: 100%; color: var(--dark-gray);">
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 1rem 0;"><strong>Bank Name:</strong></td>
+                            <td style="padding: 1rem 0; text-align: right;">Your Bank Name</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 1rem 0;"><strong>Account Name:</strong></td>
+                            <td style="padding: 1rem 0; text-align: right;">Gutenberg Languages Institute</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 1rem 0;"><strong>Account Number:</strong></td>
+                            <td style="padding: 1rem 0; text-align: right;">XXXX-XXXX-XXXX</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #ccc;">
+                            <td style="padding: 1rem 0;"><strong>Routing Number:</strong></td>
+                            <td style="padding: 1rem 0; text-align: right;">XXXXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem 0;"><strong>SWIFT Code:</strong></td>
+                            <td style="padding: 1rem 0; text-align: right;">XXXXXXXX</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="alert alert-info">
+                    <strong>Important:</strong> Please include your full name and course name in the transfer reference.
+                    After completing the transfer, email the receipt to <a href="mailto:payments@gutenberglanguages.com"
+                        style="color: var(--primary-yellow); font-weight: 600;">payments@gutenberglanguages.com</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-light" id="cashPaymentInfo" style="display: none;">
+        <div class="container" style="max-width: 700px;">
+            <div class="card" style="padding: var(--spacing-lg);">
+                <h2 style="text-align: center; margin-bottom: var(--spacing-md);"><i class="fas fa-money-bill-wave"
+                        style="color: var(--primary-yellow); margin-right: 0.5rem;"></i> Cash Payment</h2>
+                <p style="text-align: center; color: var(--dark-gray); margin-bottom: var(--spacing-lg);">Visit our
+                    office to make a cash payment in person</p>
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3 class="contact-title">Our Office Location</h3>
+                    <p class="contact-detail">Your Street Address<br>City, State ZIP Code<br>Country</p>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <h3 style="color: var(--primary-black); margin-bottom: 1rem;">Office Hours for Payments:</h3>
+                    <table style="width: 100%; color: var(--dark-gray);">
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 0.75rem 0;"><strong>Monday - Friday</strong></td>
+                            <td style="padding: 0.75rem 0; text-align: right;">9:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 0.75rem 0;"><strong>Saturday</strong></td>
+                            <td style="padding: 0.75rem 0; text-align: right;">10:00 AM - 3:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem 0;"><strong>Sunday</strong></td>
+                            <td style="padding: 0.75rem 0; text-align: right;">Closed</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="alert alert-warning" style="margin-top: 2rem;">
+                    <strong>Please Note:</strong> Bring a valid ID and your booking confirmation when making a cash
+                    payment. A receipt will be provided immediately.
+                </div>
+                <a href="contact.html" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">
+                    <i class="fas fa-directions"></i> Get Directions
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Secure & Trusted Payment</h2>
+                <p class="section-subtitle">Your financial information is protected with industry-standard encryption
+                </p>
+            </div>
+            <div class="grid grid-3">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3 class="feature-title" style="color: var(--white);">SSL Encrypted</h3>
+                    <p class="feature-description" style="color: var(--light-gray);">All transactions are secured with
+                        256-bit SSL encryption</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="feature-title" style="color: var(--white);">PCI Compliant</h3>
+                    <p class="feature-description" style="color: var(--light-gray);">We follow strict PCI DSS compliance
+                        standards</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h3 class="feature-title" style="color: var(--white);">Money-Back Guarantee</h3>
+                    <p class="feature-description" style="color: var(--light-gray);">Full refund within 7 days if you're
+                        not satisfied</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gutenberg Languages Institute</h3>
+                    <p>Empowering global communication through expert language education since 2010.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="reviews.html">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Programs</h3>
+                    <ul class="footer-links">
+                        <li><a href="courses.html#super-intensive">Super Intensive Course</a></li>
+                        <li><a href="courses.html#intensive">Intensive Course</a></li>
+                        <li><a href="courses.html#normal">Normal Course</a></li>
+                        <li><a href="application.html">Online Application</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> Phone: +1 (XXX) XXX-XXXX</li>
+                        <li><i class="fas fa-envelope"></i> Email: info@gutenberglanguages.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Address: Your Street, City, Country</li>
+                        <li><a href="contact.html">Contact Form</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Gutenberg Languages Institute. All rights reserved. | <a href="#">Privacy Policy</a> | <a
+                        href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="chatbot-trigger" id="chatbotTrigger" aria-label="Open chat assistant"><i
+            class="fas fa-comments"></i></button>
+    <script src="js/main.js"></script>
+    <script src="js/payment.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Contact Gutenberg Languages Institute. Get in touch via phone, email, or visit us.">
+    <meta name="keywords" content="contact Gutenberg Languages, language school contact, get in touch, location">
+    <title>GUTENBERG LANGUAGES INSTITUTE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/logo.jpg" alt="Gutenberg Languages Institute Logo">
+                <span class="nav-brand">GUTENBERG LANGUAGES INSTITUTE</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">HOME</a></li>
+                <li><a href="about.html" class="nav-link">ABOUT US</a></li>
+                <li><a href="courses.html" class="nav-link">COURSES</a></li>
+                <li><a href="gallery.html" class="nav-link">GALLERY</a></li>
+                <li><a href="reviews.html" class="nav-link">REVIEWS</a></li>
+                <li><a href="contact.html" class="nav-link active">CONTACT</a></li>
+                <li><a href="booking.html" class="nav-cta">BOOK SESSION</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" style="min-height: 40vh;">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">GET IN TOUCH</h1>
+                <p class="hero-subtitle">We're here to answer your questions and help you start your language journey
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-3">
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                    <h3 class="contact-title">CALL US</h3>
+                    <p class="contact-detail"><a href="tel:+1XXXXXXXXXX">+1 (XXX) XXX-XXXX</a></p>
+                    <p style="color: var(--dark-gray); margin-top: 1rem;">
+                        <strong>Office Hours:</strong><br>
+                        Monday - Friday: 8:00 AM - 8:00 PM<br>
+                        Saturday - Sunday: 9:00 AM - 5:00 PM
+                    </p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <h3 class="contact-title">EMAIL US</h3>
+                    <p class="contact-detail"><a
+                            href="mailto:info@gutenberglanguages.com">info@gutenberglanguages.com</a></p>
+                    <p style="color: var(--dark-gray); margin-top: 1rem;">
+                        <strong>Response Time:</strong><br>We typically respond within 24 hours during business days
+                    </p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3 class="contact-title">VISIT US</h3>
+                    <p class="contact-detail">Your Street Address<br>City, State ZIP Code<br>Country</p>
+                    <p style="color: var(--dark-gray); margin-top: 1rem;"><strong>Free parking available</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-light">
+        <div class="container">
+            <div class="grid grid-2" style="align-items: start; gap: 3rem;">
+                <div class="card" style="padding: var(--spacing-lg);">
+                    <h2 style="margin-bottom: var(--spacing-md); color: var(--primary-black);"><i
+                            class="fas fa-paper-plane" style="color: var(--primary-yellow); margin-right: 0.5rem;"></i>
+                        Send Us a Message</h2>
+                    <p style="color: var(--dark-gray); margin-bottom: var(--spacing-lg);">Have a question? Fill out the
+                        form below and we'll get back to you as soon as possible.</p>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" class="form-input" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-input" required
+                                placeholder="john.doe@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-input"
+                                placeholder="+1 (XXX) XXX-XXXX">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="subject">SUBJECT</label>
+                            <select id="subject" name="subject" class="form-select" required>
+                                <option value="">-- SELECT A SUBJECT --</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="courses">Course Information</option>
+                                <option value="booking">Booking Question</option>
+                                <option value="payment">Payment Inquiry</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="message">YOUR MESSAGE</label>
+                            <textarea id="message" name="message" class="form-textarea" required
+                                placeholder="Tell us how we can help you..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;"><i
+                                class="fas fa-paper-plane"></i> SEND MESSAGE</button>
+                    </form>
+                    <div id="formSuccess" class="alert alert-success" style="display: none; margin-top: 1rem;">
+                        <strong><i class="fas fa-check-circle"></i> MESSAGE SENT!</strong><br>Thank you for contacting
+                        us. We'll respond to your inquiry within 24 hours.
+                    </div>
+                    <div id="formError" class="alert alert-error" style="display: none; margin-top: 1rem;">
+                        <strong><i class="fas fa-exclamation-triangle"></i> ERROR</strong><br>There was an error sending
+                        your message. Please try again or contact us directly.
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card" style="margin-bottom: 2rem;">
+                        <h3 style="color: var(--primary-black); margin-bottom: 1rem;"><i class="fas fa-clock"
+                                style="color: var(--primary-yellow); margin-right: 0.5rem;"></i> OFFICE HOURS</h3>
+                        <table style="width: 100%; color: var(--dark-gray);">
+                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                <td style="padding: 0.75rem 0;"><strong>MONDAY - FRIDAY</strong></td>
+                                <td style="padding: 0.75rem 0; text-align: right;">8:00 AM - 8:00 PM</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                <td style="padding: 0.75rem 0;"><strong>SATURDAY</strong></td>
+                                <td style="padding: 0.75rem 0; text-align: right;">9:00 AM - 5:00 PM</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                <td style="padding: 0.75rem 0;"><strong>SUNDAY</strong></td>
+                                <td style="padding: 0.75rem 0; text-align: right;">9:00 AM - 5:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.75rem 0;"><strong>PUBLIC HOLIDAYS</strong></td>
+                                <td style="padding: 0.75rem 0; text-align: right;">CLOSED</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="card">
+                        <h3 style="color: var(--primary-black); margin-bottom: 1rem;"><i class="fas fa-globe-americas"
+                                style="color: var(--primary-yellow); margin-right: 0.5rem;"></i> CONNECT WITH US</h3>
+                        <p style="color: var(--dark-gray); margin-bottom: 1rem;">Follow us on social media for updates,
+                            tips, and language learning resources.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-map-marker-alt"
+                        style="color: var(--primary-yellow); margin-right: 0.5rem;"></i> Find Us on the Map</h2>
+                <p class="section-subtitle">Visit our campus and experience our modern facilities</p>
+            </div>
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968459391!3d40.74844097932847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    title="GUTENBERG LANGUAGES INSTITUTE LOCATION"></iframe>
+            </div>
+            <div class="text-center mt-2">
+                <a href="https://maps.google.com" target="_blank" class="btn btn-outline"><i
+                        class="fas fa-directions"></i> Open in Google Maps</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Quick answers to common questions</p>
+            </div>
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3 class="card-title">What are your course start dates?</h3>
+                    <p class="card-text">We offer flexible start dates throughout the year. New courses begin every
+                        month. Contact us to find the next available start date for your preferred course.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Do you offer online classes?</h3>
+                    <p class="card-text">Yes! We offer both in-person and online classes. Our online courses feature
+                        live interactive sessions with the same quality instruction as our in-person programs.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">What payment methods do you accept?</h3>
+                    <p class="card-text">We accept credit/debit cards, bank transfers, PayPal, and cash payments.
+                        Flexible payment plans are available for all courses.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Can I visit the campus before enrolling?</h3>
+                    <p class="card-text">Absolutely! We encourage prospective students to visit our campus. Schedule a
+                        tour by calling us or filling out the contact form above.</p>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p style="color: var(--light-gray); font-size: 1.125rem;">Have more questions? <a href="#contactForm"
+                        style="color: var(--primary-yellow); font-weight: 600;">Contact us now <i
+                            class="fas fa-arrow-right"></i></a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>GUTENBERG LANGUAGES INSTITUTE</h3>
+                    <p>Empowering global communication through expert language education since 2010.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>QUICK LINKS</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">HOME</a></li>
+                        <li><a href="about.html">ABOUT US</a></li>
+                        <li><a href="courses.html">COURSES</a></li>
+                        <li><a href="gallery.html">GALLERY</a></li>
+                        <li><a href="reviews.html">REVIEWS</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>PROGRAMS</h3>
+                    <ul class="footer-links">
+                        <li><a href="courses.html#super-intensive">SUPER INTENSIVE COURSE</a></li>
+                        <li><a href="courses.html#intensive">INTENSIVE COURSE</a></li>
+                        <li><a href="courses.html#normal">NORMAL COURSE</a></li>
+                        <li><a href="application.html">ONLINE APPLICATION</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>CONTACT US</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> Phone: +1 (XXX) XXX-XXXX</li>
+                        <li><i class="fas fa-envelope"></i> Email: info@gutenberglanguages.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Address: Your Street, City, Country</li>
+                        <li><a href="contact.html">CONTACT FORM</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 GUTENBERG LANGUAGES INSTITUTE. ALL RIGHTS RESERVED. | <a href="#">PRIVACY POLICY</a> | <a
+                        href="#">TERMS OF SERVICE</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="chatbot-trigger" id="chatbotTrigger" aria-label="Open chat assistant"><i
+            class="fas fa-comments"></i></button>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/emailjs-config.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+
+</html>

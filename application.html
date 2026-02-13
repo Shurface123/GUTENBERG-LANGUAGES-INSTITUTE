@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Apply online to Gutenberg Languages Institute. Complete your application form and start your language learning journey.">
+    <meta name="keywords" content="online application, language school application, enroll, Gutenberg application">
+    <title>GUTENBERG LANGUAGES INSTITUTE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/logo.jpg" alt="Gutenberg Languages Institute Logo">
+                <span class="nav-brand">GUTENBERG LANGUAGES INSTITUTE</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">HOME</a></li>
+                <li><a href="about.html" class="nav-link">ABOUT US</a></li>
+                <li><a href="courses.html" class="nav-link">COURSES</a></li>
+                <li><a href="gallery.html" class="nav-link">GALLERY</a></li>
+                <li><a href="reviews.html" class="nav-link">REVIEWS</a></li>
+                <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+                <li><a href="booking.html" class="nav-cta">BOOK SESSION</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" style="min-height: 40vh;">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">ONLINE APPLICATION</h1>
+                <p class="hero-subtitle">Take the first step towards language fluency</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container" style="max-width: 900px;">
+            <div class="card" style="padding: var(--spacing-lg);">
+                <h2 style="text-align: center; margin-bottom: var(--spacing-sm);"><i class="fas fa-file-alt"
+                        style="color: var(--primary-yellow); margin-right: 0.5rem;"></i> Student Application Form</h2>
+                <p style="text-align: center; color: var(--dark-gray); margin-bottom: var(--spacing-lg);">Complete this
+                    form to apply for admission to Gutenberg Languages Institute</p>
+                <form id="applicationForm">
+                    <h3
+                        style="color: var(--primary-black); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary-yellow);">
+                        PERSONAL INFORMATION</h3>
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="firstName">FIRST NAME</label>
+                            <input type="text" id="firstName" name="firstName" class="form-input" required
+                                placeholder="John">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lastName">LAST NAME</label>
+                            <input type="text" id="lastName" name="lastName" class="form-input" required
+                                placeholder="Doe">
+                        </div>
+                    </div>
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="dateOfBirth">DATE OF BIRTH</label>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="gender">GENDER</label>
+                            <select id="gender" name="gender" class="form-select" required>
+                                <option value="">-- Select --</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="nationality">NATIONALITY</label>
+                        <input type="text" id="nationality" name="nationality" class="form-input" required
+                            placeholder="Your nationality">
+                    </div>
+
+                    <h3
+                        style="color: var(--primary-black); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary-yellow);">
+                        Contact Information</h3>
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="appEmail">Email Address *</label>
+                            <input type="email" id="appEmail" name="appEmail" class="form-input" required
+                                placeholder="your.email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="appPhone">Phone Number *</label>
+                            <input type="tel" id="appPhone" name="appPhone" class="form-input" required
+                                placeholder="+1 (XXX) XXX-XXXX">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="address">Street Address *</label>
+                        <input type="text" id="address" name="address" class="form-input" required
+                            placeholder="123 Main Street">
+                    </div>
+                    <div class="grid grid-3">
+                        <div class="form-group">
+                            <label class="form-label" for="appCity">City *</label>
+                            <input type="text" id="appCity" name="appCity" class="form-input" required
+                                placeholder="City">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="state">State/Province *</label>
+                            <input type="text" id="state" name="state" class="form-input" required placeholder="State">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="appZipCode">ZIP/Postal Code *</label>
+                            <input type="text" id="appZipCode" name="appZipCode" class="form-input" required
+                                placeholder="12345">
+                        </div>
+                    </div>
+
+                    <h3
+                        style="color: var(--primary-black); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary-yellow);">
+                        Course Selection</h3>
+                    <div class="form-group">
+                        <label class="form-label" for="appCourse">Preferred Course *</label>
+                        <select id="appCourse" name="appCourse" class="form-select" required>
+                            <option value="">-- Select a course --</option>
+                            <option value="super-intensive">Super Intensive Course (6-8 weeks)</option>
+                            <option value="intensive">Intensive Course (10-12 weeks)</option>
+                            <option value="normal">Normal Course (16-20 weeks)</option>
+                        </select>
+                    </div>
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="appLanguage">Language to Learn *</label>
+                            <select id="appLanguage" name="appLanguage" class="form-select" required>
+                                <option value="">-- Select language --</option>
+                                <option value="english">English</option>
+                                <option value="french">French</option>
+                                <option value="spanish">Spanish</option>
+                                <option value="german">German</option>
+                                <option value="italian">Italian</option>
+                                <option value="mandarin">Mandarin Chinese</option>
+                                <option value="japanese">Japanese</option>
+                                <option value="korean">Korean</option>
+                                <option value="arabic">Arabic</option>
+                                <option value="portuguese">Portuguese</option>
+                                <option value="russian">Russian</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="preferredStartDate">Preferred Start Date *</label>
+                            <input type="date" id="preferredStartDate" name="preferredStartDate" class="form-input"
+                                required>
+                        </div>
+                    </div>
+
+                    <h3
+                        style="color: var(--primary-black); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary-yellow);">
+                        Educational Background</h3>
+                    <div class="form-group">
+                        <label class="form-label" for="educationLevel">Highest Education Level *</label>
+                        <select id="educationLevel" name="educationLevel" class="form-select" required>
+                            <option value="">-- Select level --</option>
+                            <option value="high-school">High School</option>
+                            <option value="associate">Associate Degree</option>
+                            <option value="bachelor">Bachelor's Degree</option>
+                            <option value="master">Master's Degree</option>
+                            <option value="doctorate">Doctorate</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="languageLevel">Current Language Proficiency *</label>
+                        <select id="languageLevel" name="languageLevel" class="form-select" required>
+                            <option value="">-- Select level --</option>
+                            <option value="beginner">Beginner (No prior knowledge)</option>
+                            <option value="elementary">Elementary (Basic phrases)</option>
+                            <option value="intermediate">Intermediate (Can hold conversations)</option>
+                            <option value="advanced">Advanced (Fluent with some errors)</option>
+                            <option value="proficient">Proficient (Near-native)</option>
+                        </select>
+                    </div>
+
+                    <h3
+                        style="color: var(--primary-black); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary-yellow);">
+                        Learning Goals & Motivation</h3>
+                    <div class="form-group">
+                        <label class="form-label" for="learningGoals">Why do you want to learn this language? *</label>
+                        <textarea id="learningGoals" name="learningGoals" class="form-textarea" required
+                            placeholder="Describe your learning goals and motivation..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="previousExperience">Previous Language Learning Experience</label>
+                        <textarea id="previousExperience" name="previousExperience" class="form-textarea"
+                            placeholder="Tell us about any previous language courses or self-study..."></textarea>
+                    </div>
+
+                    <h3
+                        style="color: var(--primary-black); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary-yellow);">
+                        Emergency Contact</h3>
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="emergencyName">Contact Name *</label>
+                            <input type="text" id="emergencyName" name="emergencyName" class="form-input" required
+                                placeholder="Full name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="emergencyRelation">Relationship *</label>
+                            <input type="text" id="emergencyRelation" name="emergencyRelation" class="form-input"
+                                required placeholder="e.g., Parent, Spouse">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="emergencyPhone">Emergency Phone Number *</label>
+                        <input type="tel" id="emergencyPhone" name="emergencyPhone" class="form-input" required
+                            placeholder="+1 (XXX) XXX-XXXX">
+                    </div>
+
+                    <div class="form-group" style="margin-top: 2rem;">
+                        <label style="display: flex; align-items: start; gap: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" id="appTerms" name="appTerms" required
+                                style="width: auto; margin-top: 0.25rem;">
+                            <span>I certify that all information provided in this application is true and accurate. I
+                                agree to the <a href="#"
+                                    style="color: var(--primary-yellow); text-decoration: underline;">Terms &
+                                    Conditions</a> and <a href="#"
+                                    style="color: var(--primary-yellow); text-decoration: underline;">Privacy Policy</a>
+                                of Gutenberg Languages Institute. *</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary"
+                        style="width: 100%; font-size: 1.125rem; padding: 1.25rem; margin-top: 1rem;">
+                        <i class="fas fa-paper-plane"></i> Submit Application
+                    </button>
+                    <p style="text-align: center; margin-top: 1rem; color: var(--dark-gray); font-size: 0.875rem;">*
+                        Required fields. We'll review your application and contact you within 2-3 business days.</p>
+                </form>
+                <div id="appSuccess" class="alert alert-success" style="display: none; margin-top: 2rem;">
+                    <strong><i class="fas fa-check-circle"></i> Application Submitted Successfully!</strong><br>Thank
+                    you for applying to Gutenberg Languages Institute. We've received your application and will review
+                    it within 2-3 business days. You'll receive a confirmation email shortly.
+                </div>
+                <div id="appError" class="alert alert-error" style="display: none; margin-top: 2rem;">
+                    <strong><i class="fas fa-exclamation-triangle"></i> Submission Error</strong><br>There was an error
+                    submitting your application. Please try again or contact us directly.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What Happens After You Apply?</h2>
+            </div>
+            <div class="grid grid-3">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-clipboard-check"
+                            style="color: var(--primary-yellow); margin-right: 0.5rem;"></i> Application Review</h3>
+                    <p class="card-text">Our admissions team will review your application within 2-3 business days and
+                        verify all information provided.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-tasks"
+                            style="color: var(--primary-yellow); margin-right: 0.5rem;"></i> Placement Test</h3>
+                    <p class="card-text">You'll receive an invitation to complete a placement test to determine your
+                        current language level and customize your learning plan.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-check-double"
+                            style="color: var(--primary-yellow); margin-right: 0.5rem;"></i> Enrollment Confirmation
+                    </h3>
+                    <p class="card-text">Once approved, you'll receive enrollment details, payment information, and your
+                        course start date.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gutenberg Languages Institute</h3>
+                    <p>Empowering global communication through expert language education since 2010.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="reviews.html">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Programs</h3>
+                    <ul class="footer-links">
+                        <li><a href="courses.html#super-intensive">Super Intensive Course</a></li>
+                        <li><a href="courses.html#intensive">Intensive Course</a></li>
+                        <li><a href="courses.html#normal">Normal Course</a></li>
+                        <li><a href="application.html">Online Application</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> Phone: +1 (XXX) XXX-XXXX</li>
+                        <li><i class="fas fa-envelope"></i> Email: info@gutenberglanguages.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Address: Your Street, City, Country</li>
+                        <li><a href="contact.html">Contact Form</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Gutenberg Languages Institute. All rights reserved. | <a href="#">Privacy Policy</a> | <a
+                        href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="chatbot-trigger" id="chatbotTrigger" aria-label="Open chat assistant"><i
+            class="fas fa-comments"></i></button>
+    <script src="js/main.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+
+</html>
