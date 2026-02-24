@@ -873,21 +873,35 @@ img {
 }
 
 /* ============================================
-   HERO VIDEO BACKGROUND
+   HERO VIDEO / YOUTUBE BACKGROUND
    ============================================ */
 .hero-video-section {
   position: relative;
   overflow: hidden;
 }
 
-.hero-video {
+/* YouTube iframe — scaled up and centred so it fills the section */
+.hero-yt-wrapper {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  overflow: hidden;
   z-index: 0;
+  pointer-events: none;
+}
+
+.hero-yt-wrapper iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Scale up so 16:9 iframe fills any aspect ratio */
+  width: 300%;
+  height: 300%;
+  min-width: 100%;
+  min-height: 100%;
+  border: none;
   pointer-events: none;
 }
 
@@ -896,9 +910,9 @@ img {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg,
-      rgba(0, 0, 0, 0.82) 0%,
-      rgba(10, 8, 0, 0.78) 50%,
-      rgba(20, 15, 0, 0.75) 100%);
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(10, 8, 0, 0.80) 50%,
+      rgba(20, 15, 0, 0.78) 100%);
   z-index: 1;
   pointer-events: none;
 }
@@ -908,6 +922,96 @@ img {
 .hero-video-section::after {
   z-index: 2;
 }
+
+/* ============================================
+   DARK / LIGHT THEME TOGGLE
+   ============================================ */
+/* Light theme overrides — applied when body has data-theme="light" */
+body[data-theme="light"] {
+  --primary-black: #111111;
+  --dark-gray: #2a2a2a;
+  --medium-gray: #444;
+  --light-gray: #f0f0f0;
+  --white: #ffffff;
+  --gradient-dark: linear-gradient(135deg, #f4f4f4 0%, #e8e8e8 100%);
+  background-color: #f9f9f9;
+  color: #111;
+}
+
+body[data-theme="light"] .navbar {
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+body[data-theme="light"] .navbar.scrolled {
+  background: rgba(255, 255, 255, 0.99);
+}
+
+body[data-theme="light"] .nav-link {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+body[data-theme="light"] .nav-link:hover,
+body[data-theme="light"] .nav-link.active {
+  color: #000;
+  background: rgba(255, 215, 0, 0.12);
+}
+
+body[data-theme="light"] .section-dark {
+  background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+}
+
+body[data-theme="light"] .footer {
+  background: linear-gradient(135deg, #111 0%, #000 100%);
+}
+
+body[data-theme="light"] .hero-video-section {
+  background: linear-gradient(135deg, #0a0a0a 0%, #222 100%);
+}
+
+body[data-theme="light"] .card {
+  background: #fff;
+  border-color: rgba(0, 0, 0, 0.07);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+  background: none;
+  border: 1.5px solid rgba(255, 215, 0, 0.5);
+  border-radius: 20px;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  color: var(--primary-yellow);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(255, 215, 0, 0.1);
+}
+
+body[data-theme="light"] .theme-toggle-btn {
+  border-color: rgba(0, 0, 0, 0.3);
+  color: #000;
+}
+
+body[data-theme="light"] .theme-toggle-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+@media (max-width: 768px) {
+  .theme-toggle-btn {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+  }
+}
+
 
 /* ============================================
    ENHANCED MOBILE RESPONSIVENESS

@@ -82,24 +82,23 @@
         </div>
     </nav>
 
-    <!-- Hero Section — Video Background -->
+    <!-- Hero Section — YouTube Video Background -->
     <section class="hero hero-video-section">
-        <!-- Background Video -->
-        <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-            <source
-                src="https://assets.mixkit.co/videos/preview/mixkit-people-working-in-a-language-class-9913-large.mp4"
-                type="video/mp4">
-            <source
-                src="https://assets.mixkit.co/videos/preview/mixkit-students-studying-in-a-library-with-books-on-the-table-42455-large.mp4"
-                type="video/mp4">
-        </video>
+        <!-- YouTube iframe background (works in browser without a local server) -->
+        <div class="hero-yt-wrapper" aria-hidden="true">
+            <iframe
+                src="https://www.youtube.com/embed/videoseries?list=PLFGMvFJDlGVpKvqMILxQmFR1Y8Dz_4mVf&autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&modestbranding=1&disablekb=1&iv_load_policy=3"
+                title="Language learning background" frameborder="0"
+                allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen>
+            </iframe>
+        </div>
         <!-- Dark brand-tinted overlay -->
         <div class="hero-video-overlay"></div>
 
         <div class="container" style="position:relative;z-index:2;">
             <div class="hero-content">
                 <h1 class="hero-title fade-in-up">WELCOME TO GUTENBERG LANGUAGES INSTITUTE</h1>
-                <p class="hero-subtitle fade-in-up">Master New Languages with Expert Instructors & Modern Learning
+                <p class="hero-subtitle fade-in-up">Master New Languages with Expert Instructors &amp; Modern Learning
                     Methods</p>
                 <div class="hero-buttons fade-in-up">
                     <a href="courses.html" class="btn btn-primary"><i class="fas fa-book-open"></i> Explore Courses</a>
