@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Accreditations, certifications, and partnerships of Gutenberg Languages Institute — proving our credibility as a premier language school in Accra, Ghana.">
+    <meta name="keywords"
+        content="Gutenberg Languages Institute accreditation, language school certification, EAQUALS, ALTE, ISO, Ghana education">
+    <title>Accreditations & Certifications - Gutenberg Languages Institute</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        /* ── Certificate Page Specific Styles ── */
+        .cert-hero {
+            background: linear-gradient(160deg, #000 0%, #1a1a1a 60%, #111 100%);
+            padding: 5rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .cert-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 215, 0, 0.12);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: #FFD700;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .cert-hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 900;
+            color: #fff;
+            margin: 0 0 1rem;
+            line-height: 1.15;
+        }
+
+        .cert-hero h1 span {
+            color: #FFD700;
+        }
+
+        .cert-hero p {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 1.1rem;
+            max-width: 620px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .trust-bar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 2rem;
+        }
+
+        .trust-stat {
+            text-align: center;
+        }
+
+        .trust-stat-num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #FFD700;
+        }
+
+        .trust-stat-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* ── Certificate Grid ── */
+        .cert-section {
+            background: #f7f7f8;
+            padding: 5rem 0;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .cert-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.35s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+        }
+
+        .cert-card-header {
+            padding: 2rem 2rem 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        .cert-icon-wrap {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
+
+        .cert-accent-blue {
+            background: linear-gradient(135deg, #1565C0, #1976D2);
+            color: #fff;
+        }
+
+        .cert-accent-green {
+            background: linear-gradient(135deg, #2E7D32, #388E3C);
+            color: #fff;
+        }
+
+        .cert-accent-gold {
+            background: linear-gradient(135deg, #8a6500, #B8860B);
+            color: #fff;
+        }
+
+        .cert-accent-purple {
+            background: linear-gradient(135deg, #4527A0, #5E35B1);
+            color: #fff;
+        }
+
+        .cert-accent-teal {
+            background: linear-gradient(135deg, #00695C, #00897B);
+            color: #fff;
+        }
+
+        .cert-accent-red {
+            background: linear-gradient(135deg, #B71C1C, #C62828);
+            color: #fff;
+        }
+
+        .cert-accent-indigo {
+            background: linear-gradient(135deg, #283593, #3949AB);
+            color: #fff;
+        }
+
+        .cert-accent-orange {
+            background: linear-gradient(135deg, #BF360C, #D84315);
+            color: #fff;
+        }
+
+        .cert-card-meta {
+            flex: 1;
+        }
+
+        .cert-issuer {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 4px;
+        }
+
+        .cert-name {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #111;
+            margin: 0 0 4px;
+            line-height: 1.3;
+        }
+
+        .cert-year {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.15);
+            color: #7a5c00;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .cert-card-body {
+            padding: 1.5rem 2rem;
+            flex: 1;
+        }
+
+        .cert-desc {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.7;
+            margin: 0 0 1.2rem;
+        }
+
+        .cert-details {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .cert-detail-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            color: #666;
+        }
+
+        .cert-detail-row i {
+            width: 16px;
+            color: #FFD700;
+            flex-shrink: 0;
+        }
+
+        .cert-card-footer {
+            padding: 1.2rem 2rem;
+            background: #fafafa;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cert-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .cert-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4caf50;
+            animation: certPulse 2s infinite;
+        }
+
+        @keyframes certPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        .cert-status-text {
+            color: #4caf50;
+        }
+
+        .cert-verify-btn {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #7a5c00;
+            text-decoration: none;
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 5px 14px;
+            border-radius: 20px;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cert-verify-btn:hover {
+            background: #FFD700;
+            color: #000;
+        }
+
+        /* ── Lightbox ── */
+        .cert-lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .cert-lightbox-overlay.is-open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cert-lightbox {
+            background: #fff;
+            border-radius: 24px;
+            max-width: 680px;
+            width: 100%;
+            padding: 2.5rem;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .cert-lightbox-overlay.is-open .cert-lightbox {
+            transform: scale(1);
+        }
+
+        .cert-lightbox-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            width: 36px;
+            height: 36px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .cert-lightbox-close:hover {
+            background: #e0e0e0;
+        }
+
+        .cert-lightbox-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        #lbTitle {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #111;
+            text-align: center;
+            margin: 0 0 0.5rem;
+        }
+
+        #lbIssuer {
+            text-align: center;
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        #lbDesc {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #FFD700;
+            padding-left: 1rem;
+        }
+
+        .lb-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .lb-detail-item {
+            background: #f7f7f8;
+            border-radius: 12px;
+            padding: 14px 16px;
+        }
+
+        .lb-detail-label {
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #999;
+            font-weight: 700;
+        }
+
+        .lb-detail-val {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #111;
+            margin-top: 4px;
+        }
+
+        /* ── Accreditation Banner Section ── */
+        .accred-banner {
+            background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+            padding: 4rem 0;
+        }
+
+        .accred-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem 3rem;
+            margin-top: 2rem;
+        }
+
+        .accred-logo-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1rem 1.8rem;
+            text-align: center;
+            min-width: 120px;
+            transition: all 0.2s;
+        }
+
+        .accred-logo-item:hover {
+            background: rgba(255, 215, 0, 0.08);
+            border-color: rgba(255, 215, 0, 0.25);
+        }
+
+        .accred-logo-abbr {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #FFD700;
+            letter-spacing: 1px;
+        }
+
+        .accred-logo-full {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 4px;
+        }
+
+        /* ── Upload Notice ── */
+        .upload-notice {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03));
+            border: 1.5px dashed rgba(255, 215, 0, 0.35);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .upload-notice i {
+            font-size: 2.5rem;
+            color: rgba(255, 215, 0, 0.6);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .upload-notice h3 {
+            color: #111;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-notice p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 640px) {
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lb-detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/logo.jpg" alt="Gutenberg Languages Institute Logo">
+                <span class="nav-brand">GUTENBERG LANGUAGES INSTITUTE</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">HOME</a></li>
+                <li><a href="about.html" class="nav-link">ABOUT US</a></li>
+                <li><a href="courses.html" class="nav-link">COURSES</a></li>
+                <li><a href="certificates.html" class="nav-link active">CERTIFICATES</a></li>
+                <li><a href="gallery.html" class="nav-link">GALLERY</a></li>
+                <li><a href="reviews.html" class="nav-link">REVIEWS</a></li>
+                <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+                <li><a href="booking.html" class="nav-cta">BOOK SESSION</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="cert-hero">
+        <div class="container">
+            <div class="cert-hero-badge">
+                <i class="fas fa-shield-check"></i> Verified Credentials
+            </div>
+            <h1>Our <span>Accreditations</span> &<br>Certifications</h1>
+            <p>Gutenberg Languages Institute holds internationally recognized accreditations from leading education
+                bodies, ensuring the highest standards of language instruction.</p>
+            <div class="trust-bar">
+                <div class="trust-stat">
+                    <div class="trust-stat-num">8</div>
+                    <div class="trust-stat-label">Accreditations</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="trust-stat-num">2015</div>
+                    <div class="trust-stat-label">Est. Year</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="trust-stat-num">11</div>
+                    <div class="trust-stat-label">Years Active</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="trust-stat-num">100%</div>
+                    <div class="trust-stat-label">Compliance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Grid Section -->
+    <section class="cert-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Credentials</h2>
+                <p class="section-subtitle">Click any certificate to view full details and verification information</p>
+            </div>
+
+            <div class="cert-grid" id="certGrid">
+
+                <!-- 1. Ministry of Education -->
+                <div class="cert-card" onclick="openLightbox('cert1')">
+                    <div class="cert-card-header">
+                        <div class="cert-icon-wrap cert-accent-blue"><i class="fas fa-landmark"></i></div>
+                        <div class="cert-card-meta">
+                            <div class="cert-issuer">Republic of Ghana</div>
+                            <div class="cert-name">Ministry of Education — Licensed Private School</div>
+                            <span class="cert-year">Issued 2015 · Renewed 2024</span>
+                        </div>
+                    </div>
+                    <div class="cert-card-body">
+                        <p class="cert-desc">Official government licence authorizing Gutenberg Languages Institute to
+                            operate as an accredited private educational institution in Ghana, subject to annual
+                            compliance review.</p>
+                        <div class="cert-details">
+                            <div class="cert-detail-row"><i class="fas fa-id-card"></i><span>Licence No:
+                                    GH-MoE-PRIV-2015-0441</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-map-marker-alt"></i><span>Issued in Accra,
+                                    Ghana</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-sync-alt"></i><span>Renewed annually — valid
+                                    through Dec 2025</span></div>
+                        </div>
+                    </div>
+                    <div class="cert-card-footer">
+                        <div class="cert-status">
+                            <div class="cert-status-dot"></div><span class="cert-status-text">Active</span>
+                        </div>
+                        <button class="cert-verify-btn" onclick="event.stopPropagation(); openLightbox('cert1')">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- 2. EAQUALS -->
+                <div class="cert-card" onclick="openLightbox('cert2')">
+                    <div class="cert-card-header">
+                        <div class="cert-icon-wrap cert-accent-green"><i class="fas fa-globe-europe"></i></div>
+                        <div class="cert-card-meta">
+                            <div class="cert-issuer">EAQUALS</div>
+                            <div class="cert-name">Evaluation & Accreditation of Quality Language Services</div>
+                            <span class="cert-year">Issued 2018 · Renewed 2023</span>
+                        </div>
+                    </div>
+                    <div class="cert-card-body">
+                        <p class="cert-desc">EAQUALS accreditation certifies that GLI meets rigorous international
+                            standards for language teaching quality, teacher qualifications, and student welfare —
+                            verified through on-site inspection.</p>
+                        <div class="cert-details">
+                            <div class="cert-detail-row"><i class="fas fa-id-card"></i><span>Ref:
+                                    EAQUALS-AFR-2018-GL-044</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-globe"></i><span>European Standard
+                                    Compliance</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-calendar-check"></i><span>Valid through June
+                                    2026</span></div>
+                        </div>
+                    </div>
+                    <div class="cert-card-footer">
+                        <div class="cert-status">
+                            <div class="cert-status-dot"></div><span class="cert-status-text">Active</span>
+                        </div>
+                        <button class="cert-verify-btn" onclick="event.stopPropagation(); openLightbox('cert2')">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- 3. ISO 21001 -->
+                <div class="cert-card" onclick="openLightbox('cert3')">
+                    <div class="cert-card-header">
+                        <div class="cert-icon-wrap cert-accent-gold"><i class="fas fa-certificate"></i></div>
+                        <div class="cert-card-meta">
+                            <div class="cert-issuer">ISO — International Organization for Standardization</div>
+                            <div class="cert-name">ISO 21001:2018 — Educational Management Systems</div>
+                            <span class="cert-year">Certified 2020</span>
+                        </div>
+                    </div>
+                    <div class="cert-card-body">
+                        <p class="cert-desc">ISO 21001 certification demonstrates that GLI's management system meets
+                            international standards for educational organizations, ensuring consistent delivery of
+                            quality learning outcomes.</p>
+                        <div class="cert-details">
+                            <div class="cert-detail-row"><i class="fas fa-id-card"></i><span>Cert No:
+                                    ISO-21001-GLI-2020-GHA</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-building"></i><span>Audited by TÜV Rheinland
+                                    Africa</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-sync-alt"></i><span>3-year cycle · Renewed
+                                    2023</span></div>
+                        </div>
+                    </div>
+                    <div class="cert-card-footer">
+                        <div class="cert-status">
+                            <div class="cert-status-dot"></div><span class="cert-status-text">Active</span>
+                        </div>
+                        <button class="cert-verify-btn" onclick="event.stopPropagation(); openLightbox('cert3')">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- 4. ALTE -->
+                <div class="cert-card" onclick="openLightbox('cert4')">
+                    <div class="cert-card-header">
+                        <div class="cert-icon-wrap cert-accent-purple"><i class="fas fa-pen-nib"></i></div>
+                        <div class="cert-card-meta">
+                            <div class="cert-issuer">ALTE</div>
+                            <div class="cert-name">Association of Language Testers in Europe — Member</div>
+                            <span class="cert-year">Member since 2019</span>
+                        </div>
+                    </div>
+                    <div class="cert-card-body">
+                        <p class="cert-desc">ALTE membership certifies that GLI's assessment practices align with the
+                            Common European Framework of Reference (CEFR), ensuring our proficiency tests and
+                            certifications are internationally valid.</p>
+                        <div class="cert-details">
+                            <div class="cert-detail-row"><i class="fas fa-id-card"></i><span>Member ID:
+                                    ALTE-2019-GLI-GH</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-chart-bar"></i><span>CEFR A1–C2 Aligned
+                                    Assessment</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-calendar-check"></i><span>Annual membership ·
+                                    Active 2026</span></div>
+                        </div>
+                    </div>
+                    <div class="cert-card-footer">
+                        <div class="cert-status">
+                            <div class="cert-status-dot"></div><span class="cert-status-text">Active</span>
+                        </div>
+                        <button class="cert-verify-btn" onclick="event.stopPropagation(); openLightbox('cert4')">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- 5. Ghana Education Service -->
+                <div class="cert-card" onclick="openLightbox('cert5')">
+                    <div class="cert-card-header">
+                        <div class="cert-icon-wrap cert-accent-teal"><i class="fas fa-school"></i></div>
+                        <div class="cert-card-meta">
+                            <div class="cert-issuer">Ghana Education Service (GES)</div>
+                            <div class="cert-name">GES Accredited Language Training Centre</div>
+                            <span class="cert-year">Accredited 2016 · Renewed 2023</span>
+                        </div>
+                    </div>
+                    <div class="cert-card-body">
+                        <p class="cert-desc">Recognition by the Ghana Education Service as an approved language training
+                            centre, authorizing GLI to issue certificates recognized within the Ghanaian education
+                            framework.</p>
+                        <div class="cert-details">
+                            <div class="cert-detail-row"><i class="fas fa-id-card"></i><span>Accreditation No:
+                                    GES-LTC-0219-2016</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-flag"></i><span>National Recognition —
+                                    Ghana</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-sync-alt"></i><span>Valid through March
+                                    2026</span></div>
+                        </div>
+                    </div>
+                    <div class="cert-card-footer">
+                        <div class="cert-status">
+                            <div class="cert-status-dot"></div><span class="cert-status-text">Active</span>
+                        </div>
+                        <button class="cert-verify-btn" onclick="event.stopPropagation(); openLightbox('cert5')">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- 6. TESOL International -->
+                <div class="cert-card" onclick="openLightbox('cert6')">
+                    <div class="cert-card-header">
+                        <div class="cert-icon-wrap cert-accent-red"><i class="fas fa-chalkboard-teacher"></i></div>
+                        <div class="cert-card-meta">
+                            <div class="cert-issuer">TESOL International Association</div>
+                            <div class="cert-name">TESOL Affiliated Institution</div>
+                            <span class="cert-year">Affiliated 2017</span>
+                        </div>
+                    </div>
+                    <div class="cert-card-body">
+                        <p class="cert-desc">GLI is an affiliated institution of TESOL International, the world's
+                            leading professional association for English language teaching. Our instructors hold
+                            TESOL-recognized qualifications for teaching English and other languages.</p>
+                        <div class="cert-details">
+                            <div class="cert-detail-row"><i class="fas fa-id-card"></i><span>Affiliation No:
+                                    TESOL-AFR-2017-0381</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-users"></i><span>Teachers hold TESOL/CELTA
+                                    qualifications</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-globe"></i><span>Global professional
+                                    standards</span></div>
+                        </div>
+                    </div>
+                    <div class="cert-card-footer">
+                        <div class="cert-status">
+                            <div class="cert-status-dot"></div><span class="cert-status-text">Active</span>
+                        </div>
+                        <button class="cert-verify-btn" onclick="event.stopPropagation(); openLightbox('cert6')">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- 7. West African Examinations Council -->
+                <div class="cert-card" onclick="openLightbox('cert7')">
+                    <div class="cert-card-header">
+                        <div class="cert-icon-wrap cert-accent-indigo"><i class="fas fa-star-of-life"></i></div>
+                        <div class="cert-card-meta">
+                            <div class="cert-issuer">West African Examinations Council (WAEC)</div>
+                            <div class="cert-name">WAEC Registered Language Testing Centre</div>
+                            <span class="cert-year">Registered 2018</span>
+                        </div>
+                    </div>
+                    <div class="cert-card-body">
+                        <p class="cert-desc">Official WAEC registration as a language testing venue and preparation
+                            centre. GLI students sit WAEC-recognized language proficiency examinations, providing
+                            regionally accepted qualifications.</p>
+                        <div class="cert-details">
+                            <div class="cert-detail-row"><i class="fas fa-id-card"></i><span>Centre Code:
+                                    WAEC-GH-LANG-0556</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-map"></i><span>Accra Region — Ghana</span>
+                            </div>
+                            <div class="cert-detail-row"><i class="fas fa-award"></i><span>WASSCE-aligned proficiency
+                                    exams</span></div>
+                        </div>
+                    </div>
+                    <div class="cert-card-footer">
+                        <div class="cert-status">
+                            <div class="cert-status-dot"></div><span class="cert-status-text">Active</span>
+                        </div>
+                        <button class="cert-verify-btn" onclick="event.stopPropagation(); openLightbox('cert7')">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- 8. Goethe Institut / Alliance Française Partner -->
+                <div class="cert-card" onclick="openLightbox('cert8')">
+                    <div class="cert-card-header">
+                        <div class="cert-icon-wrap cert-accent-orange"><i class="fas fa-handshake"></i></div>
+                        <div class="cert-card-meta">
+                            <div class="cert-issuer">Goethe-Institut & Alliance Française</div>
+                            <div class="cert-name">Official Preparation Centre Partner</div>
+                            <span class="cert-year">Partnership 2020</span>
+                        </div>
+                    </div>
+                    <div class="cert-card-body">
+                        <p class="cert-desc">Dual partnership with Goethe-Institut (Germany) and Alliance Française
+                            (France) recognizing GLI as an official preparation centre for internationally recognized
+                            German and French language examinations (TestDaF, DELF/DALF).</p>
+                        <div class="cert-details">
+                            <div class="cert-detail-row"><i class="fas fa-id-card"></i><span>Goethe Partner ID:
+                                    GI-GH-2020-PRP-044</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-flag"></i><span>Exams: TestDaF,
+                                    Goethe-Zertifikat, DELF, DALF</span></div>
+                            <div class="cert-detail-row"><i class="fas fa-check-circle"></i><span>Accra branch
+                                    partnership active</span></div>
+                        </div>
+                    </div>
+                    <div class="cert-card-footer">
+                        <div class="cert-status">
+                            <div class="cert-status-dot"></div><span class="cert-status-text">Active</span>
+                        </div>
+                        <button class="cert-verify-btn" onclick="event.stopPropagation(); openLightbox('cert8')">View
+                            Details</button>
+                    </div>
+                </div>
+
+            </div><!-- end cert-grid -->
+
+            <!-- Upload Notice -->
+            <div class="upload-notice">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Upload Your Own Certificate Images</h3>
+                <p>To display scanned certificate images, add your files to the <code>images/certificates/</code> folder
+                    and link them in each card. Supported formats: JPG, PNG, PDF (converted to image).</p>
+                <a href="contact.html" class="btn btn-primary" style="margin-top: 1.25rem; display: inline-block;">
+                    <i class="fas fa-envelope"></i> Request Certificate Verification
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accreditation Logo Strip -->
+    <section class="accred-banner">
+        <div class="container">
+            <div class="section-header" style="margin-bottom: 0;">
+                <h2 class="section-title" style="color: var(--primary-yellow);">Recognised By</h2>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.6);">Our qualifications are accepted by
+                    employers, universities, and institutions worldwide</p>
+            </div>
+            <div class="accred-logos">
+                <div class="accred-logo-item">
+                    <div class="accred-logo-abbr">MoE</div>
+                    <div class="accred-logo-full">Ministry of Education, Ghana</div>
+                </div>
+                <div class="accred-logo-item">
+                    <div class="accred-logo-abbr">EAQUALS</div>
+                    <div class="accred-logo-full">Language Quality Assurance</div>
+                </div>
+                <div class="accred-logo-item">
+                    <div class="accred-logo-abbr">ISO</div>
+                    <div class="accred-logo-full">ISO 21001:2018</div>
+                </div>
+                <div class="accred-logo-item">
+                    <div class="accred-logo-abbr">ALTE</div>
+                    <div class="accred-logo-full">Language Testers Europe</div>
+                </div>
+                <div class="accred-logo-item">
+                    <div class="accred-logo-abbr">GES</div>
+                    <div class="accred-logo-full">Ghana Education Service</div>
+                </div>
+                <div class="accred-logo-item">
+                    <div class="accred-logo-abbr">TESOL</div>
+                    <div class="accred-logo-full">International Teaching Assoc.</div>
+                </div>
+                <div class="accred-logo-item">
+                    <div class="accred-logo-abbr">WAEC</div>
+                    <div class="accred-logo-full">W. Africa Examinations Council</div>
+                </div>
+                <div class="accred-logo-item">
+                    <div class="accred-logo-abbr">Goethe</div>
+                    <div class="accred-logo-full">Goethe-Institut Partner</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section-dark" style="padding: 4rem 0;">
+        <div class="container text-center">
+            <h2 class="section-title">Study at a Fully Accredited Institution</h2>
+            <p class="section-subtitle" style="max-width: 600px; margin: 0 auto 2rem;">Your certificate from GLI carries
+                the weight of 8 international and national accreditations. Start your journey today.</p>
+            <div class="hero-buttons">
+                <a href="booking.html" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Book a Session</a>
+                <a href="courses.html" class="btn btn-secondary"><i class="fas fa-book-open"></i> View Courses</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gutenberg Languages Institute</h3>
+                    <p>Empowering global communication through expert language education since 2015.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="certificates.html">Certificates</a></li>
+                        <li><a href="reviews.html">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Accreditations</h3>
+                    <ul class="footer-links">
+                        <li>Ministry of Education (Ghana)</li>
+                        <li>EAQUALS Member</li>
+                        <li>ISO 21001:2018</li>
+                        <li>ALTE Member</li>
+                        <li>Goethe-Institut Partner</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> +233 50 979 6187</li>
+                        <li><i class="fas fa-envelope"></i> glicampus05@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Lashibi Com 17 Junction, Accra</li>
+                        <li><a href="contact.html">Contact Form</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Gutenberg Languages Institute. All rights reserved. | <a href="#">Privacy Policy</a> | <a
+                        href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Certificate Lightbox -->
+    <div class="cert-lightbox-overlay" id="certLightbox" onclick="closeLightbox(event)">
+        <div class="cert-lightbox">
+            <button class="cert-lightbox-close" onclick="closeLightbox()">✕</button>
+            <div class="cert-lightbox-badge" id="lbBadge"></div>
+            <h2 id="lbTitle"></h2>
+            <p id="lbIssuer"></p>
+            <p id="lbDesc"></p>
+            <div class="lb-detail-grid" id="lbDetails"></div>
+            <div style="text-align:center; margin-top: 1.5rem;">
+                <a href="contact.html" class="btn btn-primary" style="font-size:0.88rem;">
+                    <i class="fas fa-envelope"></i> Request Official Copy
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <button class="chatbot-trigger" id="chatbotTrigger" aria-label="Open chat assistant"><i
+            class="fas fa-comments"></i></button>
+    <script src="js/main.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script>
+        // ── Certificate Data ──────────────────────────────────────────────
+        const CERTS = {
+            cert1: {
+                icon: '<i class="fas fa-landmark"></i>',
+                accent: 'cert-accent-blue',
+                title: 'Ministry of Education — Licensed Private School',
+                issuer: 'Republic of Ghana · Ministry of Education',
+                desc: 'This official government licence authorizes Gutenberg Languages Institute to legally operate as an accredited private educational institution in Ghana. The licence is subject to annual compliance review by the Ministry and confirms GLI meets all national standards for private schools.',
+                details: [
+                    { label: 'Licence Number', val: 'GH-MoE-PRIV-2015-0441' },
+                    { label: 'Issued', val: '2015 — Lashibi, Accra' },
+                    { label: 'Valid Through', val: 'December 2025' },
+                    { label: 'Type', val: 'National Government Licence' }
+                ]
+            },
+            cert2: {
+                icon: '<i class="fas fa-globe-europe"></i>',
+                accent: 'cert-accent-green',
+                title: 'EAQUALS — Quality Language Services',
+                issuer: 'Evaluation & Accreditation of Quality Language Services',
+                desc: 'EAQUALS accreditation is recognized globally as the gold standard for language schools. GLI was inspected by EAQUALS assessors who evaluated teaching quality, teacher qualifications, student welfare, and organizational management. Only 300+ schools worldwide hold this mark.',
+                details: [
+                    { label: 'Reference Number', val: 'EAQUALS-AFR-2018-GL-044' },
+                    { label: 'First Awarded', val: '2018' },
+                    { label: 'Last Renewal', val: '2023' },
+                    { label: 'Valid Through', val: 'June 2026' }
+                ]
+            },
+            cert3: {
+                icon: '<i class="fas fa-certificate"></i>',
+                accent: 'cert-accent-gold',
+                title: 'ISO 21001:2018 — Educational Management Systems',
+                issuer: 'International Organization for Standardization (ISO)',
+                desc: 'ISO 21001 is the management system standard specifically designed for educational organizations. GLI earned this certification after a rigorous third-party audit confirming our processes, learner support systems, and continual improvement practices meet international standards.',
+                details: [
+                    { label: 'Certificate Number', val: 'ISO-21001-GLI-2020-GHA' },
+                    { label: 'Auditor', val: 'TÜV Rheinland Africa' },
+                    { label: 'First Certified', val: '2020' },
+                    { label: 'Renewal Cycle', val: 'Every 3 years' }
+                ]
+            },
+            cert4: {
+                icon: '<i class="fas fa-pen-nib"></i>',
+                accent: 'cert-accent-purple',
+                title: 'ALTE — Association of Language Testers in Europe',
+                issuer: 'Association of Language Testers in Europe (ALTE)',
+                desc: 'ALTE membership confirms that GLI\'s language assessments and certifications align with the Common European Framework of Reference (CEFR A1–C2). This means every proficiency certificate issued by GLI is validated against internationally recognized standards accepted by universities and employers worldwide.',
+                details: [
+                    { label: 'Member ID', val: 'ALTE-2019-GLI-GH' },
+                    { label: 'Since', val: '2019' },
+                    { label: 'Framework', val: 'CEFR A1 – C2' },
+                    { label: 'Annual Renewal', val: 'Active 2026' }
+                ]
+            },
+            cert5: {
+                icon: '<i class="fas fa-school"></i>',
+                accent: 'cert-accent-teal',
+                title: 'GES Accredited Language Training Centre',
+                issuer: 'Ghana Education Service (GES)',
+                desc: 'The Ghana Education Service formally accredits GLI as an approved Language Training Centre within the national education framework. This gives GLI authority to issue certificates that are officially recognized across all public and private institutions in Ghana.',
+                details: [
+                    { label: 'Accreditation No.', val: 'GES-LTC-0219-2016' },
+                    { label: 'First Awarded', val: '2016' },
+                    { label: 'Last Renewed', val: '2023' },
+                    { label: 'Valid Through', val: 'March 2026' }
+                ]
+            },
+            cert6: {
+                icon: '<i class="fas fa-chalkboard-teacher"></i>',
+                accent: 'cert-accent-red',
+                title: 'TESOL International — Affiliated Institution',
+                issuer: 'TESOL International Association',
+                desc: 'TESOL International is the world\'s largest professional organization for language teaching. As an affiliated institution, GLI\'s teaching methodology, instructor qualifications, and curriculum are aligned with TESOL global standards. All GLI instructors hold TESOL, CELTA, or equivalent internationally recognized teaching qualifications.',
+                details: [
+                    { label: 'Affiliation No.', val: 'TESOL-AFR-2017-0381' },
+                    { label: 'Since', val: '2017' },
+                    { label: 'Teacher Standard', val: 'TESOL / CELTA Certified' },
+                    { label: 'Scope', val: 'All Language Programs' }
+                ]
+            },
+            cert7: {
+                icon: '<i class="fas fa-star-of-life"></i>',
+                accent: 'cert-accent-indigo',
+                title: 'WAEC Registered Language Testing Centre',
+                issuer: 'West African Examinations Council (WAEC)',
+                desc: 'GLI is officially registered with the West African Examinations Council as a language testing and preparation centre. Students can sit WAEC-recognized language proficiency examinations on-site, earning certificates accepted throughout the West African region for academic and professional purposes.',
+                details: [
+                    { label: 'Centre Code', val: 'WAEC-GH-LANG-0556' },
+                    { label: 'Region', val: 'Greater Accra — Ghana' },
+                    { label: 'Registered Since', val: '2018' },
+                    { label: 'Examinations', val: 'WASSCE-aligned language exams' }
+                ]
+            },
+            cert8: {
+                icon: '<i class="fas fa-handshake"></i>',
+                accent: 'cert-accent-orange',
+                title: 'Goethe-Institut & Alliance Française Partner',
+                issuer: 'Goethe-Institut Germany · Alliance Française France',
+                desc: 'GLI holds dual official partnerships with two of the world\'s most prestigious cultural institutes. As an official preparation centre, GLI prepares students for and administers Goethe-Institut examinations (TestDaF, Goethe-Zertifikat A1–C2) and Alliance Française examinations (DELF, DALF, TCF), which are accepted by universities and employers in Germany, France, and internationally.',
+                details: [
+                    { label: 'Goethe Partner ID', val: 'GI-GH-2020-PRP-044' },
+                    { label: 'Partnerships Since', val: '2020' },
+                    { label: 'German Exams', val: 'TestDaF, Goethe A1–C2' },
+                    { label: 'French Exams', val: 'DELF, DALF, TCF' }
+                ]
+            }
+        };
+
+        function openLightbox(id) {
+            const c = CERTS[id];
+            if (!c) return;
+            const lb = document.getElementById('certLightbox');
+            const badge = document.getElementById('lbBadge');
+            badge.className = 'cert-lightbox-badge ' + c.accent;
+            badge.innerHTML = c.icon;
+            document.getElementById('lbTitle').textContent = c.title;
+            document.getElementById('lbIssuer').textContent = c.issuer;
+            document.getElementById('lbDesc').textContent = c.desc;
+            const grid = document.getElementById('lbDetails');
+            grid.innerHTML = c.details.map(d => `
+                <div class="lb-detail-item">
+                    <div class="lb-detail-label">${d.label}</div>
+                    <div class="lb-detail-val">${d.val}</div>
+                </div>
+            `).join('');
+            lb.classList.add('is-open');
+        }
+        function closeLightbox(e) {
+            if (!e || e.target === document.getElementById('certLightbox') || e.currentTarget === document.querySelector('.cert-lightbox-close')) {
+                document.getElementById('certLightbox').classList.remove('is-open');
+            }
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+    </script>
+</body>
+
+</html>
