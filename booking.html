@@ -55,9 +55,13 @@
                     form below and we'll contact you within 24 hours to confirm your booking</p>
                 <form id="bookingForm">
                     <div class="form-group">
-                        <label class="form-label" for="fullName">Full Name</label>
+                        <label class="form-label" for="fullName">Full Name <span
+                                style="color:#c00;font-size:0.78rem;">*</span></label>
                         <input type="text" id="fullName" name="fullName" class="form-input" required
-                            placeholder="Enter your full name">
+                            placeholder="First and Last name (e.g. Kofi Mensah)"
+                            title="Please enter your first and last name">
+                        <small id="fullNameError" style="color:#c00;display:none;font-size:0.78rem;">Please enter both
+                            your first and last name.</small>
                     </div>
                     <div class="grid grid-2">
                         <div class="form-group">
@@ -66,9 +70,11 @@
                                 placeholder="your.email@example.com">
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="phone">Phone Number</label>
+                            <label class="form-label" for="phone">Phone Number <span
+                                    style="color:#c00;font-size:0.78rem;">*</span></label>
                             <input type="tel" id="phone" name="phone" class="form-input" required
-                                placeholder="+233 xx xxx xxxx">
+                                placeholder="e.g. +233 50 979 6187 or +44 7700 900000" pattern="[+0-9][0-9 ()\-]{6,20}"
+                                title="Enter a valid phone number, e.g. +233 50 979 6187">
                         </div>
                     </div>
                     <div class="form-group">
@@ -97,10 +103,6 @@
                     </div>
                     <div class="grid grid-2">
                         <div class="form-group">
-                            <label class="form-label" for="startDate">Preferred Start Date</label>
-                            <input type="date" id="startDate" name="startDate" class="form-input" required>
-                        </div>
-                        <div class="form-group">
                             <label class="form-label" for="timePreference">Time Preference</label>
                             <select id="timePreference" name="timePreference" class="form-select">
                                 <option value="">-- Select preference --</option>
@@ -110,6 +112,16 @@
                                 <option value="weekend">Weekend</option>
                                 <option value="flexible">Flexible</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Course Start Date</label>
+                            <div
+                                style="background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);border-radius:8px;padding:0.75rem 1rem;font-size:0.85rem;color:#555;line-height:1.5;">
+                                <i class="fas fa-info-circle"
+                                    style="color:var(--primary-yellow);margin-right:0.4rem;"></i>
+                                Course start dates are flexible and set monthly. <strong>We will contact you after
+                                    booking</strong> to confirm your exact start date.
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

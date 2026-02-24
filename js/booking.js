@@ -7,24 +7,27 @@ document.addEventListener('DOMContentLoaded', function () {
     const bookingForm = document.getElementById('bookingForm');
 
     if (bookingForm) {
-        // Set minimum date to today
-        const startDateInput = document.getElementById('startDate');
-        if (startDateInput) {
-            const today = new Date().toISOString().split('T')[0];
-            startDateInput.setAttribute('min', today);
-        }
-
         bookingForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
+            // ── Full Name Validation (must have at least 2 words / first + last) ──
+            const fullNameVal = document.getElementById('fullName').value.trim();
+            const nameParts = fullNameVal.split(/\s+/).filter(p => p.length > 0);
+            const nameErrorEl = document.getElementById('fullNameError');
+            if (nameParts.length < 2) {
+                if (nameErrorEl) nameErrorEl.style.display = 'block';
+                document.getElementById('fullName').focus();
+                return;
+            }
+            if (nameErrorEl) nameErrorEl.style.display = 'none';
+
             // ── Collect Form Data ──────────────────────────────────────────
             const formData = {
-                fullName: document.getElementById('fullName').value.trim(),
+                fullName: fullNameVal,
                 email: document.getElementById('email').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
                 courseType: document.getElementById('courseType').value,
                 language: document.getElementById('language').value,
-                startDate: document.getElementById('startDate').value,
                 timePreference: document.getElementById('timePreference').value,
                 currentLevel: document.getElementById('currentLevel').value,
                 message: document.getElementById('message').value.trim(),
@@ -35,6 +38,15 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!validateEmail(formData.email)) {
                 alert('Please enter a valid email address.');
                 return;
+            }
+
+            // ── Phone validation: allow international numbers ──────────────
+            if (formData.phone) {
+                const phoneClean = formData.phone.replace(/[\s()\-]/g, '');
+                if (!/^\+?[0-9]{7,15}$/.test(phoneClean)) {
+                    alert('Please enter a valid phone number (e.g. +233 50 979 6187 or 0509796187).');
+                    return;
+                }
             }
 
             // ── Check EmailJS is available ────────────────────────────────
@@ -56,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 phone: formData.phone || 'Not provided',
                 course_type: getCourseTypeName(formData.courseType),
                 language: getLanguageName(formData.language),
-                start_date: formData.startDate || 'Not specified',
+                start_date: 'To be confirmed by GLI team',
                 time_preference: getTimeName(formData.timePreference),
                 current_level: getLevelName(formData.currentLevel),
                 message: formData.message || 'No additional information provided.',
@@ -66,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // ── Send via EmailJS ───────────────────────────────────────────
             const config = typeof EMAILJS_CONFIG !== 'undefined' ? EMAILJS_CONFIG : {};
-            const serviceID = config.serviceID || 'service_bhcb8xr';
-            const templateID = config.bookingTemplateID || 'template_booking';
+            const serviceID = config.serviceID || 'service_t7a62uo';
+            const templateID = config.bookingTemplateID || 'template_q5qy4a7';
 
             emailjs.send(serviceID, templateID, templateParams)
                 .then(function (response) {
@@ -81,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             Thank you, <strong>${formData.fullName}</strong>! We've received your booking for the
                             <strong>${getCourseTypeName(formData.courseType)}</strong> in
                             <strong>${getLanguageName(formData.language)}</strong>.
-                            We'll contact you at <strong>${formData.email}</strong> within 24 hours to confirm your session.`;
+                            We'll contact you at <strong>${formData.email}</strong> within 24 hours to confirm your session and start date.`;
                         successEl.style.display = 'block';
                         successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }

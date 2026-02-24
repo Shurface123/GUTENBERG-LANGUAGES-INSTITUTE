@@ -865,8 +865,121 @@ img {
     padding: 0 var(--spacing-sm);
   }
 
+
   .nav-brand {
     font-size: 0.6rem;
     max-width: 120px;
+  }
+}
+
+/* ============================================
+   HERO VIDEO BACKGROUND
+   ============================================ */
+.hero-video-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Dark overlay with brand yellow tint */
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+      rgba(0, 0, 0, 0.82) 0%,
+      rgba(10, 8, 0, 0.78) 50%,
+      rgba(20, 15, 0, 0.75) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Keep hero ::before and ::after decorative layers above video overlay */
+.hero-video-section::before,
+.hero-video-section::after {
+  z-index: 2;
+}
+
+/* ============================================
+   ENHANCED MOBILE RESPONSIVENESS
+   ============================================ */
+@media (max-width: 768px) {
+
+  /* Hero */
+  .hero-title {
+    font-size: clamp(1.5rem, 7vw, 2.2rem);
+    line-height: 1.25;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+
+  /* Section headers */
+  .section-title {
+    font-size: clamp(1.4rem, 5vw, 1.9rem);
+  }
+
+  /* Cards */
+  .card {
+    padding: 1.25rem;
+  }
+
+  /* Contact page map */
+  .map-container iframe {
+    height: 300px !important;
+  }
+
+  /* Payment wizard — stack steps */
+  .pay-steps {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  /* Booking and Contact forms */
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 0.9rem;
+  }
+
+  /* Footer grid */
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* Nav brand even smaller */
+  .nav-brand {
+    font-size: 0.55rem;
+    max-width: 110px;
+  }
+
+  /* Full-width buttons */
+  .hero-buttons .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* Footer single column */
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+
+  /* Payment wizard cards */
+  .course-pick-grid {
+    grid-template-columns: 1fr !important;
   }
 }

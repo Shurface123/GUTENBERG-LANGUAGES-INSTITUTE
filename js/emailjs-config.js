@@ -19,6 +19,38 @@ const EMAILJS_CONFIG = {
 })();
 
 
+// ============================================
+// SHARED HELPERS (used by contact & booking)
+// ============================================
+function showLoading(btn) {
+    if (!btn) return;
+    btn.disabled = true;
+    btn.dataset.originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+}
+
+function hideLoading(btn, original) {
+    if (!btn) return;
+    btn.disabled = false;
+    btn.innerHTML = original || btn.dataset.originalText || 'Submit';
+}
+
+function showSuccessMessage(id) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'block';
+}
+
+function showErrorMessage(id, msg) {
+    const el = document.getElementById(id);
+    if (el) {
+        if (msg) el.innerHTML = `<strong><i class="fas fa-exclamation-triangle"></i> ERROR</strong><br>${msg}`;
+        el.style.display = 'block';
+    }
+}
+
+function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
 
 // ============================================
@@ -42,10 +74,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const originalButtonText = submitButton.innerHTML;
             showLoading(submitButton);
 
+            const phoneVal = document.getElementById('phone') ? document.getElementById('phone').value.trim() : '';
+
             const templateParams = {
                 from_name: document.getElementById('name').value.trim(),
                 from_email: document.getElementById('email').value.trim(),
-                phone: document.getElementById('phone').value.trim() || 'Not provided',
+                phone: phoneVal || 'Not provided',
                 subject: document.getElementById('subject').value,
                 message: document.getElementById('message').value.trim(),
                 to_name: 'Gutenberg Languages Institute',

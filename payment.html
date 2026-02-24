@@ -106,9 +106,9 @@
         .pay-step:not(:last-child)::after {
             content: '';
             position: absolute;
-            left: 36px;
+            left: 44px;
             right: 0;
-            top: 50%;
+            top: 18px;
             height: 2px;
             background: #e0e0e0;
             z-index: 0
@@ -135,7 +135,7 @@
             background: #e8e8e8;
             color: #999;
             position: relative;
-            z-index: 1;
+            z-index: 2;
             flex-shrink: 0;
             transition: all .3s
         }
@@ -155,7 +155,11 @@
             font-size: .72rem;
             font-weight: 700;
             color: #999;
-            white-space: nowrap
+            white-space: nowrap;
+            position: relative;
+            z-index: 2;
+            background: #fff;
+            padding: 0 4px
         }
 
         .pay-step.active .step-label {
@@ -165,6 +169,7 @@
         .pay-step.done .step-label {
             color: #555
         }
+
 
         /* ─── Panels ─── */
         .pay-panel {
@@ -876,7 +881,7 @@
                                 <span class="cp-badge">⚡ Most Popular</span>
                             </div>
                             <div class="cp-price">
-                                <div class="cp-amount" id="price-super">GH₵ 2,800</div>
+                                <div class="cp-amount" id="price-super">GH₵ 3,300</div>
                                 <div class="cp-curr">per course</div>
                                 <div class="cp-check"><i class="fas fa-check-circle"></i></div>
                             </div>
@@ -889,7 +894,7 @@
                                 <span class="cp-badge">⭐ Recommended</span>
                             </div>
                             <div class="cp-price">
-                                <div class="cp-amount" id="price-intensive">GH₵ 1,900</div>
+                                <div class="cp-amount" id="price-intensive">GH₵ 3,600</div>
                                 <div class="cp-curr">per course</div>
                                 <div class="cp-check"><i class="fas fa-check-circle"></i></div>
                             </div>
@@ -902,7 +907,7 @@
                                 <span class="cp-badge">🕐 Flexible</span>
                             </div>
                             <div class="cp-price">
-                                <div class="cp-amount" id="price-normal">GH₵ 1,200</div>
+                                <div class="cp-amount" id="price-normal">GH₵ 4,000</div>
                                 <div class="cp-curr">per course</div>
                                 <div class="cp-check"><i class="fas fa-check-circle"></i></div>
                             </div>
@@ -941,7 +946,7 @@
                         <div class="fi"><label>Email Address *</label><input type="email" id="email"
                                 placeholder="kofi@email.com"></div>
                         <div class="fi"><label>Phone Number *</label><input type="tel" id="phone"
-                                placeholder="+233 XX XXX XXXX"></div>
+                                placeholder="e.g. +233 50 979 6187 or +44 7700 900000"></div>
                     </div>
                     <div class="fi"><label>Residential Address *</label><input type="text" id="address"
                             placeholder="Street, City, Ghana"></div>
@@ -1028,15 +1033,36 @@
                         <p style="font-size:.88rem;color:#555;margin-bottom:1.25rem">Select your mobile money network
                             and enter the registered number to receive a payment prompt.</p>
                         <div class="momo-networks">
-                            <div class="momo-net selected" id="mn-mtn" onclick="selectMomo('mtn')"><span
-                                    class="momo-net-icon">🟡</span>MTN MoMo</div>
-                            <div class="momo-net" id="mn-voda" onclick="selectMomo('voda')"><span
-                                    class="momo-net-icon">🔴</span>Vodafone Cash</div>
-                            <div class="momo-net" id="mn-airtel" onclick="selectMomo('airtel')"><span
-                                    class="momo-net-icon">🔴</span>AirtelTigo</div>
+                            <!-- MTN MoMo -->
+                            <div class="momo-net selected" id="mn-mtn" onclick="selectMomo('mtn')">
+                                <span class="momo-net-icon"
+                                    style="display:flex;align-items:center;justify-content:center;background:#FFCB00;border-radius:8px;padding:4px 8px;margin-bottom:4px;">
+                                    <span
+                                        style="font-size:0.85rem;font-weight:900;color:#000;letter-spacing:0.5px;">MTN</span>
+                                </span>
+                                MTN MoMo
+                            </div>
+                            <!-- Telecel Cash -->
+                            <div class="momo-net" id="mn-voda" onclick="selectMomo('voda')">
+                                <span class="momo-net-icon"
+                                    style="display:flex;align-items:center;justify-content:center;background:#0066CC;border-radius:8px;padding:4px 8px;margin-bottom:4px;">
+                                    <span
+                                        style="font-size:0.7rem;font-weight:900;color:#fff;letter-spacing:0.3px;">Telecel</span>
+                                </span>
+                                Telecel Cash
+                            </div>
+                            <!-- AirtelTigo -->
+                            <div class="momo-net" id="mn-airtel" onclick="selectMomo('airtel')">
+                                <span class="momo-net-icon"
+                                    style="display:flex;align-items:center;justify-content:center;background:#E30613;border-radius:8px;padding:4px 8px;margin-bottom:4px;">
+                                    <span
+                                        style="font-size:0.62rem;font-weight:900;color:#fff;letter-spacing:0.2px;">AirtelTigo</span>
+                                </span>
+                                AirtelTigo
+                            </div>
                         </div>
                         <div class="fi"><label>Mobile Money Number *</label><input type="tel" id="momoNum"
-                                placeholder="e.g. 024 XXX XXXX"></div>
+                                placeholder="e.g. +233 24 XXX XXXX or 024 XXX XXXX"></div>
                         <div class="fi"><label>Account Name</label><input type="text" id="momoName"
                                 placeholder="Name on MoMo account"></div>
                         <div
@@ -1262,9 +1288,9 @@
     <script>
         // ─── State ────────────────────────────────────────────────────────────────
         const COURSES = {
-            super: { name: 'Super Intensive Course', sub: '6–8 Weeks · Accelerated', fee: 2800, total: 2850 },
-            intensive: { name: 'Intensive Course', sub: '10–12 Weeks · Balanced', fee: 1900, total: 1950 },
-            normal: { name: 'Normal Course', sub: '16–20 Weeks · Flexible', fee: 1200, total: 1250 }
+            super: { name: 'Super Intensive Course', sub: '6–8 Weeks · Accelerated', fee: 3300, total: 3350 },
+            intensive: { name: 'Intensive Course', sub: '10–12 Weeks · Balanced', fee: 3600, total: 3650 },
+            normal: { name: 'Normal Course', sub: '16–20 Weeks · Flexible', fee: 4000, total: 4050 }
         };
         let state = { course: null, lang: null, method: 'card' };
 

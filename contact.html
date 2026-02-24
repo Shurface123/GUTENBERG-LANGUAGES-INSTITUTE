@@ -98,8 +98,12 @@
                                 placeholder="john.doe@example.com">
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="+233 XX XXX XXXX">
+                            <label class="form-label" for="phone">Phone Number <span
+                                    style="color:var(--dark-gray);font-weight:400;font-size:0.78rem;">(optional — any
+                                    country format)</span></label>
+                            <input type="tel" id="phone" name="phone" class="form-input"
+                                placeholder="e.g. +233 50 979 6187 or +44 7700 900000" pattern="[+0-9][0-9 ()\-]{6,20}"
+                                title="Enter a valid phone number including country code, e.g. +233 50 979 6187">
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="subject">SUBJECT</label>
@@ -184,14 +188,15 @@
                 <p class="section-subtitle">Visit our campus and experience our modern facilities</p>
             </div>
             <div class="map-container">
-                <iframe src="https://www.google.com/maps?q=5.6442778,-0.0586944&z=17&output=embed" width="100%"
-                    height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                    title="GUTENBERG LANGUAGES INSTITUTE LOCATION">
+                <iframe src="https://www.google.com/maps?q=Lashibi+Com+17+Junction,+Accra,+Ghana&z=17&output=embed"
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    title="GUTENBERG LANGUAGES INSTITUTE — Lashibi Com 17 Junction, Accra">
                 </iframe>
             </div>
 
             <div class="text-center mt-2">
-                <a href="https://www.google.com/maps?q=5.6442778,-0.0586944" target="_blank" class="btn btn-outline">
+                <a href="https://www.google.com/maps/search/Lashibi+Com+17+Junction,+Accra,+Ghana" target="_blank"
+                    class="btn btn-outline">
                     <i class="fas fa-directions"></i> Open in Google Maps
                 </a>
             </div>

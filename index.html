@@ -82,9 +82,21 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
+    <!-- Hero Section — Video Background -->
+    <section class="hero hero-video-section">
+        <!-- Background Video -->
+        <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+            <source
+                src="https://assets.mixkit.co/videos/preview/mixkit-people-working-in-a-language-class-9913-large.mp4"
+                type="video/mp4">
+            <source
+                src="https://assets.mixkit.co/videos/preview/mixkit-students-studying-in-a-library-with-books-on-the-table-42455-large.mp4"
+                type="video/mp4">
+        </video>
+        <!-- Dark brand-tinted overlay -->
+        <div class="hero-video-overlay"></div>
+
+        <div class="container" style="position:relative;z-index:2;">
             <div class="hero-content">
                 <h1 class="hero-title fade-in-up">WELCOME TO GUTENBERG LANGUAGES INSTITUTE</h1>
                 <p class="hero-subtitle fade-in-up">Master New Languages with Expert Instructors & Modern Learning
@@ -97,6 +109,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Why Choose Us Section -->
     <section class="section">
