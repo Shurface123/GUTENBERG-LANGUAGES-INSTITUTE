@@ -175,38 +175,6 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('%c🎓 Gutenberg Languages Institute', 'color: #FFD700; font-size: 20px; font-weight: bold;');
     console.log('%cWebsite loaded successfully!', 'color: #FFD700; font-size: 14px;');
 
-    // ========== THEME TOGGLE ==========
-    const THEME_KEY = 'gli-theme';
-    const savedTheme = localStorage.getItem(THEME_KEY) || 'dark';
-    if (savedTheme === 'light') document.body.setAttribute('data-theme', 'light');
-
-    // Inject toggle button into every navbar beside the BOOK SESSION CTA
-    const navMenuEl = document.getElementById('navMenu');
-    if (navMenuEl) {
-        const isDark = () => document.body.getAttribute('data-theme') !== 'light';
-        const toggleBtn = document.createElement('li');
-        toggleBtn.innerHTML = `
-            <button class="theme-toggle-btn" id="themeToggleBtn" title="Switch theme" aria-label="Toggle light/dark theme">
-                <i class="fas ${isDark() ? 'fa-sun' : 'fa-moon'}"></i>
-                <span id="themeToggleLabel">${isDark() ? 'Light' : 'Dark'}</span>
-            </button>`;
-        navMenuEl.appendChild(toggleBtn);
-
-        document.getElementById('themeToggleBtn').addEventListener('click', function () {
-            if (isDark()) {
-                document.body.setAttribute('data-theme', 'light');
-                localStorage.setItem(THEME_KEY, 'light');
-                this.querySelector('i').className = 'fas fa-moon';
-                document.getElementById('themeToggleLabel').textContent = 'Dark';
-            } else {
-                document.body.removeAttribute('data-theme');
-                localStorage.setItem(THEME_KEY, 'dark');
-                this.querySelector('i').className = 'fas fa-sun';
-                document.getElementById('themeToggleLabel').textContent = 'Light';
-            }
-        });
-    }
-
     // ========== PAYMENT PAGE: Set start date min = today ==========
     const startDateInput = document.getElementById('startDate');
     if (startDateInput) {

@@ -873,136 +873,171 @@ img {
 }
 
 /* ============================================
-   HERO VIDEO / YOUTUBE BACKGROUND
+   HERO — ANIMATED CSS BACKGROUND
+   Works 100% offline / local file, no video needed
    ============================================ */
+.hero-animated {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a0800 0%, #1a1200 35%, #0d0d0d 70%, #111100 100%);
+}
+
+/* Container for all the animated layers */
+.hero-anim-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* ── Animated orbs (glowing light blobs) ── */
+.anim-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+  animation: orbFloat 12s ease-in-out infinite alternate;
+}
+
+.anim-orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.45) 0%, rgba(255, 200, 0, 0.0) 70%);
+  top: -150px;
+  left: -120px;
+  animation-duration: 10s;
+}
+
+.anim-orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 180, 0, 0.30) 0%, rgba(255, 150, 0, 0.0) 70%);
+  bottom: -100px;
+  right: -80px;
+  animation-duration: 14s;
+  animation-delay: -4s;
+}
+
+.anim-orb-3 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(255, 230, 80, 0.25) 0%, rgba(255, 215, 0, 0.0) 70%);
+  top: 40%;
+  left: 55%;
+  animation-duration: 9s;
+  animation-delay: -7s;
+}
+
+@keyframes orbFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(40px, -30px) scale(1.08);
+  }
+
+  66% {
+    transform: translate(-20px, 25px) scale(0.95);
+  }
+
+  100% {
+    transform: translate(30px, 10px) scale(1.04);
+  }
+}
+
+/* ── Subtle dot grid overlay ── */
+.anim-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255, 215, 0, 0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+  animation: gridDrift 20s linear infinite;
+}
+
+@keyframes gridDrift {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 36px 36px;
+  }
+}
+
+/* ── Shimmer sweep ── */
+.anim-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg,
+      transparent 40%,
+      rgba(255, 215, 0, 0.04) 50%,
+      transparent 60%);
+  background-size: 200% 200%;
+  animation: shimmerSweep 6s ease-in-out infinite;
+}
+
+@keyframes shimmerSweep {
+  0% {
+    background-position: -100% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Dark vignette so hero text always pops */
+.hero-animated::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center,
+      transparent 30%,
+      rgba(0, 0, 0, 0.55) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Campus video section */
 .hero-video-section {
   position: relative;
   overflow: hidden;
 }
 
-/* YouTube iframe — scaled up and centred so it fills the section */
-.hero-yt-wrapper {
+.hero-video-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.responsive-video {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+  background: #000;
+}
+
+.responsive-video iframe {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  z-index: 0;
-  pointer-events: none;
+  border: 0;
 }
 
-.hero-yt-wrapper iframe {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  /* Scale up so 16:9 iframe fills any aspect ratio */
-  width: 300%;
-  height: 300%;
-  min-width: 100%;
-  min-height: 100%;
-  border: none;
-  pointer-events: none;
+.video-help-text {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--light-gray);
+  text-align: center;
 }
 
-/* Dark overlay with brand yellow tint */
-.hero-video-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg,
-      rgba(0, 0, 0, 0.85) 0%,
-      rgba(10, 8, 0, 0.80) 50%,
-      rgba(20, 15, 0, 0.78) 100%);
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Keep hero ::before and ::after decorative layers above video overlay */
-.hero-video-section::before,
-.hero-video-section::after {
-  z-index: 2;
-}
-
-/* ============================================
-   DARK / LIGHT THEME TOGGLE
-   ============================================ */
-/* Light theme overrides — applied when body has data-theme="light" */
-body[data-theme="light"] {
-  --primary-black: #111111;
-  --dark-gray: #2a2a2a;
-  --medium-gray: #444;
-  --light-gray: #f0f0f0;
-  --white: #ffffff;
-  --gradient-dark: linear-gradient(135deg, #f4f4f4 0%, #e8e8e8 100%);
-  background-color: #f9f9f9;
-  color: #111;
-}
-
-body[data-theme="light"] .navbar {
-  background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
-}
-
-body[data-theme="light"] .navbar.scrolled {
-  background: rgba(255, 255, 255, 0.99);
-}
-
-body[data-theme="light"] .nav-link {
-  color: rgba(0, 0, 0, 0.75);
-}
-
-body[data-theme="light"] .nav-link:hover,
-body[data-theme="light"] .nav-link.active {
-  color: #000;
-  background: rgba(255, 215, 0, 0.12);
-}
-
-body[data-theme="light"] .section-dark {
-  background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-}
-
-body[data-theme="light"] .footer {
-  background: linear-gradient(135deg, #111 0%, #000 100%);
-}
-
-body[data-theme="light"] .hero-video-section {
-  background: linear-gradient(135deg, #0a0a0a 0%, #222 100%);
-}
-
-body[data-theme="light"] .card {
-  background: #fff;
-  border-color: rgba(0, 0, 0, 0.07);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-}
-
-/* Theme toggle button */
-.theme-toggle-btn {
-  background: none;
-  border: 1.5px solid rgba(255, 215, 0, 0.5);
-  border-radius: 20px;
-  padding: 0.3rem 0.7rem;
-  cursor: pointer;
-  color: var(--primary-yellow);
-  font-size: 0.75rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  transition: var(--transition-fast);
-  white-space: nowrap;
-}
-
-.theme-toggle-btn:hover {
-  background: rgba(255, 215, 0, 0.1);
-}
-
-body[data-theme="light"] .theme-toggle-btn {
-  border-color: rgba(0, 0, 0, 0.3);
-  color: #000;
-}
-
-body[data-theme="light"] .theme-toggle-btn:hover {
-  background: rgba(0, 0, 0, 0.06);
 }
 
 @media (max-width: 768px) {

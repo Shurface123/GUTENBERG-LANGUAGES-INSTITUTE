@@ -49,15 +49,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
 
-            // ── Check EmailJS is available ────────────────────────────────
+            // ── Check EmailJS is available & configured ───────────────────
             if (typeof emailjs === 'undefined') {
                 console.error('EmailJS SDK not loaded.');
                 showErrorMessage('errorMessage', 'Email service is unavailable. Please contact us directly at glicampus05@gmail.com');
                 return;
             }
 
+            const config = (typeof EMAILJS_CONFIG !== 'undefined') ? EMAILJS_CONFIG : null;
+            if (!config || !config.serviceID || !config.bookingTemplateID || !config.publicKey) {
+                console.error('Missing or incomplete EMAILJS_CONFIG for booking:', config);
+                showErrorMessage('errorMessage',
+                    'Booking email service is not fully configured. Please contact us directly at glicampus05@gmail.com or on +233 50 979 6187 to complete your booking.');
+                return;
+            }
+
             // ── Show Loading State ─────────────────────────────────────────
-            const submitButton = bookingForm.querySelector('button[type="submit"]');
+            const submitButton = bookingForm.querySelector('button[type=\"submit\"]');
             const originalButtonText = submitButton.innerHTML;
             showLoading(submitButton);
 
@@ -77,9 +85,8 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
             // ── Send via EmailJS ───────────────────────────────────────────
-            const config = typeof EMAILJS_CONFIG !== 'undefined' ? EMAILJS_CONFIG : {};
-            const serviceID = config.serviceID || 'service_t7a62uo';
-            const templateID = config.bookingTemplateID || 'template_q5qy4a7';
+            const serviceID = config.serviceID;
+            const templateID = config.bookingTemplateID;
 
             emailjs.send(serviceID, templateID, templateParams)
                 .then(function (response) {
@@ -104,8 +111,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch(function (error) {
                     console.error('Booking email failed:', error);
                     hideLoading(submitButton, originalButtonText);
-                    showErrorMessage('errorMessage',
-                        'There was an error submitting your booking. Please try again, or contact us at glicampus05@gmail.com or call +233 50 979 6187.');
+                    showErrorMessage(
+                        'errorMessage',
+                        'There was an error submitting your booking. This is most often caused by an EmailJS configuration issue (service ID, template ID, or public key). Please try again, or contact us at glicampus05@gmail.com or call +233 50 979 6187 so we can complete your booking manually.'
+                    );
                     document.getElementById('successMessage').style.display = 'none';
                 });
         });

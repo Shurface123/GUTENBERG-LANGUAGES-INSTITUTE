@@ -82,18 +82,16 @@
         </div>
     </nav>
 
-    <!-- Hero Section — YouTube Video Background -->
-    <section class="hero hero-video-section">
-        <!-- YouTube iframe background (works in browser without a local server) -->
-        <div class="hero-yt-wrapper" aria-hidden="true">
-            <iframe
-                src="https://www.youtube.com/embed/videoseries?list=PLFGMvFJDlGVpKvqMILxQmFR1Y8Dz_4mVf&autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&modestbranding=1&disablekb=1&iv_load_policy=3"
-                title="Language learning background" frameborder="0"
-                allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen>
-            </iframe>
+    <!-- Hero Section — Animated Background (CSS-only, works offline) -->
+    <section class="hero hero-animated">
+        <!-- Animated orbs / light rays layer -->
+        <div class="hero-anim-bg" aria-hidden="true">
+            <div class="anim-orb anim-orb-1"></div>
+            <div class="anim-orb anim-orb-2"></div>
+            <div class="anim-orb anim-orb-3"></div>
+            <div class="anim-grid"></div>
+            <div class="anim-shimmer"></div>
         </div>
-        <!-- Dark brand-tinted overlay -->
-        <div class="hero-video-overlay"></div>
 
         <div class="container" style="position:relative;z-index:2;">
             <div class="hero-content">
@@ -109,6 +107,29 @@
         </div>
     </section>
 
+    <!-- Campus Overview Video Section -->
+    <section class="section section-dark hero-video-section" id="campus-video">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">See Our Campus In Action</h2>
+                <p class="section-subtitle">Watch a short video overview of Gutenberg Languages Institute</p>
+            </div>
+            <div class="hero-video-wrapper">
+                <div class="responsive-video">
+                    <iframe
+                        src="https://www.youtube.com/embed/aqz-KE-bpKQ?rel=0&amp;modestbranding=1&amp;playsinline=1"
+                        title="Gutenberg Languages Institute Campus Overview"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+            <p class="video-help-text">If this video does not load, please check your internet connection or firewall
+                settings.</p>
+        </div>
+    </section>
 
     <!-- Why Choose Us Section -->
     <section class="section">
