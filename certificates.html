@@ -470,31 +470,164 @@
             margin-top: 4px;
         }
 
-        /* ── Upload Notice ── */
-        .upload-notice {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03));
-            border: 1.5px dashed rgba(255, 215, 0, 0.35);
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 3rem;
+        /* ── Certificate Samples Section ── */
+        .cert-samples-section {
+            background: #fff;
+            padding: 5rem 0;
+            border-top: 1px solid #eee;
         }
 
-        .upload-notice i {
-            font-size: 2.5rem;
-            color: rgba(255, 215, 0, 0.6);
-            margin-bottom: 1rem;
+        .cert-samples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .cert-sample-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.35s ease;
+            cursor: pointer;
+            background: #fff;
+            position: relative;
+        }
+
+        .cert-sample-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 24px 56px rgba(0, 0, 0, 0.16);
+        }
+
+        .cert-sample-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .cert-sample-card:hover img {
+            transform: scale(1.03);
+        }
+
+        .cert-sample-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .cert-sample-card:hover .cert-sample-overlay {
+            opacity: 1;
+        }
+
+        .cert-sample-overlay-label {
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cert-sample-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(0, 0, 0, 0.65);
+            color: #FFD700;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(6px);
+        }
+
+        /* Image Lightbox */
+        .img-lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .img-lightbox-overlay.is-open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .img-lightbox-inner {
+            position: relative;
+            max-width: 560px;
+            width: 100%;
+            animation: lbScaleIn 0.3s ease;
+        }
+
+        @keyframes lbScaleIn {
+            from {
+                transform: scale(0.85);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .img-lightbox-inner img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
             display: block;
         }
 
-        .upload-notice h3 {
-            color: #111;
-            margin-bottom: 0.5rem;
+        .img-lightbox-close {
+            position: absolute;
+            top: -14px;
+            right: -14px;
+            width: 40px;
+            height: 40px;
+            background: #FFD700;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #000;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+            transition: background 0.2s;
         }
 
-        .upload-notice p {
-            color: #777;
-            font-size: 0.9rem;
+        .img-lightbox-close:hover {
+            background: #fff;
+        }
+
+        .img-lightbox-caption {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.88rem;
+            margin-top: 1rem;
+            letter-spacing: 0.5px;
         }
 
         @media (max-width: 640px) {
@@ -503,6 +636,10 @@
             }
 
             .lb-detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cert-samples-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -831,13 +968,66 @@
 
             </div><!-- end cert-grid -->
 
-            <!-- Upload Notice -->
-            <div class="upload-notice">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <h3>Upload Your Own Certificate Images</h3>
-                <p>To display scanned certificate images, add your files to the <code>images/certificates/</code> folder
-                    and link them in each card. Supported formats: JPG, PNG, PDF (converted to image).</p>
-                <a href="contact.html" class="btn btn-primary" style="margin-top: 1.25rem; display: inline-block;">
+
+        </div>
+    </section>
+
+    <!-- Certificate Samples Section -->
+    <section class="cert-samples-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Certificates <span style="color: var(--primary-yellow);">We Issue</span></h2>
+                <p class="section-subtitle">These are real examples of the language proficiency certificates awarded to
+                    our graduates — recognized by embassies, universities, and employers worldwide.</p>
+            </div>
+
+            <div class="cert-samples-grid">
+
+                <!-- French Certificate -->
+                <div class="cert-sample-card"
+                    onclick="openImgLightbox('images/cert-french.jpg', 'French Language Certificate (CECRL A1–C2) — Gutenberg Institut de Langues')">
+                    <span class="cert-sample-badge"><i class="fas fa-flag"></i> French</span>
+                    <img src="images/cert-french.jpg"
+                        alt="Gutenberg French Language Certificate — CERTIFICAT, CECRL A1-C2" loading="lazy">
+                    <div class="cert-sample-overlay">
+                        <div class="cert-sample-overlay-label"><i class="fas fa-search-plus"></i> View Full Certificate
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dutch Certificate -->
+                <div class="cert-sample-card"
+                    onclick="openImgLightbox('images/cert-dutch.jpg', 'Dutch Language Certificate (ERK/CEFR A1–C2) — Gutenberg Instituut de Langues')">
+                    <span class="cert-sample-badge"><i class="fas fa-flag"></i> Dutch</span>
+                    <img src="images/cert-dutch.jpg"
+                        alt="Gutenberg Dutch Language Certificate — Taalvaardigheidscertificaat, ERK A1-C2"
+                        loading="lazy">
+                    <div class="cert-sample-overlay">
+                        <div class="cert-sample-overlay-label"><i class="fas fa-search-plus"></i> View Full Certificate
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Finnish Certificate -->
+                <div class="cert-sample-card"
+                    onclick="openImgLightbox('images/cert-finnish.jpg', 'Finnish Language Certificate (CEFR A1–C2) — Gutenberg Institut de Langues, recognized by the Finnish Embassy')">
+                    <span class="cert-sample-badge"><i class="fas fa-flag"></i> Finnish</span>
+                    <img src="images/cert-finnish.jpg"
+                        alt="Gutenberg Finnish Language Certificate — Todistus, CEFR A1-C2, Finnish Embassy"
+                        loading="lazy">
+                    <div class="cert-sample-overlay">
+                        <div class="cert-sample-overlay-label"><i class="fas fa-search-plus"></i> View Full Certificate
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="text-align: center; margin-top: 2.5rem;">
+                <p style="color: #777; font-size: 0.9rem; margin-bottom: 1.25rem;">All certificates are issued in
+                    compliance with CEFR international language standards and are accepted by embassies, visa offices,
+                    and academic institutions.</p>
+                <a href="contact.html" class="btn btn-primary">
                     <i class="fas fa-envelope"></i> Request Certificate Verification
                 </a>
             </div>
@@ -967,6 +1157,15 @@
                     <i class="fas fa-envelope"></i> Request Official Copy
                 </a>
             </div>
+        </div>
+    </div>
+
+    <!-- Image Lightbox (for certificate sample images) -->
+    <div class="img-lightbox-overlay" id="imgLightbox" onclick="closeImgLightbox(event)">
+        <div class="img-lightbox-inner">
+            <button class="img-lightbox-close" onclick="closeImgLightbox()">✕</button>
+            <img id="imgLightboxSrc" src="" alt="Certificate Sample">
+            <div class="img-lightbox-caption" id="imgLightboxCaption"></div>
         </div>
     </div>
 
@@ -1107,7 +1306,19 @@
                 document.getElementById('certLightbox').classList.remove('is-open');
             }
         }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightbox(); closeImgLightbox(); } });
+
+        // ── Image Lightbox for Certificate Samples ──────────────────────────
+        function openImgLightbox(src, caption) {
+            document.getElementById('imgLightboxSrc').src = src;
+            document.getElementById('imgLightboxCaption').textContent = caption || '';
+            document.getElementById('imgLightbox').classList.add('is-open');
+        }
+        function closeImgLightbox(e) {
+            if (!e || e.target === document.getElementById('imgLightbox')) {
+                document.getElementById('imgLightbox').classList.remove('is-open');
+            }
+        }
     </script>
 </body>
 
