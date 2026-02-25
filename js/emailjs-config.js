@@ -11,10 +11,20 @@ const EMAILJS_CONFIG = {
     publicKey: 'Qaz4Xvzh5itiQ0ZZu'
 };
 
-// Initialize EmailJS
+// Ensure config is available globally for all scripts
+window.EMAILJS_CONFIG = EMAILJS_CONFIG;
+
+// Initialize EmailJS (safe-guarded)
 (function () {
-    if (typeof emailjs !== 'undefined') {
+    if (typeof emailjs === 'undefined') {
+        console.warn('EmailJS SDK not loaded; email sending will be disabled until it loads.');
+        return;
+    }
+    try {
         emailjs.init(EMAILJS_CONFIG.publicKey);
+        console.log('EmailJS initialised successfully with provided public key.');
+    } catch (err) {
+        console.error('EmailJS init error:', err);
     }
 })();
 
@@ -86,7 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 to_email: 'glicampus05@gmail.com'
             };
 
-            emailjs.send(EMAILJS_CONFIG.serviceID, EMAILJS_CONFIG.templateID, templateParams)
+            // Pass publicKey as 4th argument so send() still works even if init() is skipped
+            emailjs.send(EMAILJS_CONFIG.serviceID, EMAILJS_CONFIG.templateID, templateParams, EMAILJS_CONFIG.publicKey)
                 .then(function (response) {
                     console.log('Contact email sent!', response.status);
                     hideLoading(submitButton, originalButtonText);

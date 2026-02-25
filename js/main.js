@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const navbar = document.getElementById('navbar');
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
+    const rootEl = document.documentElement;
+    const THEME_STORAGE_KEY = 'gli-theme';
 
     // Navbar scroll effect
     window.addEventListener('scroll', function () {
@@ -52,6 +54,80 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
+
+    // ========== THEME TOGGLE (Brand vs Accessible Light) ==========
+    let themeToggleBtn = null;
+
+    function applyTheme(mode, options = {}) {
+        const opts = Object.assign({ persist: true }, options);
+        const normalized = (mode === 'accessible-light') ? 'accessible-light' : 'brand';
+
+        if (normalized === 'accessible-light') {
+            rootEl.setAttribute('data-theme', 'accessible-light');
+        } else {
+            rootEl.removeAttribute('data-theme');
+        }
+
+        if (opts.persist && window.localStorage) {
+            try {
+                localStorage.setItem(THEME_STORAGE_KEY, normalized);
+            } catch (e) {
+                console.warn('Unable to persist theme preference:', e);
+            }
+        }
+
+        if (themeToggleBtn) {
+            const iconEl = themeToggleBtn.querySelector('.theme-toggle-btn-icon');
+            const labelEl = themeToggleBtn.querySelector('.theme-toggle-btn-label');
+            if (normalized === 'accessible-light') {
+                if (iconEl) iconEl.className = 'theme-toggle-btn-icon fas fa-sun';
+                if (labelEl) labelEl.textContent = 'Light';
+                themeToggleBtn.setAttribute('aria-pressed', 'true');
+                themeToggleBtn.setAttribute('aria-label', 'Switch to brand theme (dark)');
+            } else {
+                if (iconEl) iconEl.className = 'theme-toggle-btn-icon fas fa-moon';
+                if (labelEl) labelEl.textContent = 'Dark';
+                themeToggleBtn.setAttribute('aria-pressed', 'false');
+                themeToggleBtn.setAttribute('aria-label', 'Switch to accessible light theme');
+            }
+        }
+    }
+
+    function getInitialTheme() {
+        try {
+            const stored = window.localStorage ? localStorage.getItem(THEME_STORAGE_KEY) : null;
+            if (stored === 'brand' || stored === 'accessible-light') {
+                return stored;
+            }
+        } catch (e) {
+            console.warn('Unable to read stored theme preference:', e);
+        }
+
+        // Fallback: prefer system preference; if system is light, default to accessible-light
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            return 'accessible-light';
+        }
+        return 'brand';
+    }
+
+    // Floating theme toggle (bottom-left, like chatbot but opposite side)
+    const themeFloat = document.createElement('button');
+    themeFloat.type = 'button';
+    themeFloat.id = 'themeToggle';
+    themeFloat.className = 'theme-toggle-float';
+    themeFloat.innerHTML = '<span class="theme-toggle-btn-icon fas fa-moon"></span><span class="theme-toggle-btn-label">Dark</span>';
+    themeFloat.setAttribute('aria-pressed', 'false');
+    themeFloat.setAttribute('aria-label', 'Switch to accessible light theme');
+    document.body.appendChild(themeFloat);
+    themeToggleBtn = themeFloat;
+
+    themeToggleBtn.addEventListener('click', function () {
+        const current = rootEl.getAttribute('data-theme') === 'accessible-light' ? 'accessible-light' : 'brand';
+        const next = current === 'accessible-light' ? 'brand' : 'accessible-light';
+        applyTheme(next);
+    });
+
+    applyTheme(getInitialTheme(), { persist: false });
 
     // ========== SMOOTH SCROLLING ==========
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
