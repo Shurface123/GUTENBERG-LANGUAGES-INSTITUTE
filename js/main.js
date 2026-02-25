@@ -1,379 +1,439 @@
 // ============================================
-// GUTENBERG LANGUAGES INSTITUTE - MAIN JS
-// Core functionality for all pages
+// GUTENBERG LANGUAGES INSTITUTE — MAIN JS
+// Theme: dark (default) / light (toggled)
+// Security: Honeypot, sanitization, rate-limit
 // ============================================
 
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
+    'use strict';
 
-    // ========== NAVIGATION ==========
-    const navbar = document.getElementById('navbar');
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    const rootEl = document.documentElement;
-    const THEME_STORAGE_KEY = 'gli-theme';
+    // ── FOUC Prevention (theme applied BEFORE paint) ──
+    const THEME_KEY = 'gli-theme';
+    const root = document.documentElement;
 
-    // Navbar scroll effect
-    window.addEventListener('scroll', function () {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
+    function getStoredTheme() {
+        try {
+            const s = localStorage.getItem(THEME_KEY);
+            if (s === 'light' || s === 'dark') return s;
+            // Map legacy keys
+            if (s === 'accessible-light') return 'light';
+            if (s === 'brand') return 'dark';
+        } catch (e) { }
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) return 'light';
+        return 'dark';
+    }
+
+    function applyTheme(mode, persist) {
+        const m = (mode === 'light') ? 'light' : 'dark';
+        if (m === 'light') {
+            root.setAttribute('data-theme', 'light');
         } else {
-            navbar.classList.remove('scrolled');
+            root.removeAttribute('data-theme');
         }
-    });
+        if (persist !== false) {
+            try { localStorage.setItem(THEME_KEY, m); } catch (e) { }
+        }
+        updateToggleBtn(m);
+    }
 
-    // Mobile menu toggle
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function () {
-            navMenu.classList.toggle('active');
+    let toggleBtn = null;
+    function updateToggleBtn(mode) {
+        if (!toggleBtn) return;
+        const iconEl = toggleBtn.querySelector('.ttb-icon');
+        const labelEl = toggleBtn.querySelector('.ttb-label');
+        if (mode === 'light') {
+            if (iconEl) iconEl.className = 'ttb-icon fas fa-moon';
+            if (labelEl) labelEl.textContent = 'Dark';
+            toggleBtn.setAttribute('aria-pressed', 'false');
+            toggleBtn.setAttribute('aria-label', 'Switch to dark theme');
+        } else {
+            if (iconEl) iconEl.className = 'ttb-icon fas fa-sun';
+            if (labelEl) labelEl.textContent = 'Light';
+            toggleBtn.setAttribute('aria-pressed', 'true');
+            toggleBtn.setAttribute('aria-label', 'Switch to light theme');
+        }
+    }
 
-            // Animate hamburger icon
-            const spans = menuToggle.querySelectorAll('span');
-            spans.forEach((span, index) => {
-                if (navMenu.classList.contains('active')) {
-                    if (index === 0) span.style.transform = 'rotate(45deg) translateY(8px)';
-                    if (index === 1) span.style.opacity = '0';
-                    if (index === 2) span.style.transform = 'rotate(-45deg) translateY(-8px)';
+    // Apply theme immediately (prevents FOUC)
+    applyTheme(getStoredTheme(), false);
+
+    // ── DOM Ready ──
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // ── NAVBAR ──
+        const navbar = document.getElementById('navbar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (navbar) {
+            window.addEventListener('scroll', function () {
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
+            }, { passive: true });
+        }
+
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function () {
+                const open = navMenu.classList.toggle('active');
+                menuToggle.setAttribute('aria-expanded', String(open));
+                const spans = menuToggle.querySelectorAll('span');
+                if (open) {
+                    spans[0] && (spans[0].style.transform = 'rotate(45deg) translateY(8px)');
+                    spans[1] && (spans[1].style.opacity = '0');
+                    spans[2] && (spans[2].style.transform = 'rotate(-45deg) translateY(-8px)');
                 } else {
-                    span.style.transform = '';
-                    span.style.opacity = '';
+                    spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+                }
+            });
+
+            // Close on link click
+            navMenu.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    menuToggle.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+                });
+            });
+
+            // Close on outside click
+            document.addEventListener('click', function (e) {
+                if (!navbar.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    menuToggle.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+                }
+            });
+        }
+
+        // ── THEME TOGGLE (inject into nav) ──
+        const navContainer = document.querySelector('.nav-container');
+        if (navContainer) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.id = 'themeToggle';
+            btn.className = 'theme-toggle-nav';
+            btn.innerHTML = '<i class="ttb-icon fas fa-sun"></i><span class="ttb-label">Light</span>';
+            btn.setAttribute('aria-pressed', 'false');
+            btn.setAttribute('aria-label', 'Switch to light theme');
+            navContainer.appendChild(btn);
+            toggleBtn = btn;
+
+            btn.addEventListener('click', function () {
+                const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+                applyTheme(current === 'light' ? 'dark' : 'light', true);
+            });
+
+            // Sync toggle label with current theme
+            updateToggleBtn(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+        }
+
+        // ── SECURITY: noopener for external links ──
+        document.querySelectorAll('a[target="_blank"]').forEach(link => {
+            const rel = (link.getAttribute('rel') || '').split(' ').filter(Boolean);
+            if (!rel.includes('noopener')) rel.push('noopener');
+            if (!rel.includes('noreferrer')) rel.push('noreferrer');
+            link.setAttribute('rel', rel.join(' '));
+        });
+
+        // ── SMOOTH SCROLLING ──
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href.length > 1) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const offset = target.getBoundingClientRect().top + window.scrollY - 80;
+                        window.scrollTo({ top: offset, behavior: 'smooth' });
+                    }
                 }
             });
         });
 
-        // Close menu when clicking on a link
-        const navLinks = document.querySelectorAll('.nav-link, .nav-cta');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function () {
-                navMenu.classList.remove('active');
-                const spans = menuToggle.querySelectorAll('span');
-                spans.forEach(span => {
-                    span.style.transform = '';
-                    span.style.opacity = '';
+        // ── INPUT SANITIZATION ──
+        function sanitize(str) {
+            if (typeof str !== 'string') return '';
+            return str
+                .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
+                .replace(/<[^>]+>/g, '')
+                .replace(/javascript\s*:/gi, '')
+                .replace(/on\w+\s*=/gi, '')
+                .trim();
+        }
+
+        // ── HONEYPOT INJECTION ──
+        function injectHoneypot(form) {
+            if (form.querySelector('.hp-wrap')) return;
+            const wrap = document.createElement('div');
+            wrap.className = 'hp-wrap hp-field';
+            wrap.setAttribute('aria-hidden', 'true');
+            const inp = document.createElement('input');
+            inp.type = 'text';
+            inp.name = 'website_url';   // bots fill this
+            inp.tabIndex = -1;
+            inp.autocomplete = 'off';
+            wrap.appendChild(inp);
+            form.appendChild(wrap);
+        }
+
+        // ── FORM SECURITY & VALIDATION ──
+        const cooldownMap = new WeakMap();
+
+        document.querySelectorAll('form').forEach(form => {
+            injectHoneypot(form);
+
+            form.addEventListener('submit', function (e) {
+                // Honeypot check
+                const hp = form.querySelector('input[name="website_url"]');
+                if (hp && hp.value.trim() !== '') {
+                    e.preventDefault();
+                    return; // Silently drop — bots don't get feedback
+                }
+
+                // Rate limit: 10 s
+                const submitBtn = form.querySelector('[type="submit"]');
+                if (submitBtn) {
+                    const lastClick = cooldownMap.get(submitBtn) || 0;
+                    if (Date.now() - lastClick < 10000) {
+                        e.preventDefault();
+                        const remaining = Math.ceil((10000 - (Date.now() - lastClick)) / 1000);
+                        showToast(`Please wait ${remaining}s before resubmitting.`, 'warn');
+                        return;
+                    }
+                }
+
+                // Required field check
+                let isValid = true;
+                form.querySelectorAll('[required]').forEach(field => {
+                    const val = field.value.trim();
+                    if (!val) {
+                        isValid = false;
+                        field.classList.add('input-error');
+                        field.setAttribute('aria-invalid', 'true');
+                    } else {
+                        field.classList.remove('input-error');
+                        field.removeAttribute('aria-invalid');
+                    }
+                });
+
+                // Sanitize inputs (XSS prevention)
+                form.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(field => {
+                    if (field.name === 'website_url') return;
+                    const clean = sanitize(field.value);
+                    if (clean !== field.value) field.value = clean;
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    const firstError = form.querySelector('.input-error');
+                    if (firstError) firstError.focus();
+                    showToast('Please fill in all required fields.', 'error');
+                    return;
+                }
+
+                // Start cooldown
+                if (submitBtn) {
+                    cooldownMap.set(submitBtn, Date.now());
+                    submitBtn.disabled = true;
+                    submitBtn._origText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting…';
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = submitBtn._origText || 'Submit';
+                    }, 10000);
+                }
+            });
+
+            // Remove error style on input
+            form.querySelectorAll('input, select, textarea').forEach(field => {
+                field.addEventListener('input', () => {
+                    field.classList.remove('input-error');
+                    field.removeAttribute('aria-invalid');
                 });
             });
         });
-    }
 
-    // ========== THEME TOGGLE (Brand vs Accessible Light) ==========
-    let themeToggleBtn = null;
-
-    function applyTheme(mode, options = {}) {
-        const opts = Object.assign({ persist: true }, options);
-        const normalized = (mode === 'accessible-light') ? 'accessible-light' : 'brand';
-
-        if (normalized === 'accessible-light') {
-            rootEl.setAttribute('data-theme', 'accessible-light');
-        } else {
-            rootEl.removeAttribute('data-theme');
-        }
-
-        if (opts.persist && window.localStorage) {
-            try {
-                localStorage.setItem(THEME_STORAGE_KEY, normalized);
-            } catch (e) {
-                console.warn('Unable to persist theme preference:', e);
-            }
-        }
-
-        if (themeToggleBtn) {
-            const iconEl = themeToggleBtn.querySelector('.theme-toggle-btn-icon');
-            const labelEl = themeToggleBtn.querySelector('.theme-toggle-btn-label');
-            if (normalized === 'accessible-light') {
-                if (iconEl) iconEl.className = 'theme-toggle-btn-icon fas fa-sun';
-                if (labelEl) labelEl.textContent = 'Light';
-                themeToggleBtn.setAttribute('aria-pressed', 'true');
-                themeToggleBtn.setAttribute('aria-label', 'Switch to brand theme (dark)');
-            } else {
-                if (iconEl) iconEl.className = 'theme-toggle-btn-icon fas fa-moon';
-                if (labelEl) labelEl.textContent = 'Dark';
-                themeToggleBtn.setAttribute('aria-pressed', 'false');
-                themeToggleBtn.setAttribute('aria-label', 'Switch to accessible light theme');
-            }
-        }
-    }
-
-    function getInitialTheme() {
-        try {
-            const stored = window.localStorage ? localStorage.getItem(THEME_STORAGE_KEY) : null;
-            if (stored === 'brand' || stored === 'accessible-light') {
-                return stored;
-            }
-        } catch (e) {
-            console.warn('Unable to read stored theme preference:', e);
-        }
-
-        // Fallback: prefer system preference; if system is light, default to accessible-light
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-            return 'accessible-light';
-        }
-        return 'brand';
-    }
-
-    // Theme toggle inside navbar (desktop + mobile)
-    const navContainer = document.querySelector('.nav-container');
-    if (navContainer) {
-        const themeBtn = document.createElement('button');
-        themeBtn.type = 'button';
-        themeBtn.id = 'themeToggle';
-        themeBtn.className = 'theme-toggle-nav';
-        themeBtn.innerHTML = '<span class="theme-toggle-btn-icon fas fa-moon"></span><span class="theme-toggle-btn-label">Dark</span>';
-        themeBtn.setAttribute('aria-pressed', 'false');
-        themeBtn.setAttribute('aria-label', 'Switch to accessible light theme');
-        navContainer.appendChild(themeBtn);
-        themeToggleBtn = themeBtn;
-    }
-
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', function () {
-            const current = rootEl.getAttribute('data-theme') === 'accessible-light' ? 'accessible-light' : 'brand';
-            const next = current === 'accessible-light' ? 'brand' : 'accessible-light';
-            applyTheme(next);
-        });
-    }
-
-    applyTheme(getInitialTheme(), { persist: false });
-
-    // ========== SMOOTH SCROLLING ==========
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href !== '#' && href !== '') {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    const offsetTop = target.offsetTop - 80;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-    });
-
-    // ========== FORM VALIDATION ==========
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', function (e) {
-            const requiredFields = form.querySelectorAll('[required]');
-            let isValid = true;
-
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.style.borderColor = '#dc3545';
-                } else {
-                    field.style.borderColor = '';
-                }
-            });
-
-            if (!isValid) {
-                e.preventDefault();
-                alert('Please fill in all required fields.');
-            }
-        });
-
-        // Remove error styling on input
-        const inputs = form.querySelectorAll('input, select, textarea');
-        inputs.forEach(input => {
-            input.addEventListener('input', function () {
-                this.style.borderColor = '';
-            });
-        });
-    });
-
-    // ========== STRUCTURED PHONE INPUT ENHANCEMENTS ==========
-    function enhancePhoneInputs() {
-        const countryOptions = [
-            { value: '+233', label: '🇬🇭 +233 Ghana' },
-            { value: '+234', label: '🇳🇬 +234 Nigeria' },
-            { value: '+44', label: '🇬🇧 +44 United Kingdom' },
-            { value: '+1', label: '🇺🇸 +1 USA / Canada' },
-            { value: '+49', label: '🇩🇪 +49 Germany' },
-            { value: '+33', label: '🇫🇷 +33 France' }
+        // ── INTERNATIONAL PHONE INPUT ──
+        const COUNTRIES = [
+            { code: '+233', iso: 'GH', flag: '🇬🇭', name: 'Ghana' },
+            { code: '+234', iso: 'NG', flag: '🇳🇬', name: 'Nigeria' },
+            { code: '+44', iso: 'GB', flag: '🇬🇧', name: 'United Kingdom' },
+            { code: '+1', iso: 'US', flag: '🇺🇸', name: 'USA / Canada' },
+            { code: '+49', iso: 'DE', flag: '🇩🇪', name: 'Germany' },
+            { code: '+33', iso: 'FR', flag: '🇫🇷', name: 'France' },
+            { code: '+34', iso: 'ES', flag: '🇪🇸', name: 'Spain' },
+            { code: '+39', iso: 'IT', flag: '🇮🇹', name: 'Italy' },
+            { code: '+31', iso: 'NL', flag: '🇳🇱', name: 'Netherlands' },
+            { code: '+32', iso: 'BE', flag: '🇧🇪', name: 'Belgium' },
+            { code: '+41', iso: 'CH', flag: '🇨🇭', name: 'Switzerland' },
+            { code: '+43', iso: 'AT', flag: '🇦🇹', name: 'Austria' },
+            { code: '+46', iso: 'SE', flag: '🇸🇪', name: 'Sweden' },
+            { code: '+47', iso: 'NO', flag: '🇳🇴', name: 'Norway' },
+            { code: '+45', iso: 'DK', flag: '🇩🇰', name: 'Denmark' },
+            { code: '+358', iso: 'FI', flag: '🇫🇮', name: 'Finland' },
+            { code: '+27', iso: 'ZA', flag: '🇿🇦', name: 'South Africa' },
+            { code: '+254', iso: 'KE', flag: '🇰🇪', name: 'Kenya' },
+            { code: '+256', iso: 'UG', flag: '🇺🇬', name: 'Uganda' },
+            { code: '+255', iso: 'TZ', flag: '🇹🇿', name: 'Tanzania' },
+            { code: '+221', iso: 'SN', flag: '🇸🇳', name: 'Senegal' },
+            { code: '+225', iso: 'CI', flag: '🇨🇮', name: "Côte d'Ivoire" },
+            { code: '+237', iso: 'CM', flag: '🇨🇲', name: 'Cameroon' },
+            { code: '+213', iso: 'DZ', flag: '🇩🇿', name: 'Algeria' },
+            { code: '+20', iso: 'EG', flag: '🇪🇬', name: 'Egypt' },
+            { code: '+212', iso: 'MA', flag: '🇲🇦', name: 'Morocco' },
+            { code: '+91', iso: 'IN', flag: '🇮🇳', name: 'India' },
+            { code: '+86', iso: 'CN', flag: '🇨🇳', name: 'China' },
+            { code: '+81', iso: 'JP', flag: '🇯🇵', name: 'Japan' },
+            { code: '+82', iso: 'KR', flag: '🇰🇷', name: 'South Korea' },
+            { code: '+55', iso: 'BR', flag: '🇧🇷', name: 'Brazil' },
+            { code: '+52', iso: 'MX', flag: '🇲🇽', name: 'Mexico' },
+            { code: '+61', iso: 'AU', flag: '🇦🇺', name: 'Australia' },
+            { code: '+64', iso: 'NZ', flag: '🇳🇿', name: 'New Zealand' },
+            { code: '+971', iso: 'AE', flag: '🇦🇪', name: 'UAE' },
+            { code: '+966', iso: 'SA', flag: '🇸🇦', name: 'Saudi Arabia' },
         ];
 
-        const groups = document.querySelectorAll('[data-phone-group]');
-        groups.forEach(group => {
-            const input = group.querySelector('input[type="tel"]');
-            if (!input || group.dataset.phoneEnhanced === 'true') return;
+        function buildPhoneSelect(defaultCode) {
+            const sel = document.createElement('select');
+            sel.className = 'phone-country-select';
+            sel.setAttribute('aria-label', 'Country dial code');
+            COUNTRIES.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.code;
+                opt.textContent = `${c.flag} ${c.code}`;
+                opt.title = c.name;
+                if (c.code === (defaultCode || '+233')) opt.selected = true;
+                sel.appendChild(opt);
+            });
+            return sel;
+        }
 
-            // Wrap existing input inside a flex row with a country select
+        document.querySelectorAll('[data-phone-group]').forEach(group => {
+            if (group.dataset.phoneEnhanced === 'true') return;
+            const input = group.querySelector('input[type="tel"]');
+            if (!input) return;
+
             const row = document.createElement('div');
             row.className = 'phone-input-row';
+            const sel = buildPhoneSelect('+233');
 
-            const select = document.createElement('select');
-            select.className = 'phone-country-select';
-            countryOptions.forEach((opt, idx) => {
-                const optionEl = document.createElement('option');
-                optionEl.value = opt.value;
-                optionEl.textContent = opt.label;
-                if (idx === 0) optionEl.selected = true; // Default Ghana
-                select.appendChild(optionEl);
-            });
-
-            // Insert row before input and move input inside row
+            input.placeholder = 'e.g. 50 979 6187';
             input.parentNode.insertBefore(row, input);
-            row.appendChild(select);
+            row.appendChild(sel);
             row.appendChild(input);
 
-            function syncInternationalValue() {
-                const dial = select.value || '';
-                const rawLocal = input.value.replace(/[^0-9]/g, '');
-                if (!rawLocal) {
-                    input.value = '';
-                    return;
-                }
-                // Basic grouping for readability
-                const grouped = rawLocal.replace(/(.{3})/g, '$1 ').trim();
-                input.value = (dial + ' ' + grouped).trim();
-            }
-
-            select.addEventListener('change', syncInternationalValue);
-            input.addEventListener('blur', syncInternationalValue);
+            // Strip any old dial-code prefix from the value on change so we don't double-apply
+            sel.addEventListener('change', () => {
+                let raw = input.value.replace(/^\+\d{1,4}\s*/, '').trim();
+                input.value = raw;
+            });
 
             group.dataset.phoneEnhanced = 'true';
         });
-    }
 
-    enhancePhoneInputs();
+        // ── ANIMATIONS ON SCROLL ──
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in', 'visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-    // ========== ANIMATIONS ON SCROLL ==========
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        document.querySelectorAll('.card,.course-card,.testimonial-card,.feature-box,.gallery-item,.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ── IMAGE ERROR HANDLING ──
+        const logoImg = document.getElementById('logo-image');
+        if (logoImg) logoImg.addEventListener('error', () => { logoImg.style.display = 'none'; });
+
+        const partnerBadge = document.getElementById('partner-badge');
+        if (partnerBadge) {
+            partnerBadge.addEventListener('error', () => {
+                const c = partnerBadge.parentElement;
+                if (c) c.innerHTML = '<p style="padding:2rem;color:var(--text-muted);">Partner Badge</p>';
+            });
+        }
+
+        // ── COURSE URL PARAMETER PRE-SELECT ──
+        const courseParam = new URLSearchParams(window.location.search).get('course');
+        if (courseParam) {
+            const sel = document.getElementById('courseType') || document.getElementById('courseSelection');
+            if (sel) sel.value = courseParam;
+        }
+
+        console.log('%c🎓 Gutenberg Languages Institute', 'color:#FFD700;font-size:20px;font-weight:bold;');
+    });
+
+    // ── GLOBAL TOAST NOTIFICATION ──
+    window.showToast = function (msg, type) {
+        let toast = document.getElementById('gli-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'gli-toast';
+            toast.style.cssText =
+                'position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);' +
+                'background:#111;color:#FFD700;border:1px solid rgba(255,215,0,.35);' +
+                'padding:.7rem 1.5rem;border-radius:999px;font-size:.85rem;font-weight:600;' +
+                'z-index:9999;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;' +
+                'white-space:nowrap;max-width:90vw;text-align:center;';
+            document.body.appendChild(toast);
+        }
+        if (type === 'error') toast.style.color = '#fc8181';
+        else if (type === 'warn') toast.style.color = '#f6c90e';
+        else toast.style.color = '#FFD700';
+
+        toast.textContent = msg;
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(-50%) translateY(0)';
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(-50%) translateY(20px)';
+        }, 3500);
     };
 
-    const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                observer.unobserve(entry.target);
+    // ── FORM HELPER FALLBACKS ──
+    if (typeof showSuccessMessage === 'undefined') {
+        window.showSuccessMessage = function (id, msg) {
+            const el = document.getElementById(id);
+            if (el) {
+                if (msg) el.innerHTML = `<strong>&#10003; Success!</strong><br>${msg}`;
+                el.style.display = 'block';
+                el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                setTimeout(() => { el.style.display = 'none'; }, 10000);
             }
-        });
-    }, observerOptions);
-
-    // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.card, .course-card, .testimonial-card, .feature-box, .gallery-item');
-    animatedElements.forEach(el => observer.observe(el));
-
-    // ========== LOGO IMAGE ERROR HANDLING ==========
-    const logoImage = document.getElementById('logo-image');
-    if (logoImage) {
-        logoImage.addEventListener('error', function () {
-            // If logo fails to load, hide the image and show only text
-            this.style.display = 'none';
-        });
-
-        // Check if placeholder is still present
-        if (logoImage.src.includes('PASTE_YOUR_LOGO_URL_HERE')) {
-            logoImage.style.display = 'none';
-        }
+        };
     }
 
-    // ========== PARTNER IMAGE ERROR HANDLING ==========
-    const partnerBadge = document.getElementById('partner-badge');
-    if (partnerBadge) {
-        partnerBadge.addEventListener('error', function () {
-            // If partner image fails to load, show placeholder text
-            const container = this.parentElement;
-            container.innerHTML = '<p style="padding: 2rem; color: var(--dark-gray);">Partner Badge Image<br><small>Replace with your image URL</small></p>';
-        });
-
-        // Check if placeholder is still present
-        if (partnerBadge.src.includes('PASTE_PARTNER_IMAGE_URL_HERE')) {
-            const container = partnerBadge.parentElement;
-            container.innerHTML = '<div style="padding: 3rem; background: var(--white); border: 3px dashed var(--primary-yellow); border-radius: var(--radius-lg);"><p style="color: var(--dark-gray); text-align: center; margin: 0;"><strong>Partner/Accreditation Badge</strong><br><small>Replace PASTE_PARTNER_IMAGE_URL_HERE with your image URL</small></p></div>';
-        }
+    if (typeof showErrorMessage === 'undefined') {
+        window.showErrorMessage = function (id, msg) {
+            const el = document.getElementById(id);
+            if (el) {
+                if (msg) el.innerHTML = `<strong>&#9888; Error</strong><br>${msg}`;
+                el.style.display = 'block';
+                el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                setTimeout(() => { el.style.display = 'none'; }, 10000);
+            }
+        };
     }
 
-    // ========== UTILITY FUNCTIONS ==========
+    if (typeof showLoading === 'undefined') {
+        window.showLoading = function (btn) {
+            if (btn) { btn.disabled = true; btn._orig = btn.innerHTML; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending…'; }
+        };
+    }
 
-    // Email validation
+    if (typeof hideLoading === 'undefined') {
+        window.hideLoading = function (btn, orig) {
+            if (btn) { btn.disabled = false; btn.innerHTML = orig || btn._orig || 'Submit'; }
+        };
+    }
+
+    // ── GLOBAL EMAIL VALIDATION ──
     window.validateEmail = function (email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     };
 
-    // ========== COURSE URL PARAMETERS ==========
-    // Pre-select course if coming from course page
-    const urlParams = new URLSearchParams(window.location.search);
-    const courseParam = urlParams.get('course');
-
-    if (courseParam) {
-        const courseSelect = document.getElementById('courseType') || document.getElementById('courseSelection');
-        if (courseSelect) {
-            courseSelect.value = courseParam;
-        }
-    }
-
-    // ========== CONSOLE MESSAGE ==========
-    console.log('%c🎓 Gutenberg Languages Institute', 'color: #FFD700; font-size: 20px; font-weight: bold;');
-    console.log('%cWebsite loaded successfully!', 'color: #FFD700; font-size: 14px;');
-
-    // ========== PAYMENT PAGE: Set start date min = today ==========
-    const startDateInput = document.getElementById('startDate');
-    if (startDateInput) {
-        const todayStr = new Date().toISOString().split('T')[0];
-        startDateInput.setAttribute('min', todayStr);
-        // Validate that any selected date is in the future
-        startDateInput.addEventListener('change', function () {
-            const chosen = new Date(this.value);
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const errEl = document.getElementById('startDateError');
-            if (chosen < today) {
-                if (errEl) errEl.style.display = 'block';
-                this.value = '';
-                this.focus();
-            } else {
-                if (errEl) errEl.style.display = 'none';
-            }
-        });
-    }
-
-});
-
-
-
-// ========== FORM HELPER FALLBACKS ==========
-// These only bind if emailjs-config.js hasn't already defined them.
-// emailjs-config.js definitions always take precedence.
-
-if (typeof showSuccessMessage === 'undefined') {
-    window.showSuccessMessage = function (elementId, message) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            if (message) element.innerHTML = `<strong>&#10003; Success!</strong><br>${message}`;
-            element.style.display = 'block';
-            element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            setTimeout(() => { element.style.display = 'none'; }, 10000);
-        }
-    };
-}
-
-if (typeof showErrorMessage === 'undefined') {
-    window.showErrorMessage = function (elementId, message) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            if (message) element.innerHTML = `<strong>&#9888; Error</strong><br>${message}`;
-            element.style.display = 'block';
-            element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            setTimeout(() => { element.style.display = 'none'; }, 10000);
-        }
-    };
-}
-
-if (typeof showLoading === 'undefined') {
-    window.showLoading = function (btn) {
-        if (btn) { btn.disabled = true; btn.dataset.originalText = btn.innerHTML; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...'; }
-    };
-}
-
-if (typeof hideLoading === 'undefined') {
-    window.hideLoading = function (btn, originalText) {
-        if (btn) { btn.disabled = false; btn.innerHTML = originalText || btn.dataset.originalText || 'Submit'; }
-    };
-}
-
+})();

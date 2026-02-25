@@ -1,187 +1,372 @@
-// ============================================
-// PAYMENT FORM HANDLER
-// Handles payment processing and method selection
-// ============================================
+/* payment.js — Gutenberg Languages Institute
+   Handles: wizard navigation, course/language selection, payment method switching,
+   MoMo network auto-detection, card formatting, bank copy, form submission
+   ------------------------------------------------------------------ */
 
-document.addEventListener('DOMContentLoaded', function () {
+'use strict';
 
-    // ========== PAYMENT METHOD SELECTION ==========
-    const paymentMethods = document.querySelectorAll('.payment-method');
-    const onlinePaymentForm = document.getElementById('onlinePaymentForm');
-    const bankTransferInfo = document.getElementById('bankTransferInfo');
-    const cashPaymentInfo = document.getElementById('cashPaymentInfo');
+/* ── Ghana MoMo prefix → network key ── */
+const MOMO_PREFIX_MAP = {
+    '024': 'mtn', '025': 'mtn', '053': 'mtn', '054': 'mtn',
+    '055': 'mtn', '059': 'mtn',
+    '020': 'telecel', '050': 'telecel',
+    '027': 'airteltigo', '057': 'airteltigo',
+    '026': 'airteltigo', '056': 'airteltigo',
+};
 
-    paymentMethods.forEach(method => {
-        method.addEventListener('click', function () {
-            // Remove active class from all methods
-            paymentMethods.forEach(m => m.classList.remove('active'));
+const NET_LABELS = {
+    mtn: { name: 'MTN Mobile Money', color: '#FFCB00', text: '#000' },
+    telecel: { name: 'Telecel Cash', color: '#E30613', text: '#fff' },
+    airteltigo: { name: 'AirtelTigo Money', color: '#003087', text: '#fff' },
+};
 
-            // Add active class to clicked method
-            this.classList.add('active');
+/* ── Pricing ── */
+const COURSES = {
+    super: { label: 'Super Intensive Course', price: 3300 },
+    intensive: { label: 'Intensive Course', price: 3600 },
+    normal: { label: 'Normal Course', price: 4000 },
+};
 
-            // Hide all payment sections
-            if (onlinePaymentForm) onlinePaymentForm.style.display = 'none';
-            if (bankTransferInfo) bankTransferInfo.style.display = 'none';
-            if (cashPaymentInfo) cashPaymentInfo.style.display = 'none';
+let state = {
+    step: 1,
+    course: null,
+    language: null,
+    payMethod: 'card',
+    momoNet: 'mtn',
+};
 
-            // Show relevant section
-            if (this.id === 'onlinePayment' && onlinePaymentForm) {
-                onlinePaymentForm.style.display = 'block';
-                onlinePaymentForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else if (this.id === 'bankTransfer' && bankTransferInfo) {
-                bankTransferInfo.style.display = 'block';
-                bankTransferInfo.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else if (this.id === 'cashPayment' && cashPaymentInfo) {
-                cashPaymentInfo.style.display = 'block';
-                cashPaymentInfo.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
+/* ════════════════════════════════════════
+   WIZARD NAVIGATION
+═════════════════════════════════════════ */
+function goToStep(n) {
+    if (n === 2 && !validateStep1()) return;
+    if (n === 3 && !validateStep2()) return;
+    if (n === 4 && !validateStep3()) return;
+
+    state.step = n;
+
+    document.querySelectorAll('.pay-panel').forEach((p, i) => {
+        p.classList.toggle('active', i + 1 === n);
+    });
+    document.querySelectorAll('.pay-step').forEach((s, i) => {
+        s.classList.toggle('active', i + 1 === n);
+        s.classList.toggle('completed', i + 1 < n);
     });
 
-    // ========== COURSE SELECTION & PRICE UPDATE ==========
-    const courseSelection = document.getElementById('courseSelection');
-    const totalAmount = document.getElementById('totalAmount');
-
-    if (courseSelection && totalAmount) {
-        courseSelection.addEventListener('change', function () {
-            const prices = {
-                'super-intensive': '$2,500.00',
-                'intensive': '$1,800.00',
-                'normal': '$1,200.00'
-            };
-
-            totalAmount.textContent = prices[this.value] || '$0.00';
-        });
-    }
-
-    // ========== CARD NUMBER FORMATTING ==========
-    const cardNumber = document.getElementById('cardNumber');
-    if (cardNumber) {
-        cardNumber.addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\s/g, '');
-            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-            e.target.value = formattedValue;
-        });
-    }
-
-    // ========== EXPIRY DATE FORMATTING ==========
-    const expiryDate = document.getElementById('expiryDate');
-    if (expiryDate) {
-        expiryDate.addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 2) {
-                value = value.slice(0, 2) + '/' + value.slice(2, 4);
-            }
-            e.target.value = value;
-        });
-    }
-
-    // ========== CVV INPUT RESTRICTION ==========
-    const cvv = document.getElementById('cvv');
-    if (cvv) {
-        cvv.addEventListener('input', function (e) {
-            e.target.value = e.target.value.replace(/\D/g, '');
-        });
-    }
-
-    // ========== PAYMENT FORM SUBMISSION ==========
-    const paymentForm = document.getElementById('paymentForm');
-
-    if (paymentForm) {
-        paymentForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Get form data
-            const formData = {
-                course: document.getElementById('courseSelection').value,
-                studentName: document.getElementById('studentName').value,
-                email: document.getElementById('studentEmail').value,
-                phone: document.getElementById('studentPhone').value,
-                cardNumber: document.getElementById('cardNumber').value.replace(/\s/g, ''),
-                expiryDate: document.getElementById('expiryDate').value,
-                cvv: document.getElementById('cvv').value,
-                billingAddress: document.getElementById('billingAddress').value,
-                city: document.getElementById('city').value,
-                zipCode: document.getElementById('zipCode').value
-            };
-
-            // Validate course selection
-            if (!formData.course) {
-                alert('Please select a course.');
-                return;
-            }
-
-            // Validate email
-            if (!validateEmail(formData.email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-
-            // Validate card number (basic check)
-            if (formData.cardNumber.length < 13 || formData.cardNumber.length > 19) {
-                alert('Please enter a valid card number.');
-                return;
-            }
-
-            // Validate expiry date
-            const expiryParts = formData.expiryDate.split('/');
-            if (expiryParts.length !== 2) {
-                alert('Please enter a valid expiry date (MM/YY).');
-                return;
-            }
-
-            const month = parseInt(expiryParts[0]);
-            const year = parseInt('20' + expiryParts[1]);
-            const currentDate = new Date();
-            const currentYear = currentDate.getFullYear();
-            const currentMonth = currentDate.getMonth() + 1;
-
-            if (month < 1 || month > 12 || year < currentYear || (year === currentYear && month < currentMonth)) {
-                alert('Please enter a valid expiry date.');
-                return;
-            }
-
-            // Validate CVV
-            if (formData.cvv.length < 3 || formData.cvv.length > 4) {
-                alert('Please enter a valid CVV.');
-                return;
-            }
-
-            // Show loading state
-            const submitButton = paymentForm.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.innerHTML;
-            showLoading(submitButton);
-
-            // Simulate payment processing (replace with actual payment gateway integration)
-            setTimeout(() => {
-                // Hide loading
-                hideLoading(submitButton, originalButtonText);
-
-                // Show success message
-                showSuccessMessage('paymentSuccess');
-
-                // Hide error message if visible
-                document.getElementById('paymentError').style.display = 'none';
-
-                // Hide form
-                paymentForm.style.display = 'none';
-
-                // Log payment (for development - NEVER log real payment data in production!)
-                console.log('Payment processed for:', formData.studentName);
-
-                // In production, integrate with payment gateway
-
-            }, 2000);
-        });
-    }
-});
-
-// Helper function to get course amount
-function getAmount(courseType) {
-    const amounts = {
-        'super-intensive': 250000, // in cents
-        'intensive': 180000,
-        'normal': 120000
-    };
-    return amounts[courseType] || 0;
+    if (n === 4) buildConfirmation();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+/* ── Validation helpers ── */
+function validateStep1() {
+    if (!state.course) {
+        showStepError('Please select a course.');
+        return false;
+    }
+    if (!state.language) {
+        showStepError('Please select a language.');
+        return false;
+    }
+    return true;
+}
+
+function validateStep2() {
+    const fn = g('infFirstName')?.value.trim();
+    const ln = g('infLastName')?.value.trim();
+    const em = g('infEmail')?.value.trim();
+    const ph = g('infPhone')?.value.trim();
+    const addr = g('address')?.value.trim();
+    const sd = g('startDate')?.value;
+    const lv = g('level')?.value;
+
+    if (!fn || !ln) { showStepError('Please enter your full name.'); return false; }
+    if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { showStepError('Enter a valid email address.'); return false; }
+    if (!ph) { showStepError('Please enter your phone number.'); return false; }
+    if (!addr) { showStepError('Please enter your address.'); return false; }
+    if (!sd) { showStepError('Please select a start date.'); return false; }
+    if (!lv) { showStepError('Please select a proficiency level.'); return false; }
+
+    // Start date must be in the future
+    if (new Date(sd) <= new Date()) {
+        const err = g('startDateError');
+        if (err) { err.style.display = 'block'; }
+        showStepError('Start date must be in the future.');
+        return false;
+    }
+    return true;
+}
+
+function validateStep3() {
+    if (state.payMethod === 'momo') {
+        const num = g('momoNumber')?.value.trim().replace(/\D/g, '');
+        if (!num || num.length < 9) {
+            showMomoError('Enter a valid Ghana MoMo number (e.g. 024 XXX XXXX).');
+            return false;
+        }
+    } else if (state.payMethod === 'card') {
+        const cn = g('cardNum')?.value.replace(/\s/g, '');
+        const exp = g('cardExp')?.value.trim();
+        const cvv = g('cardCvv')?.value.trim();
+        if (!cn || cn.length < 13) { showStepError('Enter a valid card number.'); return false; }
+        if (!exp || !/^\d{2}\s*\/\s*\d{2}$/.test(exp)) { showStepError('Enter a valid expiry date (MM / YY).'); return false; }
+        if (!cvv || cvv.length < 3) { showStepError('Enter a valid CVV.'); return false; }
+    }
+    return true;
+}
+
+function showStepError(msg) {
+    const el = document.querySelector('#step' + state.step + ' .step-error-msg') ||
+        document.querySelector('.pay-panel.active .step-error-msg');
+    if (el) { el.textContent = msg; el.style.display = 'block'; setTimeout(() => { el.style.display = 'none'; }, 4000); }
+    else { toast(msg, 'error'); }
+}
+
+/* ════════════════════════════════════════
+   COURSE SELECTION
+═════════════════════════════════════════ */
+function selectCourse(key) {
+    state.course = key;
+    document.querySelectorAll('.course-pick').forEach(el => el.classList.remove('selected'));
+    const el = g('cp-' + key);
+    if (el) el.classList.add('selected');
+    updateSummary();
+}
+
+function selectLang(el, lang) {
+    state.language = lang;
+    document.querySelectorAll('.lang-chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    updateSummary();
+}
+
+/* ════════════════════════════════════════
+   PAYMENT METHOD TABS
+═════════════════════════════════════════ */
+function switchPM(method, tabEl) {
+    state.payMethod = method;
+    document.querySelectorAll('.pm-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.pm-pane').forEach(p => p.classList.remove('active'));
+    if (tabEl) tabEl.classList.add('active');
+    const pane = g('pm-' + method);
+    if (pane) pane.classList.add('active');
+}
+
+/* ════════════════════════════════════════
+   MOMO NETWORK DETECTION
+═════════════════════════════════════════ */
+function detectNetwork(number) {
+    const clean = number.replace(/\D/g, '');
+    if (clean.length < 3) return null;
+    return MOMO_PREFIX_MAP[clean.substring(0, 3)] || null;
+}
+
+function selectNetwork(netKey) {
+    if (!NET_LABELS[netKey]) return;
+    state.momoNet = netKey;
+    document.querySelectorAll('[data-net]').forEach(el => {
+        el.classList.toggle('selected', el.dataset.net === netKey);
+    });
+}
+
+function initMomoDetection() {
+    const input = g('momoNumber');
+    if (!input) return;
+
+    input.addEventListener('input', () => {
+        const detected = detectNetwork(input.value);
+        if (detected && detected !== state.momoNet) {
+            selectNetwork(detected);
+            const net = NET_LABELS[detected];
+            toast(`Network detected: ${net.name}`, 'info');
+        }
+        // Clear any error
+        const errEl = g('momoError');
+        if (errEl) errEl.textContent = '';
+    });
+}
+
+function showMomoError(msg) {
+    const el = g('momoError');
+    if (el) { el.textContent = msg; el.style.display = 'block'; }
+}
+
+/* ════════════════════════════════════════
+   CARD FORMATTING
+═════════════════════════════════════════ */
+function formatCard(input) {
+    let v = input.value.replace(/\D/g, '').substring(0, 16);
+    input.value = v.replace(/(.{4})/g, '$1 ').trim();
+}
+
+function formatExp(input) {
+    let v = input.value.replace(/\D/g, '').substring(0, 4);
+    if (v.length >= 3) v = v.substring(0, 2) + ' / ' + v.substring(2);
+    input.value = v;
+}
+
+/* ════════════════════════════════════════
+   SUMMARY PANEL
+═════════════════════════════════════════ */
+function updateSummary() {
+    const course = COURSES[state.course];
+    const sumCourse = g('sumCourse');
+    const sumLang = g('sumLang');
+    const sumTotal = g('sumTotal');
+
+    if (sumCourse) sumCourse.textContent = course ? course.label : '—';
+    if (sumLang) sumLang.textContent = state.language || '—';
+    if (sumTotal) sumTotal.textContent = course ? 'GH₵ ' + course.price.toLocaleString() : '—';
+}
+
+/* ════════════════════════════════════════
+   STEP 4 CONFIRMATION BUILD
+═════════════════════════════════════════ */
+function buildConfirmation() {
+    const course = COURSES[state.course] || {};
+    const name = ((g('infFirstName')?.value || '') + ' ' + (g('infLastName')?.value || '')).trim();
+    const rows = [
+        { label: 'Name', value: name || '—' },
+        { label: 'Email', value: g('infEmail')?.value?.trim() || '—' },
+        { label: 'Phone', value: g('infPhone')?.value?.trim() || '—' },
+        { label: 'Course', value: course.label || '—' },
+        { label: 'Language', value: state.language || '—' },
+        { label: 'Payment Method', value: methodLabel() || '—' },
+        { label: 'Total', value: course.price ? 'GH₵ ' + course.price.toLocaleString() : '—' },
+    ];
+    const container = g('confirmSummary');
+    if (!container) return;
+    container.innerHTML = rows.map(r =>
+        `<div style="display:flex;justify-content:space-between;align-items:center;
+            padding:.75rem 1rem;background:#f7f7f8;border-radius:10px;font-size:.88rem;gap:1rem">
+            <span style="color:#888;font-weight:600;white-space:nowrap">${r.label}</span>
+            <strong style="color:#111;text-align:right;word-break:break-word">${r.value}</strong>
+        </div>`
+    ).join('');
+}
+
+function methodLabel() {
+    if (state.payMethod === 'card') return 'Credit / Debit Card';
+    if (state.payMethod === 'momo') return NET_LABELS[state.momoNet]?.name + ' (MoMo)';
+    if (state.payMethod === 'bank') return 'Bank Transfer';
+    if (state.payMethod === 'cash') return 'Cash Payment';
+    return '';
+}
+
+/* ════════════════════════════════════════
+   SUBMIT PAYMENT
+═════════════════════════════════════════ */
+/* Called by HTML: onclick="processPayment()" */
+function processPayment() {
+    const checkbox = g('agreeTerms');
+    if (!checkbox || !checkbox.checked) {
+        toast('Please agree to the payment terms to continue.', 'error');
+        return;
+    }
+    submitPayment();
+}
+
+function submitPayment() {
+    const btn = g('finalPayBtn');
+    if (!btn) return;
+
+    btn.disabled = true;
+    const btnText = g('finalBtnText');
+    if (btnText) btnText.textContent = 'Processing…';
+    const icon = btn.querySelector('i');
+    if (icon) icon.className = 'fas fa-spinner fa-spin';
+
+    // Generate reference number
+    const ref = 'GLI-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+    const refEl = g('successRef');
+    if (refEl) refEl.textContent = ref;
+
+    setTimeout(() => {
+        btn.disabled = false;
+        if (btnText) btnText.textContent = 'Complete Payment';
+        if (icon) icon.className = 'fas fa-lock';
+        goToStep(5);
+    }, 2800);
+}
+
+function showSuccess() {
+    goToStep(5);
+}
+
+/* ════════════════════════════════════════
+   BANK COPY
+═════════════════════════════════════════ */
+function copyText(text) {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => toast('Copied!', 'success'));
+    } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        toast('Copied!', 'success');
+    }
+}
+
+/* ════════════════════════════════════════
+   TOAST NOTIFICATION
+═════════════════════════════════════════ */
+function toast(msg, type = 'info') {
+    const container = document.getElementById('toastContainer') || createToastContainer();
+    const t = document.createElement('div');
+    t.className = 'gli-toast gli-toast--' + type;
+    const icon = type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle';
+    t.innerHTML = `<i class="fas fa-${icon}"></i> <span>${msg}</span>`;
+    container.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 350); }, 3500);
+}
+
+function createToastContainer() {
+    const el = document.createElement('div');
+    el.id = 'toastContainer';
+    el.style.cssText = 'position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem;pointer-events:none;';
+    document.body.appendChild(el);
+    return el;
+}
+
+/* ════════════════════════════════════════
+   UTILITIES
+═════════════════════════════════════════ */
+function g(id) { return document.getElementById(id); }
+
+/* ════════════════════════════════════════
+   INIT
+═════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+    // Set min date for start date input
+    const sd = g('startDate');
+    if (sd) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        sd.min = tomorrow.toISOString().split('T')[0];
+    }
+
+    // Wire up MoMo network buttons (data-net attribute)
+    document.querySelectorAll('[data-net]').forEach(el => {
+        el.addEventListener('click', () => selectNetwork(el.dataset.net));
+    });
+
+    // MoMo auto-detection
+    initMomoDetection();
+
+    // CVV restrict to digits
+    const cvv = g('cardCvv');
+    if (cvv) cvv.addEventListener('input', () => { cvv.value = cvv.value.replace(/\D/g, '').substring(0, 4); });
+
+    // Start date future validation
+    if (sd) {
+        sd.addEventListener('change', () => {
+            const err = g('startDateError');
+            if (err) err.style.display = new Date(sd.value) <= new Date() ? 'block' : 'none';
+        });
+    }
+
+    // Final pay button wired via onclick="processPayment()" in HTML
+});

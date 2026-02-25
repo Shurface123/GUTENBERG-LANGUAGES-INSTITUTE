@@ -1,96 +1,94 @@
 /* ============================================
-   COMPONENT STYLES
-   Reusable UI Components — Font Awesome Icons
+   COMPONENT STYLES — GUTENBERG LANGUAGES
+   Unified, no orange/amber — Yellow/Black/White
    ============================================ */
 
-/* ============================================
-   COURSE CARDS
-   ============================================ */
+/* ── COURSE CARDS ── */
 .course-card {
-    background: var(--white);
-    border-radius: var(--radius-lg);
+    background: var(--bg-card);
+    border-radius: var(--r-lg);
     overflow: hidden;
     box-shadow: var(--shadow-md);
-    transition: var(--transition-normal);
+    transition: var(--t-normal);
     border: 2px solid transparent;
 }
 
 .course-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-lg);
-    border-color: var(--primary-yellow);
+    border-color: var(--color-yellow);
 }
 
 .course-header {
-    background: var(--gradient-primary);
-    padding: 1.5rem var(--spacing-md);
+    background: var(--gradient-accent);
+    padding: 1.5rem var(--sp-md);
     text-align: center;
 }
 
 .course-type {
-    font-size: 0.75rem;
+    font-size: .75rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: var(--primary-black);
-    margin-bottom: 0.5rem;
-    opacity: 0.8;
+    color: var(--color-black);
+    margin-bottom: .5rem;
+    opacity: .75;
 }
 
 .course-title {
     font-size: 1.5rem;
     font-weight: 800;
-    color: var(--primary-black);
+    color: var(--color-black);
     margin: 0;
 }
 
 .course-body {
-    padding: var(--spacing-md);
+    padding: var(--sp-md);
 }
 
 .course-duration {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    color: var(--medium-gray);
+    gap: .5rem;
+    color: var(--text-secondary);
     font-weight: 600;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--sp-md);
     font-size: 1rem;
 }
 
 .course-duration i {
-    color: var(--primary-yellow);
+    color: var(--color-yellow);
     font-size: 1.1rem;
 }
 
 .course-description {
-    color: var(--medium-gray);
+    color: var(--text-secondary);
     line-height: 1.8;
-    margin-bottom: var(--spacing-md);
-    font-size: 0.95rem;
+    margin-bottom: var(--sp-md);
+    font-size: .95rem;
 }
 
 .course-features {
     list-style: none;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--sp-md);
 }
 
 .course-features li {
-    padding: 0.4rem 0;
-    color: var(--medium-gray);
+    padding: .4rem 0;
+    color: var(--text-secondary);
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    font-size: 0.95rem;
+    gap: .75rem;
+    font-size: .95rem;
 }
 
 .course-features li::before {
     content: '\f00c';
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
-    color: var(--primary-yellow);
-    font-size: 0.75rem;
-    background: rgba(255, 215, 0, 0.12);
+    color: var(--color-yellow);
+    font-size: .75rem;
+    background: rgba(255, 215, 0, .12);
     width: 22px;
     height: 22px;
     display: flex;
@@ -103,37 +101,36 @@
 .course-price {
     font-size: 2rem;
     font-weight: 800;
-    color: var(--primary-black);
+    color: var(--text-primary);
     text-align: center;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--sp-md);
 }
 
 .course-footer {
-    padding: 0 var(--spacing-md) var(--spacing-md);
+    padding: 0 var(--sp-md) var(--sp-md);
 }
 
-/* ============================================
-   TESTIMONIAL CARDS
-   ============================================ */
+/* ── TESTIMONIAL CARDS ── */
 .testimonial-card {
-    background: var(--white);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border-radius: var(--r-lg);
+    padding: var(--sp-md);
     box-shadow: var(--shadow-md);
     position: relative;
-    transition: var(--transition-normal);
-    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: var(--t-normal);
+    border: 1px solid var(--border-color);
 }
 
 .testimonial-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
+    border-color: var(--border-accent);
 }
 
 .testimonial-quote {
     font-size: 3rem;
-    color: var(--primary-yellow);
-    opacity: 0.25;
+    color: var(--color-yellow);
+    opacity: .2;
     position: absolute;
     top: 10px;
     left: 20px;
@@ -143,12 +140,12 @@
 
 .testimonial-text {
     font-style: italic;
-    color: var(--medium-gray);
-    margin-bottom: var(--spacing-md);
+    color: var(--text-secondary);
+    margin-bottom: var(--sp-md);
     position: relative;
     z-index: 1;
     line-height: 1.8;
-    font-size: 0.95rem;
+    font-size: .95rem;
 }
 
 .testimonial-author {
@@ -161,39 +158,37 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: var(--gradient-primary);
+    background: var(--gradient-accent);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.1rem;
     font-weight: bold;
-    color: var(--primary-black);
+    color: var(--color-black);
     flex-shrink: 0;
 }
 
 .testimonial-info h4 {
-    color: var(--primary-black);
+    color: var(--text-primary);
     margin: 0;
     font-size: 1rem;
 }
 
 .testimonial-info p {
-    color: var(--medium-gray);
+    color: var(--text-secondary);
     margin: 0;
-    font-size: 0.85rem;
+    font-size: .85rem;
 }
 
 .testimonial-rating {
-    color: var(--primary-yellow);
-    font-size: 0.9rem;
-    margin-top: 0.35rem;
+    color: var(--color-yellow);
+    font-size: .9rem;
+    margin-top: .35rem;
     display: flex;
     gap: 2px;
 }
 
-/* ============================================
-   GALLERY
-   ============================================ */
+/* ── GALLERY ── */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -203,7 +198,7 @@
 .gallery-item {
     position: relative;
     overflow: hidden;
-    border-radius: var(--radius-lg);
+    border-radius: var(--r-lg);
     aspect-ratio: 4/3;
     cursor: pointer;
     box-shadow: var(--shadow-md);
@@ -213,7 +208,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: var(--transition-slow);
+    transition: var(--t-slow);
 }
 
 .gallery-item:hover img {
@@ -222,16 +217,13 @@
 
 .gallery-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 100%);
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, .75) 0%, transparent 100%);
     display: flex;
     align-items: flex-end;
-    padding: var(--spacing-md);
+    padding: var(--sp-md);
     opacity: 0;
-    transition: var(--transition-normal);
+    transition: var(--t-normal);
 }
 
 .gallery-item:hover .gallery-overlay {
@@ -239,54 +231,50 @@
 }
 
 .gallery-caption {
-    color: var(--white);
+    color: var(--color-white);
     font-weight: 600;
     font-size: 1rem;
 }
 
-/* ============================================
-   STATS
-   ============================================ */
+/* ── STATS ── */
 .stats-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-md);
+    gap: var(--sp-md);
     text-align: center;
 }
 
 .stat-item {
-    padding: var(--spacing-md);
+    padding: var(--sp-md);
 }
 
 .stat-number {
     font-size: 2.75rem;
     font-weight: 800;
-    color: var(--primary-yellow);
+    color: var(--color-yellow);
     line-height: 1;
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: var(--sp-xs);
 }
 
 .stat-label {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.95rem;
+    color: rgba(255, 255, 255, .75);
+    font-size: .95rem;
     font-weight: 500;
 }
 
-/* ============================================
-   CONTACT CARDS
-   ============================================ */
+/* ── CONTACT CARDS ── */
 .contact-card {
-    background: var(--white);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border-radius: var(--r-lg);
+    padding: var(--sp-md);
     text-align: center;
     box-shadow: var(--shadow-sm);
-    transition: var(--transition-normal);
-    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: var(--t-normal);
+    border: 1px solid var(--border-color);
 }
 
 .contact-card:hover {
-    border-color: var(--primary-yellow);
+    border-color: var(--color-yellow);
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
 }
@@ -294,48 +282,46 @@
 .contact-icon {
     width: 60px;
     height: 60px;
-    background: var(--gradient-primary);
+    background: var(--gradient-accent);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto var(--spacing-md);
-    color: var(--primary-black);
+    margin: 0 auto var(--sp-md);
+    color: var(--color-black);
     font-size: 1.3rem;
 }
 
 .contact-title {
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--primary-black);
-    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+    margin-bottom: var(--sp-xs);
 }
 
 .contact-detail {
-    color: var(--medium-gray);
+    color: var(--text-muted);
     font-size: 1rem;
     word-break: break-word;
 }
 
 .contact-detail a {
-    color: var(--primary-black);
+    color: var(--text-primary);
     font-weight: 600;
-    transition: var(--transition-fast);
+    transition: var(--t-fast);
 }
 
 .contact-detail a:hover {
-    color: var(--primary-yellow);
+    color: var(--color-yellow);
 }
 
-/* ============================================
-   MAP
-   ============================================ */
+/* ── MAP ── */
 .map-container {
-    border-radius: var(--radius-lg);
+    border-radius: var(--r-lg);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
     height: 400px;
-    border: 3px solid var(--primary-yellow);
+    border: 3px solid var(--color-yellow);
 }
 
 .map-container iframe {
@@ -344,13 +330,11 @@
     border: none;
 }
 
-/* ============================================
-   FEATURE BOXES
-   ============================================ */
+/* ── FEATURE BOXES ── */
 .feature-box {
     text-align: center;
-    padding: var(--spacing-md);
-    transition: var(--transition-normal);
+    padding: var(--sp-md);
+    transition: var(--t-normal);
 }
 
 .feature-box:hover {
@@ -360,16 +344,16 @@
 .feature-icon {
     width: 70px;
     height: 70px;
-    background: var(--gradient-primary);
-    border-radius: var(--radius-md);
+    background: var(--gradient-accent);
+    border-radius: var(--r-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto var(--spacing-md);
-    color: var(--primary-black);
+    margin: 0 auto var(--sp-md);
+    color: var(--color-black);
     font-size: 1.6rem;
     box-shadow: var(--shadow-yellow);
-    transition: var(--transition-normal);
+    transition: var(--t-normal);
 }
 
 .feature-box:hover .feature-icon {
@@ -380,25 +364,23 @@
 .feature-title {
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--primary-black);
-    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+    margin-bottom: var(--sp-xs);
 }
 
 .feature-description {
-    color: var(--medium-gray);
+    color: var(--text-secondary);
     line-height: 1.7;
-    font-size: 0.95rem;
+    font-size: .95rem;
 }
 
-/* ============================================
-   ALERTS
-   ============================================ */
+/* ── ALERTS ── */
 .alert {
     padding: 1rem 1.5rem;
-    border-radius: var(--radius-md);
-    margin-bottom: var(--spacing-md);
+    border-radius: var(--r-md);
+    margin-bottom: var(--sp-md);
     border-left: 4px solid;
-    font-size: 0.95rem;
+    font-size: .95rem;
 }
 
 .alert-success {
@@ -414,9 +396,9 @@
 }
 
 .alert-warning {
-    background: #fff3cd;
-    border-color: var(--primary-yellow);
-    color: #856404;
+    background: #fff9db;
+    border-color: var(--color-yellow);
+    color: #7a5c00;
 }
 
 .alert-error {
@@ -425,12 +407,10 @@
     color: #721c24;
 }
 
-/* ============================================
-   LOADING SPINNER
-   ============================================ */
+/* ── SPINNER ── */
 .spinner {
-    border: 3px solid rgba(255, 215, 0, 0.2);
-    border-top: 3px solid var(--primary-yellow);
+    border: 3px solid rgba(255, 215, 0, .2);
+    border-top: 3px solid var(--color-yellow);
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -440,83 +420,78 @@
 
 @keyframes spin {
     0% {
-        transform: rotate(0deg);
+        transform: rotate(0deg)
     }
 
     100% {
-        transform: rotate(360deg);
+        transform: rotate(360deg)
     }
 }
 
-/* ============================================
-   BREADCRUMB
-   ============================================ */
+/* ── BREADCRUMB ── */
 .breadcrumb {
     display: flex;
-    gap: 0.5rem;
+    gap: .5rem;
     align-items: center;
-    margin-bottom: var(--spacing-md);
-    font-size: 0.85rem;
+    margin-bottom: var(--sp-md);
+    font-size: .85rem;
 }
 
 .breadcrumb a {
-    color: var(--medium-gray);
-    transition: var(--transition-fast);
+    color: var(--text-muted);
+    transition: var(--t-fast);
 }
 
 .breadcrumb a:hover {
-    color: var(--primary-yellow);
+    color: var(--color-yellow);
 }
 
 .breadcrumb-separator {
-    color: var(--medium-gray);
+    color: var(--text-muted);
 }
 
 .breadcrumb-current {
-    color: var(--primary-black);
+    color: var(--text-primary);
     font-weight: 600;
 }
 
-/* ============================================
-   BADGES
-   ============================================ */
+/* ── BADGES ── */
 .badge {
     display: inline-block;
-    padding: 0.25rem 0.75rem;
+    padding: .25rem .75rem;
     border-radius: 20px;
-    font-size: 0.75rem;
+    font-size: .75rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
 }
 
 .badge-primary {
-    background: var(--primary-yellow);
-    color: var(--primary-black);
+    background: var(--color-yellow);
+    color: var(--color-black);
 }
 
 .badge-dark {
-    background: var(--primary-black);
-    color: var(--primary-yellow);
+    background: var(--color-black);
+    color: var(--color-yellow);
 }
 
-/* ============================================
-   PARTNER / ACCREDITATION
-   ============================================ */
+/* ── PARTNER SECTION ── */
 .partner-section {
     text-align: center;
-    padding: var(--spacing-lg) 0;
-    background: var(--light-gray);
+    padding: var(--sp-lg) 0;
+    background: var(--bg-secondary);
 }
 
 .partner-image {
     max-width: 400px;
     margin: 0 auto;
-    padding: var(--spacing-md);
-    background: var(--white);
-    border-radius: var(--radius-lg);
+    padding: var(--sp-md);
+    background: var(--bg-card);
+    border-radius: var(--r-lg);
     box-shadow: var(--shadow-md);
-    transition: var(--transition-normal);
+    transition: var(--t-normal);
+    border: 1px solid var(--border-color);
 }
 
 .partner-image:hover {
@@ -529,16 +504,14 @@
     height: auto;
 }
 
-/* ============================================
-   CHATBOT WIDGET
-   ============================================ */
+/* ── CHATBOT ── */
 .chatbot-trigger {
     position: fixed;
     bottom: 30px;
     right: 30px;
     width: 56px;
     height: 56px;
-    background: var(--gradient-primary);
+    background: var(--gradient-accent);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -546,9 +519,9 @@
     cursor: pointer;
     box-shadow: var(--shadow-yellow);
     z-index: 999;
-    transition: var(--transition-normal);
+    transition: var(--t-normal);
     border: none;
-    color: var(--primary-black);
+    color: var(--color-black);
     font-size: 1.4rem;
 }
 
@@ -557,66 +530,156 @@
     box-shadow: var(--shadow-yellow-lg);
 }
 
-/* ============================================
-   PAYMENT METHOD CARDS
-   ============================================ */
+/* ── PAYMENT METHOD CARDS ── */
 .payment-methods {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
+    gap: var(--sp-md);
+    margin-bottom: var(--sp-lg);
 }
 
 .payment-method {
-    border: 2px solid var(--border-gray);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-md);
+    border: 2px solid var(--border-color);
+    border-radius: var(--r-lg);
+    padding: var(--sp-md);
     cursor: pointer;
-    transition: var(--transition-normal);
+    transition: var(--t-normal);
     text-align: center;
+    background: var(--bg-card);
 }
 
 .payment-method:hover {
-    border-color: var(--primary-yellow);
-    background: rgba(255, 215, 0, 0.03);
+    border-color: var(--color-yellow);
+    background: rgba(255, 215, 0, .04);
 }
 
 .payment-method.active {
-    border-color: var(--primary-yellow);
-    background: rgba(255, 215, 0, 0.08);
+    border-color: var(--color-yellow);
+    background: rgba(255, 215, 0, .08);
 }
 
 .payment-method-icon {
     width: 60px;
     height: 60px;
-    background: var(--gradient-primary);
+    background: var(--gradient-accent);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto var(--spacing-sm);
-    color: var(--primary-black);
+    margin: 0 auto var(--sp-sm);
+    color: var(--color-black);
     font-size: 1.5rem;
 }
 
 .payment-method-title {
     font-weight: 700;
-    color: var(--primary-black);
-    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    margin-bottom: .5rem;
     font-size: 1rem;
 }
 
 .payment-method-desc {
-    font-size: 0.85rem;
-    color: var(--medium-gray);
+    font-size: .85rem;
+    color: var(--text-secondary);
 }
 
-/* ============================================
-   RESPONSIVE ADJUSTMENTS
-   ============================================ */
-@media (max-width: 768px) {
+/* ── MOBILE MONEY NETWORK BRAND CARDS ── */
+.momo-net {
+    flex: 1;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: .85rem .5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s;
+    font-size: .75rem;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.momo-net:hover {
+    border-color: var(--color-yellow);
+    transform: translateY(-2px);
+}
+
+.momo-net.selected {
+    border-width: 2.5px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
+}
+
+/* MTN brand */
+.momo-net[data-net="mtn"].selected {
+    border-color: #FFC300;
+    background: rgba(255, 195, 0, .08);
+}
+
+/* Telecel brand */
+.momo-net[data-net="telecel"].selected {
+    border-color: #E40000;
+    background: rgba(228, 0, 0, .06);
+}
+
+/* AirtelTigo brand */
+.momo-net[data-net="airteltigo"].selected {
+    border-color: #005BAA;
+    background: rgba(0, 91, 170, .06);
+}
+
+.momo-network-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--r-full);
+    font-size: .65rem;
+    font-weight: 800;
+    margin-top: .3rem;
+    letter-spacing: .5px;
+}
+
+/* Network notification toast */
+.network-toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--color-black);
+    color: var(--color-yellow);
+    border: 1px solid rgba(255, 215, 0, .35);
+    padding: .7rem 1.4rem;
+    border-radius: var(--r-full);
+    font-size: .85rem;
+    font-weight: 600;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s, transform .3s;
+    white-space: nowrap;
+    box-shadow: var(--shadow-lg);
+}
+
+.network-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ── ANIMATIONS ON SCROLL (intersection observer) ── */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── RESPONSIVE ADJUSTMENTS ── */
+@media (max-width:768px) {
     .course-card {
-        margin-bottom: var(--spacing-md);
+        margin-bottom: var(--sp-md);
     }
 
     .gallery-grid {
@@ -632,7 +695,7 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width:480px) {
     .stat-number {
         font-size: 2.25rem;
     }
@@ -642,6 +705,10 @@
     }
 
     .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
         grid-template-columns: 1fr;
     }
 }

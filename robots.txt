@@ -1,7 +1,27 @@
+# robots.txt — Gutenberg Languages Institute
+# https://www.gutenberglanguagesinstitute.com/
+
 User-agent: *
 Allow: /
-Disallow: /private/
-Disallow: /admin/
-Disallow: /includes/
 
-Sitemap: https://gutenberglanguages.com/sitemap.xml
+# Public pages — index
+Allow: /index.html
+Allow: /about.html
+Allow: /courses.html
+Allow: /gallery.html
+Allow: /reviews.html
+Allow: /certificates.html
+Allow: /contact.html
+Allow: /booking.html
+
+# Block sensitive/private pages from indexing
+Disallow: /payment.html
+Disallow: /application.html
+
+# Block JS / CSS / asset directories from crawlers
+Disallow: /js/
+Disallow: /css/
+Disallow: /images/private/
+
+# Sitemap reference
+Sitemap: https://www.gutenberglanguagesinstitute.com/sitemap.xml

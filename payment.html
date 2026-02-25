@@ -6,7 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Secure payment for Gutenberg Languages Institute courses. Pay via card, mobile money, bank transfer or cash.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
     <title>Secure Payment - Gutenberg Languages Institute</title>
+    <!-- FOUC Prevention: apply theme before first paint -->
+    <script>!function () { var t = localStorage.getItem('gli-theme'); if (t === 'light') { document.documentElement.setAttribute('data-theme', 'light'); } else if (!t && window.matchMedia('(prefers-color-scheme:light)').matches) { document.documentElement.setAttribute('data-theme', 'light'); } }();</script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/components.css">
@@ -937,9 +944,11 @@
                 <div class="pay-panel" id="step2">
                     <div class="panel-title"><i class="fas fa-user"></i> Your Details</div>
                     <div class="fi-row">
-                        <div class="fi"><label>First Name *</label><input type="text" id="fname" placeholder="Kofi">
+                        <div class="fi"><label>First Name *</label><input type="text" id="infFirstName"
+                                placeholder="Kofi" required>
                         </div>
-                        <div class="fi"><label>Last Name *</label><input type="text" id="lname" placeholder="Mensah">
+                        <div class="fi"><label>Last Name *</label><input type="text" id="infLastName"
+                                placeholder="Mensah" required>
                         </div>
                     </div>
                     <div class="fi-row">
@@ -1038,44 +1047,51 @@
                     <div class="pm-pane" id="pm-momo">
                         <p style="font-size:.88rem;color:#555;margin-bottom:1.25rem">Select your mobile money network
                             and enter the registered number to receive a payment prompt.</p>
-                        <div class="momo-networks">
-                            <!-- MTN MoMo -->
-                            <div class="momo-net selected" id="mn-mtn" onclick="selectMomo('mtn')">
-                                <span class="momo-net-icon"
-                                    style="display:flex;align-items:center;justify-content:center;background:#FFCB00;border-radius:8px;padding:4px 8px;margin-bottom:4px;">
+                        <div class="momo-networks" style="display:flex;gap:.75rem;margin-bottom:1.25rem;">
+                            <!-- MTN MoMo — Official yellow brand -->
+                            <div class="momo-net selected" data-net="mtn">
+                                <div
+                                    style="display:flex;align-items:center;justify-content:center;background:#FFCB00;border-radius:8px;padding:5px 10px;margin-bottom:6px;">
                                     <span
-                                        style="font-size:0.85rem;font-weight:900;color:#000;letter-spacing:0.5px;">MTN</span>
-                                </span>
-                                MTN MoMo
+                                        style="font-size:0.9rem;font-weight:900;color:#000;letter-spacing:0.5px;">MTN</span>
+                                </div>
+                                <div style="font-weight:700;font-size:.82rem;">MoMo</div>
+                                <div class="momo-network-badge" style="background:#FFCB00;color:#000;">024 · 025 ·
+                                    053–055 · 059</div>
                             </div>
-                            <!-- Telecel Cash — brand colour: RED -->
-                            <div class="momo-net" id="mn-voda" onclick="selectMomo('voda')">
-                                <span class="momo-net-icon"
-                                    style="display:flex;align-items:center;justify-content:center;background:#E30613;border-radius:8px;padding:4px 8px;margin-bottom:4px;">
+                            <!-- Telecel Cash — brand RED -->
+                            <div class="momo-net" data-net="telecel">
+                                <div
+                                    style="display:flex;align-items:center;justify-content:center;background:#E30613;border-radius:8px;padding:5px 10px;margin-bottom:6px;">
                                     <span
-                                        style="font-size:0.7rem;font-weight:900;color:#fff;letter-spacing:0.3px;">Telecel</span>
-                                </span>
-                                Telecel Cash
+                                        style="font-size:0.75rem;font-weight:900;color:#fff;letter-spacing:0.3px;">TELECEL</span>
+                                </div>
+                                <div style="font-weight:700;font-size:.82rem;">Cash</div>
+                                <div class="momo-network-badge" style="background:#E30613;color:#fff;">020 · 050</div>
                             </div>
                             <!-- AirtelTigo — Red + Blue brand -->
-                            <div class="momo-net" id="mn-airtel" onclick="selectMomo('airtel')">
-                                <span class="momo-net-icon"
-                                    style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#E30613 0%,#003087 100%);border-radius:8px;padding:4px 8px;margin-bottom:4px;">
+                            <div class="momo-net" data-net="airteltigo">
+                                <div
+                                    style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#E30613 0%,#003087 100%);border-radius:8px;padding:5px 10px;margin-bottom:6px;">
                                     <span
                                         style="font-size:0.6rem;font-weight:900;color:#fff;letter-spacing:0.2px;">AirtelTigo</span>
-                                </span>
-                                AirtelTigo
+                                </div>
+                                <div style="font-weight:700;font-size:.82rem;">Money</div>
+                                <div class="momo-network-badge" style="background:#003087;color:#fff;">027 · 057 · 026 ·
+                                    056</div>
                             </div>
                         </div>
-                        <div class="fi"><label>Mobile Money Number *</label><input type="tel" id="momoNum"
-                                placeholder="e.g. 024 XXX XXXX">
-                            <small id="momoNetworkHint" class="phone-helper-text">Use a Ghana mobile number (e.g. 024,
-                                050, 027). We’ll detect the correct network automatically.</small>
+                        <div class="fi">
+                            <label>Mobile Money Number *</label>
+                            <input type="tel" id="momoNumber" placeholder="e.g. 024 XXX XXXX" required>
+                            <small id="momoError" class="phone-error-text"></small>
+                            <small class="phone-helper-text">Type your number — we detect the network from your prefix
+                                automatically.</small>
                         </div>
                         <div class="fi"><label>Account Name</label><input type="text" id="momoName"
                                 placeholder="Name on MoMo account"></div>
                         <div
-                            style="background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.25);border-radius:12px;padding:1rem;font-size:.83rem;color:#5a4200;margin-top:.5rem">
+                            style="background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.25);border-radius:12px;padding:1rem;font-size:.83rem;color:var(--text-secondary);margin-top:.5rem">
                             <i class="fas fa-info-circle" style="color:#FFD700"></i> After clicking <strong>Confirm
                                 Payment</strong>, you will receive a payment prompt on your phone. Approve it to
                             complete your registration.
