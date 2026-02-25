@@ -8,20 +8,21 @@
 
 /* CSS Variables */
 :root {
-  /* Brand Colors */
+  /* Brand Colors - Light mode (White / Yellow / Black) */
   --primary-yellow: #FFD700;
   --primary-black: #000000;
-  --secondary-yellow: #FFC700;
+  --secondary-yellow: #FFE34A;
   --accent-gold: #E6C200;
-  --dark-gray: #1a1a1a;
-  --medium-gray: #555;
+  --dark-gray: #111111;
+  --medium-gray: #555555;
   --light-gray: #f5f5f5;
   --border-gray: #e0e0e0;
   --white: #ffffff;
 
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
-  --gradient-dark: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  /* Dark "brand" theme uses a yellow-based dark gradient */
+  --gradient-dark: linear-gradient(135deg, #050505 0%, #000000 100%);
   --gradient-subtle: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(255, 199, 0, 0.1) 100%);
 
   /* Typography */
@@ -57,30 +58,22 @@
   --transition-bounce: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Accessible light theme overrides (toggled via data-theme on <html>) */
+/* Accessible light theme overrides (toggled via data-theme on <html>)
+   Keeps the same White / Yellow / Black system but with slightly softer grays */
 :root[data-theme="accessible-light"] {
-  /* Rich indigo-violet palette — elegant, readable, and visually distinct
-     from the dark theme while looking polished on white/light backgrounds */
-  --primary-yellow: #4f46e5;
-  /* indigo for accents & highlights */
-  --primary-black: #0f172a;
-  /* deep navy for primary text */
-  --secondary-yellow: #7c3aed;
-  /* violet for secondary accents */
-  --accent-gold: #6366f1;
-  /* soft indigo for hover/focus */
-  --dark-gray: #1e293b;
-  --medium-gray: #475569;
-  --light-gray: #f8fafc;
-  --border-gray: #e2e8f0;
+  --primary-yellow: #FFD700;
+  --primary-black: #000000;
+  --secondary-yellow: #FFE34A;
+  --accent-gold: #E6C200;
+  --dark-gray: #111111;
+  --medium-gray: #444444;
+  --light-gray: #f9fafb;
+  --border-gray: #d1d5db;
   --white: #ffffff;
 
-  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
-  --gradient-dark: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
-  --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(124, 58, 237, 0.10) 100%);
-
-  --shadow-yellow: 0 4px 20px rgba(99, 102, 241, 0.22);
-  --shadow-yellow-lg: 0 8px 32px rgba(99, 102, 241, 0.32);
+  --gradient-primary: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
+  --gradient-dark: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.04) 100%);
 }
 
 /* Reset & Base Styles */
@@ -105,10 +98,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Light theme — base text colors for all pages */
 [data-theme="accessible-light"] body {
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: var(--white);
+  color: var(--dark-gray);
 }
 
 [data-theme="accessible-light"] h1,
@@ -117,19 +109,103 @@ body {
 [data-theme="accessible-light"] h4,
 [data-theme="accessible-light"] h5,
 [data-theme="accessible-light"] h6 {
-  color: #0f172a;
+  color: #111827;
 }
 
 [data-theme="accessible-light"] p {
-  color: #475569;
+  color: #374151;
 }
 
 [data-theme="accessible-light"] .section-title {
-  color: #0f172a;
+  color: #111827;
 }
 
 [data-theme="accessible-light"] .section-subtitle {
-  color: #475569;
+  color: #374151;
+}
+
+[data-theme="accessible-light"] .section-dark .section-title {
+  color: #fbbf24;
+}
+
+[data-theme="accessible-light"] .section-dark .section-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="accessible-light"] .hero-title {
+  color: #b45309;
+}
+
+[data-theme="accessible-light"] .hero-subtitle {
+  color: #374151;
+}
+
+[data-theme="accessible-light"] .hero-content {
+  color: #111827;
+}
+
+[data-theme="accessible-light"] .card,
+[data-theme="accessible-light"] .card-title,
+[data-theme="accessible-light"] .card-text {
+  color: #111827;
+}
+
+[data-theme="accessible-light"] .course-title,
+[data-theme="accessible-light"] .course-description,
+[data-theme="accessible-light"] .course-duration,
+[data-theme="accessible-light"] .course-features li {
+  color: #111827;
+}
+
+[data-theme="accessible-light"] .course-type {
+  color: #374151;
+}
+
+[data-theme="accessible-light"] .feature-title {
+  color: #111827;
+}
+
+[data-theme="accessible-light"] .feature-description {
+  color: #374151;
+}
+
+[data-theme="accessible-light"] .testimonial-text,
+[data-theme="accessible-light"] .testimonial-info p {
+  color: #374151;
+}
+
+[data-theme="accessible-light"] .testimonial-info h4 {
+  color: #111827;
+}
+
+[data-theme="accessible-light"] .stat-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="accessible-light"] .form-label,
+[data-theme="accessible-light"] .contact-title,
+[data-theme="accessible-light"] .contact-detail {
+  color: #111827;
+}
+
+[data-theme="accessible-light"] .btn-secondary {
+  color: #111827;
+  border-color: #b45309;
+}
+
+[data-theme="accessible-light"] .btn-secondary:hover {
+  background: #f59e0b;
+  color: #fff;
+}
+
+[data-theme="accessible-light"] .btn-outline {
+  color: #111827;
+  border-color: #111827;
+}
+
+[data-theme="accessible-light"] .btn-outline:hover {
+  background: #111827;
+  color: #fff;
 }
 
 /* Typography */
@@ -217,15 +293,13 @@ img {
 }
 
 [data-theme="accessible-light"] .navbar {
-  background: rgba(255, 255, 255, 0.97);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 1px 8px rgba(99, 102, 241, 0.12);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 1px 6px rgba(15, 23, 42, 0.14);
 }
 
 [data-theme="accessible-light"] .navbar.scrolled {
-  background: rgba(255, 255, 255, 0.99);
-  box-shadow: 0 2px 12px rgba(99, 102, 241, 0.15);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.18);
 }
 
 .nav-container {
@@ -307,6 +381,7 @@ img {
 
 .nav-link:hover {
   color: var(--primary-yellow);
+  background: rgba(255, 215, 0, 0.06);
 }
 
 .nav-link:hover::after {
@@ -323,42 +398,24 @@ img {
 }
 
 [data-theme="accessible-light"] .nav-link {
-  color: #4f46e5;
+  color: #374151;
 }
 
 [data-theme="accessible-light"] .nav-link:hover {
-  color: #3730a3;
+  color: var(--primary-black);
 }
 
 [data-theme="accessible-light"] .nav-link::after {
-  background: #4f46e5;
+  background: var(--primary-yellow);
 }
 
 [data-theme="accessible-light"] .nav-link.active {
-  color: #4f46e5;
-  background: rgba(99, 102, 241, 0.08);
-}
-
-/* Scrolled state — same white bar, same indigo links */
-[data-theme="accessible-light"] .navbar.scrolled .nav-link {
-  color: #4f46e5;
-}
-
-[data-theme="accessible-light"] .navbar.scrolled .nav-link:hover {
-  color: #3730a3;
-}
-
-[data-theme="accessible-light"] .navbar.scrolled .nav-link.active {
-  color: #4f46e5;
-  background: rgba(99, 102, 241, 0.08);
+  color: var(--primary-black);
+  background: rgba(249, 250, 251, 1);
 }
 
 [data-theme="accessible-light"] .nav-brand {
-  color: #4f46e5;
-}
-
-[data-theme="accessible-light"] .navbar.scrolled .nav-brand {
-  color: #4f46e5;
+  color: #b45309;
 }
 
 .nav-cta {
@@ -381,52 +438,50 @@ img {
   box-shadow: var(--shadow-yellow-lg);
 }
 
-/* Floating theme toggle (bottom-left, like chatbot) */
-.theme-toggle-float {
-  position: fixed;
-  bottom: 30px;
-  left: 30px;
-  z-index: 998;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: none;
-  background: var(--gradient-primary);
-  color: var(--primary-black);
+/* Theme toggle button inside navbar */
+.theme-toggle-nav {
+  margin-left: 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.4);
+  color: #f9fafb;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0;
-  box-shadow: var(--shadow-yellow);
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
   transition: var(--transition-normal);
   font-family: var(--font-nav);
-  font-weight: 700;
-  font-size: 0.6rem;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  font-size: 0.65rem;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
 }
 
-.theme-toggle-float .theme-toggle-btn-icon {
-  font-size: 1.2rem;
-  display: block;
+.theme-toggle-nav .theme-toggle-btn-icon {
+  font-size: 0.9rem;
   line-height: 1;
 }
 
-.theme-toggle-float .theme-toggle-btn-label {
-  font-size: 0.5rem;
+.theme-toggle-nav .theme-toggle-btn-label {
+  font-size: 0.55rem;
   line-height: 1.2;
 }
 
-.theme-toggle-float:hover {
-  transform: scale(1.1);
-  box-shadow: var(--shadow-yellow-lg);
+.theme-toggle-nav:hover {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: rgba(255, 215, 0, 0.8);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-yellow);
 }
 
-[data-theme="accessible-light"] .theme-toggle-float {
-  background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
-  color: #0f172a;
+[data-theme="accessible-light"] .theme-toggle-nav {
+  background: #ffffff;
+  color: #111111;
+  border-color: rgba(15, 23, 42, 0.12);
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.04);
 }
 
 /* Mobile Menu Toggle */
@@ -731,6 +786,51 @@ img {
   color: var(--primary-black);
 }
 
+/* Structured international phone input */
+.phone-input-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.phone-country-select {
+  min-width: 130px;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--border-gray);
+  background: var(--white);
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--primary-black);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.phone-country-select:focus {
+  outline: none;
+  border-color: var(--primary-yellow);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.12);
+}
+
+.phone-input-row .form-input {
+  flex: 1;
+}
+
+.phone-helper-text {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--medium-gray);
+}
+
+.phone-error-text {
+  display: none;
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  color: #c53030;
+}
+
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
@@ -794,6 +894,8 @@ img {
 .footer-links a:hover {
   color: var(--primary-yellow);
   padding-left: 4px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .footer-bottom {
@@ -833,474 +935,27 @@ img {
   transform: translateY(-3px);
 }
 
-/* ============================================
-   ACCESSIBLE LIGHT THEME — COMPREHENSIVE TEXT FIXES
-   Ensures no white or invisible text on light backgrounds
-   ============================================ */
-
-/* ══════════════════════════════════════════════════════════════════════════
-   LIGHT THEME HERO — Vivid, fully visible animated background
-   Same 5-layer structure as dark theme. Contrast is achieved by using
-   DEEP, SATURATED indigo/violet colors against the pale canvas —
-   exactly how the dark theme uses bright gold against black.
-   ══════════════════════════════════════════════════════════════════════════ */
-
-/* ── Layer 1: Base canvas
-   Deep indigo-midnight tinted overlay over the hero image.
-   We use a semi-transparent deep blue-indigo so the image peeks through
-   and the orbs glow richly on top — same principle as the dark theme's
-   near-black overlay.                                                       */
-[data-theme="accessible-light"] .hero-animated {
-  background:
-    linear-gradient(135deg,
-      rgba(15, 23, 80, 0.82) 0%,
-      rgba(30, 27, 75, 0.84) 40%,
-      rgba(20, 10, 60, 0.82) 80%),
-    url("images/hero-languages.jpg") center/cover no-repeat fixed !important;
-}
-
-/* Fallback for plain .hero (non-animated pages) */
-[data-theme="accessible-light"] .hero {
-  background: linear-gradient(135deg, #0f1750 0%, #1e1b4b 50%, #14063c 100%) !important;
-}
-
-/* ── Layer 2: Orb 1 — Vivid electric indigo, large, top-left
-   Matches the gold orb-1 in intensity: 0.45 → 0.50 opacity on deep base  */
-[data-theme="accessible-light"] .anim-orb-1 {
-  background: radial-gradient(circle,
-      rgba(129, 140, 248, 0.55) 0%,
-      rgba(99, 102, 241, 0.20) 45%,
-      rgba(99, 102, 241, 0.0) 70%);
-  opacity: 0.90;
-  filter: blur(70px);
-}
-
-/* ── Layer 2: Orb 2 — Vibrant violet-magenta, bottom-right              */
-[data-theme="accessible-light"] .anim-orb-2 {
-  background: radial-gradient(circle,
-      rgba(192, 132, 252, 0.50) 0%,
-      rgba(139, 92, 246, 0.18) 45%,
-      rgba(124, 58, 237, 0.0) 70%);
-  opacity: 0.85;
-  filter: blur(75px);
-}
-
-/* ── Layer 2: Orb 3 — Cyan-indigo accent, mid-canvas                    */
-[data-theme="accessible-light"] .anim-orb-3 {
-  background: radial-gradient(circle,
-      rgba(165, 180, 252, 0.45) 0%,
-      rgba(99, 102, 241, 0.15) 45%,
-      rgba(99, 102, 241, 0.0) 70%);
-  opacity: 0.80;
-  filter: blur(65px);
-}
-
-/* ── Layer 3: Dot grid — bright indigo dots, clearly visible on dark base */
-[data-theme="accessible-light"] .anim-grid {
-  background-image:
-    radial-gradient(circle, rgba(165, 180, 252, 0.22) 1px, transparent 1px);
-  background-size: 36px 36px;
-  opacity: 1;
-}
-
-/* ── Layer 4: Shimmer sweep — indigo-white diagonal sheen                 */
-[data-theme="accessible-light"] .anim-shimmer {
-  background: linear-gradient(115deg,
-      transparent 40%,
-      rgba(165, 180, 252, 0.09) 50%,
-      transparent 60%);
-  background-size: 200% 200%;
-  opacity: 1;
-}
-
-/* ── Layer 5: Vignette — deep indigo-black edge crush, same as dark theme */
-[data-theme="accessible-light"] .hero-animated::before {
-  background: radial-gradient(ellipse at center,
-      transparent 28%,
-      rgba(10, 8, 50, 0.45) 100%) !important;
-  z-index: 1;
-}
-
-/* Ambient glow pools that sit behind the hero text block                   */
-[data-theme="accessible-light"] .hero::before {
-  background:
-    radial-gradient(circle at 20% 50%, rgba(129, 140, 248, 0.14) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(192, 132, 252, 0.18) 0%, transparent 50%),
-    radial-gradient(circle at 50% 20%, rgba(165, 180, 252, 0.10) 0%, transparent 40%);
-  pointer-events: none;
-}
-
-/* Decorative ring — soft indigo hairline                                   */
-[data-theme="accessible-light"] .hero::after {
-  border-color: rgba(129, 140, 252, 0.18);
-}
-
-/* Hero text — white on the now-dark indigo canvas (same as dark theme)     */
-[data-theme="accessible-light"] .hero-content {
-  color: #ffffff;
-}
-
-[data-theme="accessible-light"] .hero-title {
-  color: #a5b4fc !important;
-  /* light indigo — same role as gold in dark theme */
-  text-shadow: 0 2px 12px rgba(99, 102, 241, 0.40);
-}
-
-[data-theme="accessible-light"] .hero-subtitle {
-  color: rgba(226, 232, 255, 0.88) !important;
-  /* soft blue-white, matches dark's rgba(255,255,255,0.8) */
-}
-
-/* Visual banner inside hero (campus section) — strong dark overlay so white text pops */
-[data-theme="accessible-light"] .hero-visual-banner {
-  background:
-    linear-gradient(120deg, rgba(10, 10, 40, 0.92), rgba(20, 15, 60, 0.88)),
-    url("images/campus-languages.jpg") center/cover no-repeat !important;
-  box-shadow: 0 16px 40px rgba(10, 8, 50, 0.35);
-}
-
-[data-theme="accessible-light"] .hero-visual-content {
-  color: #ffffff;
-}
-
-[data-theme="accessible-light"] .hero-visual-tagline {
-  color: rgba(226, 232, 255, 0.80);
-}
-
-[data-theme="accessible-light"] .hero-visual-tagline i {
-  color: #a5b4fc;
-}
-
-[data-theme="accessible-light"] .hero-visual-text {
-  color: rgba(226, 232, 255, 0.88);
-}
-
-/* Buttons — btn-secondary on light backgrounds must be clearly visible */
-[data-theme="accessible-light"] .btn-secondary {
-  color: #4f46e5;
-  border-color: #4f46e5;
-  background: transparent;
-}
-
-[data-theme="accessible-light"] .btn-secondary:hover {
-  background: #4f46e5;
-  color: #ffffff;
-  border-color: #4f46e5;
-}
-
-/* Section dark — fix white-on-light issue */
-[data-theme="accessible-light"] .section-dark {
-  background: linear-gradient(135deg, #f0f4ff 0%, #ede9fe 100%);
-  color: #0f172a;
-}
-
-/* Catch ALL direct and nested text inside section-dark — covers any custom classes */
-[data-theme="accessible-light"] .section-dark,
-[data-theme="accessible-light"] .section-dark * {
-  color: #0f172a;
-}
-
-/* Paragraphs and descriptive text — slightly lighter slate */
-[data-theme="accessible-light"] .section-dark p,
-[data-theme="accessible-light"] .section-dark li,
-[data-theme="accessible-light"] .section-dark small,
-[data-theme="accessible-light"] .section-dark label {
-  color: #475569;
-}
-
-/* Section titles stay indigo */
-[data-theme="accessible-light"] .section-dark .section-title,
-[data-theme="accessible-light"] .section-dark h2 {
-  color: #4f46e5;
-}
-
-[data-theme="accessible-light"] .section-dark .section-subtitle {
-  color: #475569;
-}
-
-/* All headings inside section-dark — dark navy */
-[data-theme="accessible-light"] .section-dark h1,
-[data-theme="accessible-light"] .section-dark h3,
-[data-theme="accessible-light"] .section-dark h4,
-[data-theme="accessible-light"] .section-dark h5,
-[data-theme="accessible-light"] .section-dark h6 {
-  color: #0f172a;
-}
-
-/* Sections using gradient-subtle also get light background — fix any white text */
-[data-theme="accessible-light"] .section-light,
-[data-theme="accessible-light"] [style*="gradient-subtle"] {
-  color: #0f172a;
-}
-
-/* Generic faint text on light sections — covers "Have more questions?" and similar */
-[data-theme="accessible-light"] .text-muted,
-[data-theme="accessible-light"] .faq-footer,
-[data-theme="accessible-light"] .cta-text,
-[data-theme="accessible-light"] .helper-text {
-  color: #475569;
-}
-
-/* Stat items (often on dark sections) */
-[data-theme="accessible-light"] .stat-number {
-  color: #4f46e5;
-}
-
-[data-theme="accessible-light"] .stat-label {
-  color: #334155;
-}
-
-/* Stat items inside section-dark on light theme — section-dark becomes a
-   light indigo-tinted background, so stats must stay dark & readable      */
-[data-theme="accessible-light"] .section-dark .stat-number {
-  color: #4f46e5;
-}
-
-[data-theme="accessible-light"] .section-dark .stat-label {
-  color: #334155;
-}
-
-/* btn-outline — used on light-background sections, stays dark/indigo      */
-[data-theme="accessible-light"] .btn-outline {
-  color: #0f172a;
-  border-color: #4f46e5;
-}
-
-[data-theme="accessible-light"] .btn-outline:hover {
-  background: #4f46e5;
-  color: #ffffff;
-}
-
-/* Broad safety net — any span or small text on a light section background
-   that might still inherit white from a parent dark rule               */
-[data-theme="accessible-light"] .section p,
-[data-theme="accessible-light"] .section span,
-[data-theme="accessible-light"] .section small,
-[data-theme="accessible-light"] .section-light p,
-[data-theme="accessible-light"] .section-light span,
-[data-theme="accessible-light"] .section-light small {
-  color: #475569;
-}
-
-/* Ensure icon colours inside section-dark don't get overridden to black */
-[data-theme="accessible-light"] .section-dark .card-icon,
-[data-theme="accessible-light"] .section-dark .feature-icon {
-  color: #0f172a;
-}
-
-/* Section title underline bar — indigo in light theme */
-[data-theme="accessible-light"] .section-title::after {
-  background: #6366f1;
-}
-
-/* Section title text */
-[data-theme="accessible-light"] .section-title {
-  color: #0f172a;
-}
-
-/* Cards — light theme */
-[data-theme="accessible-light"] .card {
-  background: #ffffff;
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .card-title {
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .card-text {
-  color: #475569;
-}
-
-/* Course cards */
-[data-theme="accessible-light"] .course-title {
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .course-type {
-  color: #475569;
-}
-
-[data-theme="accessible-light"] .course-description {
-  color: #475569;
-}
-
-[data-theme="accessible-light"] .course-duration {
-  color: #475569;
-}
-
-[data-theme="accessible-light"] .course-features li {
-  color: #475569;
-}
-
-[data-theme="accessible-light"] .course-price {
-  color: #0f172a;
-}
-
-/* Testimonials */
-[data-theme="accessible-light"] .testimonial-card {
-  background: #ffffff;
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .testimonial-text {
-  color: #475569;
-}
-
-[data-theme="accessible-light"] .testimonial-info h4 {
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .testimonial-info p {
-  color: #6b7280;
-}
-
-/* Feature boxes */
-[data-theme="accessible-light"] .feature-title {
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .feature-description {
-  color: #475569;
-}
-
-/* Contact cards */
-[data-theme="accessible-light"] .contact-card {
-  background: #ffffff;
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .contact-title {
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .contact-detail {
-  color: #475569;
-}
-
-[data-theme="accessible-light"] .contact-detail a {
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .contact-detail a:hover {
-  color: #4f46e5;
-}
-
-/* Forms */
-[data-theme="accessible-light"] .form-label {
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .form-input,
-[data-theme="accessible-light"] .form-select,
-[data-theme="accessible-light"] .form-textarea {
-  background: #ffffff;
-  color: #0f172a;
-  border-color: #d1d5db;
-}
-
-[data-theme="accessible-light"] .form-input::placeholder,
-[data-theme="accessible-light"] .form-select::placeholder,
-[data-theme="accessible-light"] .form-textarea::placeholder {
-  color: #9ca3af;
-}
-
-/* Gallery captions */
-[data-theme="accessible-light"] .gallery-caption {
-  color: #ffffff;
-  /* kept white — sits on dark overlay */
-}
-
-/* Payment method cards */
-[data-theme="accessible-light"] .payment-method {
-  border-color: #d1d5db;
-  background: #ffffff;
-}
-
-[data-theme="accessible-light"] .payment-method-title {
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .payment-method-desc {
-  color: #475569;
-}
-
-[data-theme="accessible-light"] .payment-method.active {
-  border-color: #4f46e5;
-  background: rgba(99, 102, 241, 0.06);
-}
-
-/* Badges */
-[data-theme="accessible-light"] .badge-dark {
-  background: #111827;
-  color: #a5b4fc;
-}
-
-/* Breadcrumb */
-[data-theme="accessible-light"] .breadcrumb a {
-  color: #6b7280;
-}
-
-[data-theme="accessible-light"] .breadcrumb a:hover {
-  color: #4f46e5;
-}
-
-[data-theme="accessible-light"] .breadcrumb-current {
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .breadcrumb-separator {
-  color: #9ca3af;
-}
-
-/* Alerts */
-[data-theme="accessible-light"] .alert-warning {
-  border-color: #4f46e5;
-  color: #3730a3;
-}
-
-/* Chatbot trigger — recolor from yellow/black to indigo/white in light theme */
-[data-theme="accessible-light"] .chatbot-trigger {
-  background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
-  color: #ffffff;
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
-}
-
-[data-theme="accessible-light"] .chatbot-trigger:hover {
-  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.45);
-}
-
-/* Mobile nav menu — dark indigo so light nav links remain readable */
-[data-theme="accessible-light"] .nav-menu {
-  background: rgba(255, 255, 255, 0.99);
-}
-
-/* Menu toggle bars */
-[data-theme="accessible-light"] .menu-toggle span {
-  background: #4f46e5;
-}
-
 /* Footer colors in accessible light theme */
 [data-theme="accessible-light"] .footer {
   background: #f9fafb;
-  color: #0f172a;
+  color: #111827;
   padding: var(--spacing-xl) 0 var(--spacing-md);
 }
 
 [data-theme="accessible-light"] .footer-section h3 {
-  color: #4f46e5;
+  color: #b45309;
 }
 
 [data-theme="accessible-light"] .footer-links li {
-  color: #475569;
+  color: #374151;
 }
 
 [data-theme="accessible-light"] .footer-links a {
-  color: #475569;
+  color: #374151;
 }
 
 [data-theme="accessible-light"] .footer-links a:hover {
-  color: #4f46e5;
+  color: #b45309;
 }
 
 [data-theme="accessible-light"] .footer-bottom {
@@ -1309,160 +964,17 @@ img {
 }
 
 [data-theme="accessible-light"] .footer-bottom a {
-  color: #4f46e5;
+  color: #b45309;
 }
 
 [data-theme="accessible-light"] .social-link {
   background: rgba(249, 250, 251, 1);
-  color: #4f46e5;
+  color: #b45309;
 }
 
 [data-theme="accessible-light"] .social-link:hover {
-  background: #4f46e5;
+  background: #b45309;
   color: #f9fafb;
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT THEME — HARDCODED WHITE TEXT FIXES
-   Every element below uses rgba(255,255,255,X) or var(--white) which
-   cannot be overridden by CSS variables alone. Each one is explicitly
-   fixed here so light backgrounds show dark/indigo text and indigo
-   backgrounds show white text.
-   Rule: white/light bg → indigo/dark text. Indigo bg → white text.
-   ══════════════════════════════════════════════════════════════════ */
-
-/* nav-link base — hardcoded rgba white in dark theme */
-[data-theme="accessible-light"] .nav-link {
-  color: #4f46e5;
-}
-
-[data-theme="accessible-light"] .nav-link:hover {
-  color: #3730a3;
-}
-
-[data-theme="accessible-light"] .nav-link.active {
-  color: #4f46e5;
-  background: rgba(99, 102, 241, 0.08);
-}
-
-/* hero-content — var(--white) on dark hero canvas stays white (correct) */
-/* hero-subtitle — rgba(255,255,255,0.8) on dark hero canvas stays white (correct) */
-
-/* btn-secondary — var(--white) text, now on light bg needs indigo */
-[data-theme="accessible-light"] .btn-secondary {
-  color: #4f46e5;
-  border-color: #4f46e5;
-  background: transparent;
-}
-
-[data-theme="accessible-light"] .btn-secondary:hover {
-  background: #4f46e5;
-  color: #ffffff;
-  border-color: #4f46e5;
-}
-
-/* section-dark — var(--white) color, now on light lavender bg needs dark */
-[data-theme="accessible-light"] .section-dark {
-  background: linear-gradient(135deg, #f0f4ff 0%, #ede9fe 100%);
-  color: #0f172a;
-}
-
-/* ALL children inside section-dark — catches any custom class */
-[data-theme="accessible-light"] .section-dark * {
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .section-dark p,
-[data-theme="accessible-light"] .section-dark li,
-[data-theme="accessible-light"] .section-dark small,
-[data-theme="accessible-light"] .section-dark span,
-[data-theme="accessible-light"] .section-dark label {
-  color: #475569;
-}
-
-[data-theme="accessible-light"] .section-dark h1,
-[data-theme="accessible-light"] .section-dark h2,
-[data-theme="accessible-light"] .section-dark h3,
-[data-theme="accessible-light"] .section-dark h4,
-[data-theme="accessible-light"] .section-dark h5,
-[data-theme="accessible-light"] .section-dark h6 {
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .section-dark .section-title {
-  color: #4f46e5;
-}
-
-/* section-dark subtitle — hardcoded rgba white */
-[data-theme="accessible-light"] .section-dark .section-subtitle {
-  color: #475569;
-}
-
-/* stat numbers stay indigo, labels stay dark slate */
-[data-theme="accessible-light"] .section-dark .stat-number {
-  color: #4f46e5;
-}
-
-[data-theme="accessible-light"] .section-dark .stat-label {
-  color: #334155;
-}
-
-/* buttons inside section-dark — keep them visible */
-[data-theme="accessible-light"] .section-dark .btn-primary {
-  color: #ffffff;
-}
-
-[data-theme="accessible-light"] .section-dark .btn-secondary {
-  color: #4f46e5;
-  border-color: #4f46e5;
-}
-
-/* footer — var(--white) + rgba white texts, now on light bg */
-[data-theme="accessible-light"] .footer {
-  background: #f9fafb;
-  color: #0f172a;
-}
-
-[data-theme="accessible-light"] .footer-section h3 {
-  color: #4f46e5;
-}
-
-/* footer-links li — rgba(255,255,255,0.7) */
-[data-theme="accessible-light"] .footer-links li {
-  color: #475569;
-}
-
-[data-theme="accessible-light"] .footer-links li i {
-  color: #4f46e5;
-}
-
-/* footer-links a — rgba(255,255,255,0.7) */
-[data-theme="accessible-light"] .footer-links a {
-  color: #475569;
-}
-
-[data-theme="accessible-light"] .footer-links a:hover {
-  color: #4f46e5;
-}
-
-/* footer-bottom — rgba(255,255,255,0.5) */
-[data-theme="accessible-light"] .footer-bottom {
-  color: #6b7280;
-  border-top: 1px solid #e5e7eb;
-}
-
-[data-theme="accessible-light"] .footer-bottom a {
-  color: #4f46e5;
-}
-
-[data-theme="accessible-light"] .social-link {
-  background: rgba(99, 102, 241, 0.08);
-  color: #4f46e5;
-}
-
-[data-theme="accessible-light"] .social-link:hover {
-  background: #4f46e5;
-  color: #ffffff;
 }
 
 /* ============================================

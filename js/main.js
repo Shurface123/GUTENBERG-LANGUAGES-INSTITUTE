@@ -110,22 +110,27 @@ document.addEventListener('DOMContentLoaded', function () {
         return 'brand';
     }
 
-    // Floating theme toggle (bottom-left, like chatbot but opposite side)
-    const themeFloat = document.createElement('button');
-    themeFloat.type = 'button';
-    themeFloat.id = 'themeToggle';
-    themeFloat.className = 'theme-toggle-float';
-    themeFloat.innerHTML = '<span class="theme-toggle-btn-icon fas fa-moon"></span><span class="theme-toggle-btn-label">Dark</span>';
-    themeFloat.setAttribute('aria-pressed', 'false');
-    themeFloat.setAttribute('aria-label', 'Switch to accessible light theme');
-    document.body.appendChild(themeFloat);
-    themeToggleBtn = themeFloat;
+    // Theme toggle inside navbar (desktop + mobile)
+    const navContainer = document.querySelector('.nav-container');
+    if (navContainer) {
+        const themeBtn = document.createElement('button');
+        themeBtn.type = 'button';
+        themeBtn.id = 'themeToggle';
+        themeBtn.className = 'theme-toggle-nav';
+        themeBtn.innerHTML = '<span class="theme-toggle-btn-icon fas fa-moon"></span><span class="theme-toggle-btn-label">Dark</span>';
+        themeBtn.setAttribute('aria-pressed', 'false');
+        themeBtn.setAttribute('aria-label', 'Switch to accessible light theme');
+        navContainer.appendChild(themeBtn);
+        themeToggleBtn = themeBtn;
+    }
 
-    themeToggleBtn.addEventListener('click', function () {
-        const current = rootEl.getAttribute('data-theme') === 'accessible-light' ? 'accessible-light' : 'brand';
-        const next = current === 'accessible-light' ? 'brand' : 'accessible-light';
-        applyTheme(next);
-    });
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', function () {
+            const current = rootEl.getAttribute('data-theme') === 'accessible-light' ? 'accessible-light' : 'brand';
+            const next = current === 'accessible-light' ? 'brand' : 'accessible-light';
+            applyTheme(next);
+        });
+    }
 
     applyTheme(getInitialTheme(), { persist: false });
 
@@ -177,6 +182,62 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     });
+
+    // ========== STRUCTURED PHONE INPUT ENHANCEMENTS ==========
+    function enhancePhoneInputs() {
+        const countryOptions = [
+            { value: '+233', label: '🇬🇭 +233 Ghana' },
+            { value: '+234', label: '🇳🇬 +234 Nigeria' },
+            { value: '+44', label: '🇬🇧 +44 United Kingdom' },
+            { value: '+1', label: '🇺🇸 +1 USA / Canada' },
+            { value: '+49', label: '🇩🇪 +49 Germany' },
+            { value: '+33', label: '🇫🇷 +33 France' }
+        ];
+
+        const groups = document.querySelectorAll('[data-phone-group]');
+        groups.forEach(group => {
+            const input = group.querySelector('input[type="tel"]');
+            if (!input || group.dataset.phoneEnhanced === 'true') return;
+
+            // Wrap existing input inside a flex row with a country select
+            const row = document.createElement('div');
+            row.className = 'phone-input-row';
+
+            const select = document.createElement('select');
+            select.className = 'phone-country-select';
+            countryOptions.forEach((opt, idx) => {
+                const optionEl = document.createElement('option');
+                optionEl.value = opt.value;
+                optionEl.textContent = opt.label;
+                if (idx === 0) optionEl.selected = true; // Default Ghana
+                select.appendChild(optionEl);
+            });
+
+            // Insert row before input and move input inside row
+            input.parentNode.insertBefore(row, input);
+            row.appendChild(select);
+            row.appendChild(input);
+
+            function syncInternationalValue() {
+                const dial = select.value || '';
+                const rawLocal = input.value.replace(/[^0-9]/g, '');
+                if (!rawLocal) {
+                    input.value = '';
+                    return;
+                }
+                // Basic grouping for readability
+                const grouped = rawLocal.replace(/(.{3})/g, '$1 ').trim();
+                input.value = (dial + ' ' + grouped).trim();
+            }
+
+            select.addEventListener('change', syncInternationalValue);
+            input.addEventListener('blur', syncInternationalValue);
+
+            group.dataset.phoneEnhanced = 'true';
+        });
+    }
+
+    enhancePhoneInputs();
 
     // ========== ANIMATIONS ON SCROLL ==========
     const observerOptions = {

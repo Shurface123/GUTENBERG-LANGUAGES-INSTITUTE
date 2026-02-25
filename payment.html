@@ -945,8 +945,11 @@
                     <div class="fi-row">
                         <div class="fi"><label>Email Address *</label><input type="email" id="email"
                                 placeholder="kofi@email.com"></div>
-                        <div class="fi"><label>Phone Number *</label><input type="tel" id="phone"
-                                placeholder="e.g. +233 50 979 6187 or +44 7700 900000"></div>
+                        <div class="fi" data-phone-group="payment-phone"><label>Phone Number *</label><input type="tel"
+                                id="phone" placeholder="e.g. 50 979 6187" pattern="[0-9 ()\-]{6,20}">
+                            <small class="phone-helper-text">Select your country code and then type the local number
+                                only.</small>
+                        </div>
                     </div>
                     <div class="fi"><label>Residential Address *</label><input type="text" id="address"
                             placeholder="Street, City, Ghana"></div>
@@ -1065,7 +1068,10 @@
                             </div>
                         </div>
                         <div class="fi"><label>Mobile Money Number *</label><input type="tel" id="momoNum"
-                                placeholder="e.g. +233 24 XXX XXXX or 024 XXX XXXX"></div>
+                                placeholder="e.g. 024 XXX XXXX">
+                            <small id="momoNetworkHint" class="phone-helper-text">Use a Ghana mobile number (e.g. 024,
+                                050, 027). We’ll detect the correct network automatically.</small>
+                        </div>
                         <div class="fi"><label>Account Name</label><input type="text" id="momoName"
                                 placeholder="Name on MoMo account"></div>
                         <div
@@ -1258,28 +1264,49 @@
                 <div class="footer-section">
                     <h3>Gutenberg Languages Institute</h3>
                     <p>Empowering global communication through expert language education since 2015.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/@Gutenberg Languages Institute/" class="social-link"
+                            aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.tiktok.com/@Gutenberg Languages Institute" class="social-link"
+                            aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.youtube.com/@Gutenberg Languages Institute" class="social-link"
+                            aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.linkedin.com/company/@Gutenberg Languages Institute" class="social-link"
+                            aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
                         <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
                         <li><a href="courses.html">Courses</a></li>
-                        <li><a href="booking.html">Book Session</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="reviews.html">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Programs</h3>
+                    <ul class="footer-links">
+                        <li><a href="courses.html#super-intensive">Super Intensive Course</a></li>
+                        <li><a href="courses.html#intensive">Intensive Course</a></li>
+                        <li><a href="courses.html#normal">Normal Course</a></li>
+                        <li><a href="application.html">Online Application</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Contact Us</h3>
                     <ul class="footer-links">
-                        <li><i class="fas fa-phone"></i> +233 50 979 6187</li>
-                        <li><i class="fas fa-phone"></i> +233 53 520 3749</li>
+                        <li><i class="fas fa-phone"></i> +233 50 979 6187, +233 53 520 3749</li>
                         <li><i class="fas fa-envelope"></i> glicampus05@gmail.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Lashibi Com 17 Junction, Accra</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Lashibi Com 17 Junction, Accra, Ghana</li>
+                        <li><a href="contact.html">Contact Form</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Gutenberg Languages Institute. All rights reserved.</p>
+                <p>&copy; 2026 Gutenberg Languages Institute. All rights reserved. | <a href="#">Privacy Policy</a> | <a
+                        href="#">Terms of Service</a></p>
             </div>
         </div>
     </footer>
@@ -1295,7 +1322,14 @@
             intensive: { name: 'Intensive Course', sub: '10–12 Weeks · Balanced', fee: 3600, total: 3650 },
             normal: { name: 'Normal Course', sub: '16–20 Weeks · Flexible', fee: 4000, total: 4050 }
         };
-        let state = { course: null, lang: null, method: 'card' };
+        let state = { course: null, lang: null, method: 'card', momoNet: 'mtn' };
+
+        // Ghana mobile money prefixes (0XX)
+        const MOMO_PREFIXES = {
+            mtn: ['024', '025', '053', '054', '055', '059'],
+            voda: ['020', '050'],                 // Telecel
+            airtel: ['026', '027', '056', '057']  // AirtelTigo
+        };
 
         // ─── Course Selection ─────────────────────────────────────────────────────
         function selectCourse(key) {
@@ -1347,7 +1381,17 @@
                 }
                 if (sdErr) sdErr.style.display = 'none';
             }
-            if (n === 4) buildConfirmSummary();
+            if (n === 4) {
+                // For mobile money, ensure the number matches the selected provider prefixes
+                if (state.method === 'momo' && typeof validateMomoNumber === 'function') {
+                    if (!validateMomoNumber()) {
+                        const momoInput = document.getElementById('momoNum');
+                        if (momoInput) momoInput.focus();
+                        return;
+                    }
+                }
+                buildConfirmSummary();
+            }
 
             document.querySelectorAll('.pay-panel').forEach(p => p.classList.remove('active'));
             document.getElementById('step' + n).classList.add('active');
@@ -1372,9 +1416,94 @@
             document.getElementById('finalBtnText').textContent = labels[method];
         }
         function selectMomo(net) {
-            ['mtn', 'voda', 'airtel'].forEach(n => document.getElementById('mn-' + n).classList.remove('selected'));
-            document.getElementById('mn-' + net).classList.add('selected');
+            ['mtn', 'voda', 'airtel'].forEach(n => {
+                const el = document.getElementById('mn-' + n);
+                if (el) el.classList.remove('selected');
+            });
+            const active = document.getElementById('mn-' + net);
+            if (active) active.classList.add('selected');
+            state.momoNet = net;
         }
+
+        function detectMomoFromNumber(rawVal) {
+            if (!rawVal) return null;
+            const match = rawVal.match(/0\d{2}/);
+            if (!match) return null;
+            const prefix = match[0];
+            if (MOMO_PREFIXES.mtn.includes(prefix)) return 'mtn';
+            if (MOMO_PREFIXES.voda.includes(prefix)) return 'voda';
+            if (MOMO_PREFIXES.airtel.includes(prefix)) return 'airtel';
+            return null;
+        }
+
+        function validateMomoNumber() {
+            const input = document.getElementById('momoNum');
+            const hint = document.getElementById('momoNetworkHint');
+            if (!input) return true;
+            const raw = input.value.trim();
+            const net = detectMomoFromNumber(raw);
+            if (!raw) {
+                if (hint) {
+                    hint.classList.add('phone-error-text');
+                    hint.style.display = 'block';
+                    hint.textContent = 'Please enter a valid Ghana mobile money number (e.g. 024, 050, 027).';
+                }
+                return false;
+            }
+            if (!net) {
+                if (hint) {
+                    hint.classList.add('phone-error-text');
+                    hint.style.display = 'block';
+                    hint.textContent = 'Phone prefix not recognised. Use a Ghana mobile number starting with 024, 025, 053, 054, 055, 059, 020, 050, 026, 027, 056 or 057.';
+                }
+                return false;
+            }
+            if (net !== state.momoNet) {
+                selectMomo(net);
+                if (hint) {
+                    hint.classList.remove('phone-error-text');
+                    hint.style.display = 'block';
+                    const providerLabel = net === 'mtn' ? 'MTN MoMo' : (net === 'voda' ? 'Telecel Cash' : 'AirtelTigo');
+                    hint.textContent = 'We detected a ' + providerLabel + ' number and switched the network for you.';
+                }
+            } else if (hint) {
+                hint.style.display = 'block';
+                hint.classList.remove('phone-error-text');
+                hint.textContent = 'Network and number look good for mobile money.';
+            }
+            return true;
+        }
+
+        (function attachMomoAutoDetect() {
+            const input = document.getElementById('momoNum');
+            if (!input) return;
+            input.addEventListener('input', function () {
+                const raw = this.value.trim();
+                const detected = detectMomoFromNumber(raw);
+                const hint = document.getElementById('momoNetworkHint');
+                if (!detected) {
+                    if (hint) {
+                        hint.style.display = 'block';
+                        hint.classList.remove('phone-error-text');
+                        hint.textContent = 'Enter a Ghana mobile number (e.g. 024, 050, 027). We’ll match it to MTN, Telecel or AirtelTigo.';
+                    }
+                    return;
+                }
+                if (detected !== state.momoNet) {
+                    selectMomo(detected);
+                    if (hint) {
+                        hint.style.display = 'block';
+                        hint.classList.remove('phone-error-text');
+                        const label = detected === 'mtn' ? 'MTN MoMo' : (detected === 'voda' ? 'Telecel Cash' : 'AirtelTigo');
+                        hint.textContent = 'Number prefix matches ' + label + '; network updated.';
+                    }
+                } else if (hint) {
+                    hint.style.display = 'block';
+                    hint.classList.remove('phone-error-text');
+                    hint.textContent = 'Network and number look consistent.';
+                }
+            });
+        })();
 
         // ─── Confirm Summary ──────────────────────────────────────────────────────
         function buildConfirmSummary() {
