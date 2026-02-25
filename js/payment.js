@@ -76,7 +76,7 @@ function validateStep2() {
     const em = g('infEmail')?.value.trim();
     const ph = g('infPhone')?.value.trim();
     const addr = g('address')?.value.trim();
-    const sd = g('startDate')?.value;
+    const sd = g('startDate')?.value;  // 'YYYY-MM-DD'
     const lv = g('level')?.value;
 
     if (!fn || !ln) { showStepError('Please enter your full name.'); return false; }
@@ -86,13 +86,17 @@ function validateStep2() {
     if (!sd) { showStepError('Please select a start date.'); return false; }
     if (!lv) { showStepError('Please select a proficiency level.'); return false; }
 
-    // Start date must be in the future
-    if (new Date(sd) <= new Date()) {
+    // Timezone-safe date comparison: compare YYYY-MM-DD strings.
+    // todayStr = today's local date; sd is the value from the date input (local date).
+    const todayStr = new Date().toLocaleDateString('en-CA'); // 'YYYY-MM-DD' in local time
+    if (sd < todayStr) {
         const err = g('startDateError');
-        if (err) { err.style.display = 'block'; }
-        showStepError('Start date must be in the future.');
+        if (err) { err.style.display = 'block'; err.style.color = '#c00'; }
+        showStepError('Start date must be today or in the future.');
         return false;
     }
+    const err = g('startDateError');
+    if (err) err.style.display = 'none';
     return true;
 }
 
@@ -230,16 +234,17 @@ function buildConfirmation() {
         { label: 'Phone', value: g('infPhone')?.value?.trim() || '—' },
         { label: 'Course', value: course.label || '—' },
         { label: 'Language', value: state.language || '—' },
+        { label: 'Start Date', value: g('startDate')?.value || '—' },
+        { label: 'Level', value: g('level')?.value || '—' },
         { label: 'Payment Method', value: methodLabel() || '—' },
-        { label: 'Total', value: course.price ? 'GH₵ ' + course.price.toLocaleString() : '—' },
+        { label: 'Total', value: course.price ? 'GH\u20B5 ' + course.price.toLocaleString() : '—' },
     ];
     const container = g('confirmSummary');
     if (!container) return;
     container.innerHTML = rows.map(r =>
-        `<div style="display:flex;justify-content:space-between;align-items:center;
-            padding:.75rem 1rem;background:#f7f7f8;border-radius:10px;font-size:.88rem;gap:1rem">
-            <span style="color:#888;font-weight:600;white-space:nowrap">${r.label}</span>
-            <strong style="color:#111;text-align:right;word-break:break-word">${r.value}</strong>
+        `<div class="conf-row">
+            <span class="conf-label">${r.label}</span>
+            <strong class="conf-value">${r.value}</strong>
         </div>`
     ).join('');
 }
@@ -340,12 +345,11 @@ function g(id) { return document.getElementById(id); }
    INIT
 ═════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-    // Set min date for start date input
+    // Set min date for start date input to TODAY (today is allowed)
     const sd = g('startDate');
     if (sd) {
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        sd.min = tomorrow.toISOString().split('T')[0];
+        // Use en-CA locale to get YYYY-MM-DD in local timezone
+        sd.min = new Date().toLocaleDateString('en-CA');
     }
 
     // Wire up MoMo network buttons (data-net attribute)
@@ -360,11 +364,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const cvv = g('cardCvv');
     if (cvv) cvv.addEventListener('input', () => { cvv.value = cvv.value.replace(/\D/g, '').substring(0, 4); });
 
-    // Start date future validation
+    // Real-time start date validation
     if (sd) {
         sd.addEventListener('change', () => {
             const err = g('startDateError');
-            if (err) err.style.display = new Date(sd.value) <= new Date() ? 'block' : 'none';
+            if (!err) return;
+            const todayStr = new Date().toLocaleDateString('en-CA');
+            if (sd.value && sd.value < todayStr) {
+                err.style.display = 'block';
+                err.style.color = '#c00';
+            } else {
+                err.style.display = 'none';
+            }
         });
     }
 

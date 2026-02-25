@@ -165,7 +165,7 @@
             white-space: nowrap;
             position: relative;
             z-index: 2;
-            background: #fff;
+            background: var(--bg-secondary, #fff);
             padding: 0 4px
         }
 
@@ -180,7 +180,7 @@
 
         /* ─── Panels ─── */
         .pay-panel {
-            background: #fff;
+            background: var(--bg-primary, #fff);
             border-radius: 20px;
             box-shadow: 0 4px 24px rgba(0, 0, 0, .07);
             padding: 2rem;
@@ -207,7 +207,7 @@
         .panel-title {
             font-size: 1.3rem;
             font-weight: 800;
-            color: #111;
+            color: var(--text-primary, #111);
             margin: 0 0 1.75rem;
             display: flex;
             align-items: center;
@@ -594,11 +594,11 @@
         }
 
         .summary-card {
-            background: #fff;
+            background: var(--bg-primary, #fff);
             border-radius: 20px;
             box-shadow: 0 4px 24px rgba(0, 0, 0, .07);
             padding: 1.75rem;
-            border: 1.5px solid #f0f0f0
+            border: 1.5px solid var(--border-color, #f0f0f0)
         }
 
         .summary-title {
@@ -811,6 +811,290 @@
                 grid-template-columns: 1fr
             }
         }
+
+        /* ─── Confirmation Rows (replaces inline styles) ─── */
+        .conf-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: .75rem 1rem;
+            background: #f7f7f8;
+            border-radius: 10px;
+            font-size: .88rem;
+            gap: 1rem;
+            margin-bottom: .5rem
+        }
+
+        .conf-label {
+            color: #888;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0
+        }
+
+        .conf-value {
+            color: #111;
+            text-align: right;
+            word-break: break-word
+        }
+
+        /* ─── Field-level error messages ─── */
+        .pay-field-error {
+            display: none;
+            color: #c0392b;
+            font-size: .78rem;
+            margin-top: 4px;
+            font-weight: 600
+        }
+
+        /* ─── Mobile: step labels hidden below 480px ─── */
+        @media(max-width:480px) {
+            .step-label {
+                display: none
+            }
+
+            .step-num {
+                width: 30px;
+                height: 30px;
+                font-size: .78rem
+            }
+
+            .pay-progress {
+                gap: 0
+            }
+
+            .pay-panel {
+                padding: 1.25rem
+            }
+
+            .pay-wrapper {
+                padding: 1.5rem 1rem
+            }
+
+            .btn-next,
+            .btn-back {
+                padding: .85rem 1rem;
+                font-size: .85rem
+            }
+
+            .pm-tabs {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .panel-title {
+                font-size: 1.1rem
+            }
+        }
+
+        /* ─── Dark mode overrides ─── */
+        [data-theme="dark"] .pay-hero {
+            background: linear-gradient(160deg, #050505, #111)
+        }
+
+        [data-theme="dark"] .pay-hero h1 {
+            color: #fff
+        }
+
+        [data-theme="dark"] .pay-hero p {
+            color: rgba(255, 255, 255, .55)
+        }
+
+        [data-theme="dark"] .step-label {
+            background: var(--bg-primary, #0f0f0f);
+            color: #aaa
+        }
+
+        [data-theme="dark"] .pay-step.active .step-label {
+            color: #fff
+        }
+
+        [data-theme="dark"] .step-num {
+            background: #2a2a2a;
+            color: #aaa
+        }
+
+        [data-theme="dark"] .pay-panel {
+            background: #141414;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, .4)
+        }
+
+        [data-theme="dark"] .panel-title {
+            color: #f0f0f0
+        }
+
+        [data-theme="dark"] .fi label,
+        [data-theme="dark"] .fi-card label {
+            color: #ccc
+        }
+
+        [data-theme="dark"] .fi input,
+        [data-theme="dark"] .fi select,
+        [data-theme="dark"] .fi-card input {
+            background: #1e1e1e;
+            border-color: #333;
+            color: #eee
+        }
+
+        [data-theme="dark"] .fi input:focus,
+        [data-theme="dark"] .fi select:focus {
+            border-color: #FFD700;
+            background: #222
+        }
+
+        [data-theme="dark"] .course-pick {
+            border-color: #2a2a2a;
+            background: #141414
+        }
+
+        [data-theme="dark"] .course-pick:hover,
+        [data-theme="dark"] .course-pick.selected {
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, .07)
+        }
+
+        [data-theme="dark"] .cp-name,
+        [data-theme="dark"] .cp-amount {
+            color: #eee
+        }
+
+        [data-theme="dark"] .cp-sub,
+        [data-theme="dark"] .cp-curr {
+            color: #777
+        }
+
+        [data-theme="dark"] .lang-chip {
+            border-color: #333;
+            background: #1a1a1a;
+            color: #bbb
+        }
+
+        [data-theme="dark"] .lang-chip.selected {
+            background: #FFD700;
+            color: #000;
+            border-color: #FFD700
+        }
+
+        [data-theme="dark"] .pm-tab {
+            border-color: #2a2a2a;
+            background: #141414
+        }
+
+        [data-theme="dark"] .pm-tab.active {
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, .07)
+        }
+
+        [data-theme="dark"] .pm-tab-label {
+            color: #aaa
+        }
+
+        [data-theme="dark"] .pm-tab.active .pm-tab-label {
+            color: #eee
+        }
+
+        [data-theme="dark"] .card-row {
+            background: #1e1e1e;
+            border-color: #333
+        }
+
+        [data-theme="dark"] .card-row:focus-within {
+            border-color: #FFD700;
+            background: #222
+        }
+
+        [data-theme="dark"] .card-row input {
+            color: #eee
+        }
+
+        [data-theme="dark"] .card-icon-img {
+            background: #333;
+            color: #aaa
+        }
+
+        [data-theme="dark"] .momo-net {
+            border-color: #2a2a2a
+        }
+
+        [data-theme="dark"] .momo-net.selected {
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, .07)
+        }
+
+        [data-theme="dark"] .bank-table tr {
+            border-color: #2a2a2a
+        }
+
+        [data-theme="dark"] .bank-table td:first-child {
+            color: #888
+        }
+
+        [data-theme="dark"] .bank-table td:last-child {
+            color: #eee
+        }
+
+        [data-theme="dark"] .summary-card {
+            background: #141414;
+            border-color: #2a2a2a;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, .4)
+        }
+
+        [data-theme="dark"] .summary-row {
+            color: #aaa
+        }
+
+        [data-theme="dark"] .summary-row strong,
+        [data-theme="dark"] .summary-total-label,
+        [data-theme="dark"] .summary-total-amount {
+            color: #eee
+        }
+
+        [data-theme="dark"] .summary-divider {
+            border-color: #2a2a2a
+        }
+
+        [data-theme="dark"] .need-help {
+            background: #1a1a1a
+        }
+
+        [data-theme="dark"] .need-help p {
+            color: #888
+        }
+
+        [data-theme="dark"] .need-help a {
+            color: #FFD700
+        }
+
+        [data-theme="dark"] .btn-back {
+            background: #222;
+            color: #ccc
+        }
+
+        [data-theme="dark"] .btn-back:hover {
+            background: #2e2e2e
+        }
+
+        [data-theme="dark"] .conf-row {
+            background: #1e1e1e
+        }
+
+        [data-theme="dark"] .conf-label {
+            color: #888
+        }
+
+        [data-theme="dark"] .conf-value {
+            color: #eee
+        }
+
+        [data-theme="dark"] .success-ref {
+            background: #1e1e1e;
+            color: #eee
+        }
+
+        /* ─── Page background wrapper ─── */
+        .pay-bg-wrap {
+            background: var(--bg-secondary, #f7f7f8);
+            padding: 0 0 4rem
+        }
     </style>
 </head>
 
@@ -852,7 +1136,7 @@
     </section>
 
     <!-- Main Wizard -->
-    <div style="background:#f7f7f8;padding:0 0 4rem">
+    <div class="pay-bg-wrap">
         <div class="pay-wrapper">
             <!-- Left: Wizard -->
             <div>
@@ -952,10 +1236,11 @@
                         </div>
                     </div>
                     <div class="fi-row">
-                        <div class="fi"><label>Email Address *</label><input type="email" id="email"
-                                placeholder="kofi@email.com"></div>
-                        <div class="fi" data-phone-group="payment-phone"><label>Phone Number *</label><input type="tel"
-                                id="phone" placeholder="e.g. 50 979 6187" pattern="[0-9 ()\-]{6,20}">
+                        <div class="fi"><label for="infEmail">Email Address *</label><input type="email" id="infEmail"
+                                placeholder="kofi@email.com" required aria-required="true"></div>
+                        <div class="fi" data-phone-group="payment-phone"><label for="infPhone">Phone Number
+                                *</label><input type="tel" id="infPhone" placeholder="e.g. 50 979 6187"
+                                pattern="[0-9 ()\-]{6,20}" required aria-required="true">
                             <small class="phone-helper-text">Select your country code and then type the local number
                                 only.</small>
                         </div>
@@ -964,11 +1249,11 @@
                             placeholder="Street, City, Ghana"></div>
                     <div class="fi-row">
                         <div class="fi">
-                            <label>Preferred Course Start Date *</label>
-                            <input type="date" id="startDate" min="" placeholder="Select a future date"
-                                style="width:100%;padding:.65rem .9rem;border:2px solid #e0e0e0;border-radius:8px;font-size:.9rem;">
-                            <small id="startDateError" style="color:#c00;display:none;font-size:.78rem;">Please select a
-                                future date.</small>
+                            <label for="startDate">Preferred Course Start Date *</label>
+                            <input type="date" id="startDate" min="" aria-describedby="startDateError" required
+                                aria-required="true">
+                            <small id="startDateError" class="pay-field-error" role="alert" style="display:none">Please
+                                select a future date (tomorrow or later).</small>
                         </div>
                         <div class="fi">
                             <label>Proficiency Level *</label>

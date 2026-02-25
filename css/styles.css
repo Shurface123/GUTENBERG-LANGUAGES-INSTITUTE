@@ -33,6 +33,10 @@
   --accent: var(--color-yellow);
   --accent-hover: var(--color-yellow-2);
 
+  /* Semantic surface tokens */
+  --hero-bg: linear-gradient(160deg, #050505 0%, #0f0f0f 60%, #141414 100%);
+  --nav-bg: rgba(5, 5, 5, 0.97);
+
   /* Gradients */
   --gradient-accent: linear-gradient(135deg, #FFD700 0%, #FFC300 100%);
   --gradient-dark: linear-gradient(135deg, #050505 0%, #0d0d0d 100%);
@@ -121,6 +125,10 @@
   --shadow-md: 0 4px 20px rgba(0, 0, 0, .09);
   --shadow-lg: 0 8px 40px rgba(0, 0, 0, .12);
   --shadow-xl: 0 16px 64px rgba(0, 0, 0, .14);
+
+  /* Semantic surface tokens — light overrides */
+  --hero-bg: linear-gradient(160deg, #f5f7fa 0%, #eef1f5 100%);
+  --nav-bg: rgba(255, 255, 255, 0.97);
 
   /* Legacy aliases */
   --light-gray: #F8F9FA;
@@ -234,7 +242,7 @@ p {
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(5, 5, 5, .97);
+  background: var(--nav-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   padding: .6rem 0;
@@ -249,7 +257,6 @@ p {
 }
 
 [data-theme="light"] .navbar {
-  background: rgba(255, 255, 255, .97);
   box-shadow: 0 1px 0 rgba(0, 0, 0, .08);
 }
 
@@ -475,10 +482,11 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--gradient-dark);
+  background: var(--hero-bg);
   position: relative;
   overflow: hidden;
   padding-top: 70px;
+  transition: background var(--t-slow);
 }
 
 .hero::before {
@@ -504,20 +512,9 @@ p {
   pointer-events: none;
 }
 
-[data-theme="light"] .hero {
-  background: linear-gradient(160deg, #0a0a0a 0%, #1a1a1a 100%);
-}
-
-[data-theme="light"] .hero .hero-content,
-[data-theme="light"] .hero .hero-title,
-[data-theme="light"] .hero .hero-subtitle {
-  /* Hero stays dark even in light mode for high contrast */
-  color: inherit;
-}
-
+/* ── Hero text — adapts to both themes ── */
 .hero-content {
   text-align: center;
-  color: var(--color-white);
   position: relative;
   z-index: 1;
   animation: fadeInUp 1s ease;
@@ -525,6 +522,7 @@ p {
   margin: 0 auto;
 }
 
+/* Dark mode: white text on dark hero */
 .hero-title {
   color: var(--color-yellow);
   margin-bottom: var(--sp-md);
@@ -539,11 +537,53 @@ p {
   line-height: 1.75;
 }
 
+/* Light mode: dark text on light hero */
+[data-theme="light"] .hero-title {
+  color: var(--color-black);
+  text-shadow: none;
+}
+
+[data-theme="light"] .hero-subtitle {
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] .hero .btn-secondary {
+  color: var(--color-black);
+  border-color: var(--color-black);
+}
+
+[data-theme="light"] .hero .btn-secondary:hover {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
 .hero-buttons {
   display: flex;
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+/* Keyword accent highlight inside hero */
+mark.hero-accent {
+  background: none;
+  color: var(--color-yellow);
+  font-style: normal;
+  position: relative;
+}
+
+[data-theme="light"] mark.hero-accent {
+  color: #b8860b;
+  /* darker gold — maintains contrast on light bg */
+}
+
+/* Tone down animated orbs in light mode */
+[data-theme="light"] .hero-anim-bg .anim-orb {
+  opacity: .25;
+}
+
+[data-theme="light"] .hero-anim-bg .anim-grid {
+  opacity: .08;
 }
 
 /* ════════════════════════════════════════════
@@ -1187,62 +1227,121 @@ p {
 }
 
 /* ════════════════════════════════════════════
+   BODY SCROLL LOCK (when mobile nav is open)
+   ════════════════════════════════════════════ */
+body.nav-open {
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════════
+   NAV OVERLAY BACKDROP
+   ════════════════════════════════════════════ */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .55);
+  backdrop-filter: blur(2px);
+  z-index: 998;
+  opacity: 0;
+  transition: opacity var(--t-normal);
+}
+
+.nav-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+/* ════════════════════════════════════════════
    RESPONSIVE — 768px
    ════════════════════════════════════════════ */
 @media (max-width:768px) {
 
-  /* Nav mobile */
+  /* Show hamburger */
   .menu-toggle {
     display: flex;
   }
 
+  /* Slide-in drawer — from the RIGHT */
   .nav-menu {
     position: fixed;
-    top: 56px;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 56px);
+    top: 0;
+    right: 0;
+    width: min(320px, 85vw);
+    height: 100dvh;
     flex-direction: column;
-    align-items: flex-start;
-    background: rgba(5, 5, 5, .98);
-    backdrop-filter: blur(16px);
-    padding: 1.5rem var(--sp-md) var(--sp-md);
-    gap: .35rem;
-    transform: translateX(-100%);
-    transition: transform var(--t-normal);
+    align-items: stretch;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 5rem 1.5rem 2rem;
+    gap: 0;
+    transform: translateX(100%);
+    transition: transform .35s cubic-bezier(.4, 0, .2, 1);
     overflow-y: auto;
     z-index: 999;
-  }
-
-  [data-theme="light"] .nav-menu {
-    background: rgba(255, 255, 255, .98);
+    border-left: 1px solid rgba(255, 215, 0, .10);
+    box-shadow: -8px 0 40px rgba(0, 0, 0, .45);
   }
 
   .nav-menu.active {
     transform: translateX(0);
-    animation: slideDown .3s ease;
+  }
+
+  /* Nav links inside drawer */
+  .nav-menu li {
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .nav-menu li:first-child {
+    border-top: 1px solid var(--border-color);
   }
 
   .nav-link {
+    display: flex;
     width: 100%;
-    font-size: .85rem;
-    padding: .85rem 1rem;
-    letter-spacing: .5px;
+    font-size: .9rem;
+    padding: 1rem 1.25rem;
+    letter-spacing: .4px;
+    min-height: 52px;
+    align-items: center;
   }
 
   .nav-cta {
+    display: flex;
     width: 100%;
     text-align: center;
-    padding: .85rem 1rem;
+    justify-content: center;
+    padding: 1rem 1.25rem;
     font-size: .85rem;
-    margin-top: .5rem;
+    margin-top: .75rem;
+    min-height: 52px;
+    border-radius: var(--r-sm);
   }
 
-  .theme-toggle-nav {
+  /* Theme toggle sits inside the nav drawer as a list item */
+  .nav-theme-slot {
+    list-style: none;
+    border-top: 1px solid var(--border-color);
+    border-bottom: none !important;
+    padding-top: 1rem;
+    margin-top: auto;
+  }
+
+  .nav-theme-slot .theme-toggle-nav {
     width: 100%;
     justify-content: center;
-    margin-top: .5rem;
-    padding: .7rem 1rem;
+    padding: .85rem 1.25rem;
+    min-height: 52px;
+    border-radius: var(--r-sm);
+    border-width: 1.5px;
+  }
+
+  /* Hide the toggle from the top bar on mobile
+     (it will be inside the drawer instead) */
+  .navbar>.nav-container>.theme-toggle-nav {
+    display: none;
   }
 
   /* Footer mobile */
