@@ -87,12 +87,12 @@ function validateStep2() {
     if (!lv) { showStepError('Please select a proficiency level.'); return false; }
 
     // Timezone-safe date comparison: compare YYYY-MM-DD strings.
-    // todayStr = today's local date; sd is the value from the date input (local date).
+    // todayStr = today's local date; sd must be strictly after today.
     const todayStr = new Date().toLocaleDateString('en-CA'); // 'YYYY-MM-DD' in local time
-    if (sd < todayStr) {
+    if (sd <= todayStr) {
         const err = g('startDateError');
         if (err) { err.style.display = 'block'; err.style.color = '#c00'; }
-        showStepError('Start date must be today or in the future.');
+        showStepError('Please select a future date (tomorrow or later).');
         return false;
     }
     const err = g('startDateError');
@@ -345,11 +345,12 @@ function g(id) { return document.getElementById(id); }
    INIT
 ═════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-    // Set min date for start date input to TODAY (today is allowed)
+    // Set min date for start date input to TOMORROW (today is NOT allowed)
     const sd = g('startDate');
     if (sd) {
-        // Use en-CA locale to get YYYY-MM-DD in local timezone
-        sd.min = new Date().toLocaleDateString('en-CA');
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        sd.min = tomorrow.toISOString().split('T')[0];
     }
 
     // Wire up MoMo network buttons (data-net attribute)
@@ -370,9 +371,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const err = g('startDateError');
             if (!err) return;
             const todayStr = new Date().toLocaleDateString('en-CA');
-            if (sd.value && sd.value < todayStr) {
+            if (sd.value && sd.value <= todayStr) {
                 err.style.display = 'block';
                 err.style.color = '#c00';
+                err.textContent = 'Please select a future date.';
             } else {
                 err.style.display = 'none';
             }

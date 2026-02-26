@@ -76,9 +76,11 @@
   --t-slow: .5s ease;
   --t-bounce: .4s cubic-bezier(.175, .885, .32, 1.275);
 
-  /* Legacy aliases (used in components) */
+  /* Legacy aliases (used in components)
+     --primary-black maps to --text-primary so it is WHITE in dark
+     mode and BLACK in light mode — never hardcode #000 here */
   --primary-yellow: var(--color-yellow);
-  --primary-black: var(--color-black);
+  --primary-black: var(--text-primary);
   --white: var(--color-white);
   --medium-gray: var(--text-secondary);
   --dark-gray: var(--text-secondary);
@@ -272,6 +274,7 @@ p {
   margin: 0 auto;
   padding: 0 var(--sp-md);
   gap: .75rem;
+  flex-wrap: nowrap;
 }
 
 /* Logo */
@@ -279,7 +282,9 @@ p {
   display: flex;
   align-items: center;
   gap: .6rem;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .nav-logo img {
@@ -307,6 +312,8 @@ p {
   white-space: nowrap;
   max-width: 180px;
   line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 [data-theme="light"] .nav-brand {
@@ -459,6 +466,8 @@ p {
   min-height: 44px;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  z-index: 1001;
 }
 
 .menu-toggle span {
@@ -577,13 +586,20 @@ mark.hero-accent {
   /* darker gold — maintains contrast on light bg */
 }
 
-/* Tone down animated orbs in light mode */
+/* Make animated orbs visible in light mode */
 [data-theme="light"] .hero-anim-bg .anim-orb {
-  opacity: .25;
+  opacity: .55;
+  filter: brightness(0.7) saturate(1.4);
 }
 
 [data-theme="light"] .hero-anim-bg .anim-grid {
-  opacity: .08;
+  opacity: .18;
+  filter: brightness(0.5);
+}
+
+[data-theme="light"] .hero-anim-bg .anim-shimmer {
+  opacity: .5;
+  filter: brightness(0.6);
 }
 
 /* ════════════════════════════════════════════
@@ -1260,6 +1276,19 @@ body.nav-open {
   /* Show hamburger */
   .menu-toggle {
     display: flex;
+    order: 2;
+  }
+
+  /* Ensure logo doesn't push hamburger off-screen */
+  .nav-logo {
+    order: 1;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .nav-brand {
+    max-width: 140px;
+    font-size: .6rem;
   }
 
   /* Slide-in drawer — from the RIGHT */
@@ -1282,6 +1311,7 @@ body.nav-open {
     z-index: 999;
     border-left: 1px solid rgba(255, 215, 0, .10);
     box-shadow: -8px 0 40px rgba(0, 0, 0, .45);
+    order: 3;
   }
 
   .nav-menu.active {
@@ -1354,6 +1384,24 @@ body.nav-open {
     flex-direction: column;
     text-align: center;
   }
+
+  /* Hero responsiveness */
+  .hero {
+    padding-top: 60px;
+    min-height: auto;
+    padding-bottom: var(--sp-lg);
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: .75rem;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    max-width: 300px;
+  }
 }
 
 /* ════════════════════════════════════════════
@@ -1404,6 +1452,48 @@ body.nav-open {
     min-height: 44px;
     font-size: 1rem;
     /* prevent auto-zoom on iOS */
+  }
+
+  /* Small phones — prevent overflow */
+  .nav-brand {
+    max-width: 110px;
+    font-size: .55rem;
+    letter-spacing: 1px;
+  }
+
+  .nav-logo img {
+    height: 28px;
+  }
+
+  .phone-input-row {
+    flex-direction: column;
+  }
+
+  .phone-country-select {
+    max-width: 100%;
+    min-width: 100%;
+  }
+}
+
+/* ════════════════════════════════════════════
+   EXTRA SMALL — 320px
+   ════════════════════════════════════════════ */
+@media (max-width:320px) {
+  .nav-brand {
+    max-width: 90px;
+    font-size: .5rem;
+  }
+
+  .hero-title {
+    font-size: 1.4rem;
+  }
+
+  .hero-subtitle {
+    font-size: .9rem;
+  }
+
+  .card {
+    padding: var(--sp-sm);
   }
 }
 
@@ -1482,4 +1572,139 @@ body.nav-open {
 
 [data-theme="accessible-light"] .section-title {
   color: #0a0a0a;
+}
+
+/* ════════════════════════════════════════════
+   DARK MODE — Comprehensive Text Visibility
+   Dark bg → WHITE text.  Light container → BLACK text.
+   ════════════════════════════════════════════ */
+
+/* --- Cards (dark bg by default) --- */
+:root:not([data-theme="light"]) .card {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+:root:not([data-theme="light"]) .card h2,
+:root:not([data-theme="light"]) .card h3,
+:root:not([data-theme="light"]) .card h4,
+:root:not([data-theme="light"]) .card-title {
+  color: #FFFFFF !important;
+}
+
+:root:not([data-theme="light"]) .card p,
+:root:not([data-theme="light"]) .card-text,
+:root:not([data-theme="light"]) .card span,
+:root:not([data-theme="light"]) .card td,
+:root:not([data-theme="light"]) .card strong,
+:root:not([data-theme="light"]) .card label {
+  color: #FFFFFF !important;
+}
+
+:root:not([data-theme="light"]) .card a:not(.btn):not(.social-link) {
+  color: var(--color-yellow) !important;
+}
+
+/* --- Contact cards --- */
+:root:not([data-theme="light"]) .contact-card {
+  color: #FFFFFF;
+}
+
+:root:not([data-theme="light"]) .contact-title {
+  color: #FFFFFF !important;
+}
+
+:root:not([data-theme="light"]) .contact-detail,
+:root:not([data-theme="light"]) .contact-detail a {
+  color: var(--color-yellow) !important;
+}
+
+:root:not([data-theme="light"]) .contact-card p {
+  color: rgba(255, 255, 255, .85) !important;
+}
+
+/* --- Form elements inside cards and pages --- */
+:root:not([data-theme="light"]) .form-label {
+  color: #FFFFFF !important;
+}
+
+:root:not([data-theme="light"]) .form-input,
+:root:not([data-theme="light"]) .form-select,
+:root:not([data-theme="light"]) .form-textarea {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+  color: #FFFFFF !important;
+}
+
+:root:not([data-theme="light"]) .form-input::placeholder,
+:root:not([data-theme="light"]) .form-textarea::placeholder {
+  color: rgba(255, 255, 255, .4);
+}
+
+/* --- Section titles & subtitles (dark-bg sections) --- */
+:root:not([data-theme="light"]) .section-title {
+  color: #FFFFFF;
+}
+
+:root:not([data-theme="light"]) .section-subtitle {
+  color: rgba(255, 255, 255, .72);
+}
+
+/* --- Feature boxes --- */
+:root:not([data-theme="light"]) .feature-title {
+  color: #FFFFFF !important;
+}
+
+:root:not([data-theme="light"]) .feature-description {
+  color: rgba(255, 255, 255, .72) !important;
+}
+
+/* --- Course cards internals --- */
+:root:not([data-theme="light"]) .course-card .course-body h4 {
+  color: #FFFFFF !important;
+}
+
+:root:not([data-theme="light"]) .course-card .course-features li {
+  color: rgba(255, 255, 255, .85) !important;
+}
+
+:root:not([data-theme="light"]) .course-card .course-description {
+  color: rgba(255, 255, 255, .72) !important;
+}
+
+/* --- Testimonials --- */
+:root:not([data-theme="light"]) .testimonial-text {
+  color: rgba(255, 255, 255, .85) !important;
+}
+
+:root:not([data-theme="light"]) .testimonial-info h4 {
+  color: #FFFFFF !important;
+}
+
+:root:not([data-theme="light"]) .testimonial-info p {
+  color: rgba(255, 255, 255, .6) !important;
+}
+
+/* --- Tables inside dark containers --- */
+:root:not([data-theme="light"]) table td,
+:root:not([data-theme="light"]) table th {
+  color: #FFFFFF;
+}
+
+/* ─── Light Inner Container ───
+   Use on containers that are intentionally light/white
+   even inside dark mode. Their text stays black. */
+.light-inner-container,
+.light-inner-container * {
+  color: #000000;
+}
+
+.light-inner-container a {
+  color: var(--color-yellow);
+}
+
+/* In light mode the utility is unnecessary — reset */
+[data-theme="light"] .light-inner-container,
+[data-theme="light"] .light-inner-container * {
+  color: inherit;
 }

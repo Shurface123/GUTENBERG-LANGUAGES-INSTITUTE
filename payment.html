@@ -886,208 +886,253 @@
             }
         }
 
-        /* ─── Dark mode overrides ─── */
-        [data-theme="dark"] .pay-hero {
+        /* ─── Dark mode overrides ───
+           NOTE: Dark mode = DEFAULT (no data-theme attribute).
+           Use :root:not([data-theme="light"]) to target dark mode. */
+        :root:not([data-theme="light"]) .pay-hero {
             background: linear-gradient(160deg, #050505, #111)
         }
 
-        [data-theme="dark"] .pay-hero h1 {
+        :root:not([data-theme="light"]) .pay-hero h1 {
             color: #fff
         }
 
-        [data-theme="dark"] .pay-hero p {
-            color: rgba(255, 255, 255, .55)
+        :root:not([data-theme="light"]) .pay-hero p {
+            color: rgba(255, 255, 255, .65)
         }
 
-        [data-theme="dark"] .step-label {
+        :root:not([data-theme="light"]) .step-label {
             background: var(--bg-primary, #0f0f0f);
-            color: #aaa
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .pay-step.active .step-label {
-            color: #fff
+        :root:not([data-theme="light"]) .pay-step.active .step-label {
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .step-num {
+        :root:not([data-theme="light"]) .step-num {
             background: #2a2a2a;
-            color: #aaa
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .pay-panel {
+        :root:not([data-theme="light"]) .pay-panel {
             background: #141414;
             box-shadow: 0 4px 24px rgba(0, 0, 0, .4)
         }
 
-        [data-theme="dark"] .panel-title {
-            color: #f0f0f0
+        :root:not([data-theme="light"]) .panel-title {
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .fi label,
-        [data-theme="dark"] .fi-card label {
-            color: #ccc
+        :root:not([data-theme="light"]) .fi label,
+        :root:not([data-theme="light"]) .fi-card label {
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .fi input,
-        [data-theme="dark"] .fi select,
-        [data-theme="dark"] .fi-card input {
+        :root:not([data-theme="light"]) .fi input,
+        :root:not([data-theme="light"]) .fi select,
+        :root:not([data-theme="light"]) .fi-card input {
             background: #1e1e1e;
             border-color: #333;
-            color: #eee
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .fi input:focus,
-        [data-theme="dark"] .fi select:focus {
+        :root:not([data-theme="light"]) .fi input:focus,
+        :root:not([data-theme="light"]) .fi select:focus {
             border-color: #FFD700;
             background: #222
         }
 
-        [data-theme="dark"] .course-pick {
+        :root:not([data-theme="light"]) .course-pick {
             border-color: #2a2a2a;
             background: #141414
         }
 
-        [data-theme="dark"] .course-pick:hover,
-        [data-theme="dark"] .course-pick.selected {
+        :root:not([data-theme="light"]) .course-pick:hover,
+        :root:not([data-theme="light"]) .course-pick.selected {
             border-color: #FFD700;
             background: rgba(255, 215, 0, .07)
         }
 
-        [data-theme="dark"] .cp-name,
-        [data-theme="dark"] .cp-amount {
-            color: #eee
+        :root:not([data-theme="light"]) .cp-name,
+        :root:not([data-theme="light"]) .cp-amount {
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .cp-sub,
-        [data-theme="dark"] .cp-curr {
-            color: #777
+        :root:not([data-theme="light"]) .cp-sub,
+        :root:not([data-theme="light"]) .cp-curr {
+            color: rgba(255, 255, 255, .65)
         }
 
-        [data-theme="dark"] .lang-chip {
+        :root:not([data-theme="light"]) .lang-chip {
             border-color: #333;
             background: #1a1a1a;
-            color: #bbb
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .lang-chip.selected {
+        :root:not([data-theme="light"]) .lang-chip.selected {
             background: #FFD700;
             color: #000;
             border-color: #FFD700
         }
 
-        [data-theme="dark"] .pm-tab {
+        :root:not([data-theme="light"]) .lang-select-wrap label {
+            color: #FFFFFF
+        }
+
+        :root:not([data-theme="light"]) .pm-tab {
             border-color: #2a2a2a;
             background: #141414
         }
 
-        [data-theme="dark"] .pm-tab.active {
+        :root:not([data-theme="light"]) .pm-tab.active {
             border-color: #FFD700;
             background: rgba(255, 215, 0, .07)
         }
 
-        [data-theme="dark"] .pm-tab-label {
-            color: #aaa
+        :root:not([data-theme="light"]) .pm-tab i {
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .pm-tab.active .pm-tab-label {
-            color: #eee
+        :root:not([data-theme="light"]) .pm-tab.active i {
+            color: #FFD700
         }
 
-        [data-theme="dark"] .card-row {
+        :root:not([data-theme="light"]) .pm-tab-label {
+            color: #FFFFFF
+        }
+
+        :root:not([data-theme="light"]) .pm-tab.active .pm-tab-label {
+            color: #FFFFFF
+        }
+
+        :root:not([data-theme="light"]) .card-row {
             background: #1e1e1e;
             border-color: #333
         }
 
-        [data-theme="dark"] .card-row:focus-within {
+        :root:not([data-theme="light"]) .card-row:focus-within {
             border-color: #FFD700;
             background: #222
         }
 
-        [data-theme="dark"] .card-row input {
-            color: #eee
+        :root:not([data-theme="light"]) .card-row input {
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .card-icon-img {
+        :root:not([data-theme="light"]) .card-icon-img {
             background: #333;
-            color: #aaa
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .momo-net {
-            border-color: #2a2a2a
+        :root:not([data-theme="light"]) .momo-net {
+            border-color: #2a2a2a;
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .momo-net.selected {
+        :root:not([data-theme="light"]) .momo-net.selected {
             border-color: #FFD700;
             background: rgba(255, 215, 0, .07)
         }
 
-        [data-theme="dark"] .bank-table tr {
+        :root:not([data-theme="light"]) .bank-table tr {
             border-color: #2a2a2a
         }
 
-        [data-theme="dark"] .bank-table td:first-child {
-            color: #888
+        :root:not([data-theme="light"]) .bank-table td:first-child {
+            color: rgba(255, 255, 255, .7)
         }
 
-        [data-theme="dark"] .bank-table td:last-child {
-            color: #eee
+        :root:not([data-theme="light"]) .bank-table td:last-child {
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .summary-card {
+        :root:not([data-theme="light"]) .summary-card {
             background: #141414;
             border-color: #2a2a2a;
             box-shadow: 0 4px 24px rgba(0, 0, 0, .4)
         }
 
-        [data-theme="dark"] .summary-row {
-            color: #aaa
+        :root:not([data-theme="light"]) .summary-title {
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .summary-row strong,
-        [data-theme="dark"] .summary-total-label,
-        [data-theme="dark"] .summary-total-amount {
-            color: #eee
+        :root:not([data-theme="light"]) .summary-row {
+            color: rgba(255, 255, 255, .7)
         }
 
-        [data-theme="dark"] .summary-divider {
+        :root:not([data-theme="light"]) .summary-row strong,
+        :root:not([data-theme="light"]) .summary-total-label,
+        :root:not([data-theme="light"]) .summary-total-amount {
+            color: #FFFFFF
+        }
+
+        :root:not([data-theme="light"]) .summary-divider {
             border-color: #2a2a2a
         }
 
-        [data-theme="dark"] .need-help {
+        :root:not([data-theme="light"]) .need-help {
             background: #1a1a1a
         }
 
-        [data-theme="dark"] .need-help p {
-            color: #888
+        :root:not([data-theme="light"]) .need-help p {
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .need-help a {
+        :root:not([data-theme="light"]) .need-help a {
             color: #FFD700
         }
 
-        [data-theme="dark"] .btn-back {
+        :root:not([data-theme="light"]) .btn-back {
             background: #222;
-            color: #ccc
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .btn-back:hover {
+        :root:not([data-theme="light"]) .btn-back:hover {
             background: #2e2e2e
         }
 
-        [data-theme="dark"] .conf-row {
+        :root:not([data-theme="light"]) .conf-row {
             background: #1e1e1e
         }
 
-        [data-theme="dark"] .conf-label {
-            color: #888
+        :root:not([data-theme="light"]) .conf-label {
+            color: rgba(255, 255, 255, .7)
         }
 
-        [data-theme="dark"] .conf-value {
-            color: #eee
+        :root:not([data-theme="light"]) .conf-value {
+            color: #FFFFFF
         }
 
-        [data-theme="dark"] .success-ref {
+        :root:not([data-theme="light"]) .success-ref {
             background: #1e1e1e;
-            color: #eee
+            color: #FFFFFF
+        }
+
+        :root:not([data-theme="light"]) .success-screen h2 {
+            color: #FFFFFF
+        }
+
+        :root:not([data-theme="light"]) .success-screen p {
+            color: rgba(255, 255, 255, .7)
+        }
+
+        :root:not([data-theme="light"]) .copy-btn {
+            color: #FFD700;
+            background: rgba(255, 215, 0, .15);
+            border-color: rgba(255, 215, 0, .35)
+        }
+
+        /* ─── White container text in dark mode ─── */
+        :root:not([data-theme="light"]) .pay-panel p,
+        :root:not([data-theme="light"]) .pay-panel span,
+        :root:not([data-theme="light"]) .pay-panel div,
+        :root:not([data-theme="light"]) .pay-panel small {
+            color: #FFFFFF
+        }
+
+        :root:not([data-theme="light"]) .pay-panel a {
+            color: #FFD700
         }
 
         /* ─── Page background wrapper ─── */
@@ -1241,8 +1286,6 @@
                         <div class="fi" data-phone-group="payment-phone"><label for="infPhone">Phone Number
                                 *</label><input type="tel" id="infPhone" placeholder="e.g. 50 979 6187"
                                 pattern="[0-9 ()\-]{6,20}" required aria-required="true">
-                            <small class="phone-helper-text">Select your country code and then type the local number
-                                only.</small>
                         </div>
                     </div>
                     <div class="fi"><label>Residential Address *</label><input type="text" id="address"
@@ -1370,8 +1413,6 @@
                             <label>Mobile Money Number *</label>
                             <input type="tel" id="momoNumber" placeholder="e.g. 024 XXX XXXX" required>
                             <small id="momoError" class="phone-error-text"></small>
-                            <small class="phone-helper-text">Type your number — we detect the network from your prefix
-                                automatically.</small>
                         </div>
                         <div class="fi"><label>Account Name</label><input type="text" id="momoName"
                                 placeholder="Name on MoMo account"></div>
@@ -1662,23 +1703,26 @@
             if (n === 2 && !state.course) { alert('Please select a course first.'); return; }
             if (n === 2 && !state.lang) { alert('Please select a language.'); return; }
             if (n === 3) {
-                const req = ['fname', 'lname', 'email', 'phone', 'address', 'level', 'startDate'];
-                for (const id of req) {
-                    if (!document.getElementById(id).value.trim()) {
-                        document.getElementById(id).focus();
-                        alert('Please fill in all required fields.'); return;
+                const req = [['infFirstName', 'First Name'], ['infLastName', 'Last Name'], ['infEmail', 'Email'], ['infPhone', 'Phone'], ['address', 'Address'], ['level', 'Level'], ['startDate', 'Start Date']];
+                for (const [id, label] of req) {
+                    const el = document.getElementById(id);
+                    if (!el || !el.value.trim()) {
+                        if (el) el.focus();
+                        alert('Please fill in all required fields (' + label + ').');
+                        return;
                     }
                 }
                 // Validate start date is not in the past
                 const startDateEl = document.getElementById('startDate');
-                const chosenDate = new Date(startDateEl.value);
-                const todayDate = new Date();
-                todayDate.setHours(0, 0, 0, 0);
+                const todayStr = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD in local time
+                const tomorrowDate = new Date();
+                tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+                const tomorrowStr = tomorrowDate.toISOString().split('T')[0];
                 const sdErr = document.getElementById('startDateError');
-                if (chosenDate < todayDate) {
+                if (startDateEl.value <= todayStr) {
                     if (sdErr) sdErr.style.display = 'block';
                     startDateEl.focus();
-                    alert('Please choose a future date for your course start date.'); return;
+                    alert('Please select a future date (tomorrow or later).'); return;
                 }
                 if (sdErr) sdErr.style.display = 'none';
             }
@@ -1813,9 +1857,9 @@
             const rows = [
                 ['Course', c.name],
                 ['Language', state.lang || '—'],
-                ['Name', (document.getElementById('fname').value + ' ' + document.getElementById('lname').value).trim()],
-                ['Email', document.getElementById('email').value],
-                ['Phone', document.getElementById('phone').value],
+                ['Name', ((document.getElementById('infFirstName')?.value || '') + ' ' + (document.getElementById('infLastName')?.value || '')).trim()],
+                ['Email', document.getElementById('infEmail')?.value || ''],
+                ['Phone', document.getElementById('infPhone')?.value || ''],
                 ['Start Date', document.getElementById('startDate').value],
                 ['Payment Method', methodLabel[state.method]],
                 ['Total Amount', fmt(c.total)],
