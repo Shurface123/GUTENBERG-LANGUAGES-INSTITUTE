@@ -1373,41 +1373,43 @@
 
                     <!-- Mobile Money Pane -->
                     <div class="pm-pane" id="pm-momo">
-                        <p style="font-size:.88rem;color:#555;margin-bottom:1.25rem">Select your mobile money network
+                        <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:1.25rem">Select your mobile
+                            money network
                             and enter the registered number to receive a payment prompt.</p>
                         <div class="momo-networks" style="display:flex;gap:.75rem;margin-bottom:1.25rem;">
-                            <!-- MTN MoMo — Official yellow brand -->
+                            <!-- MTN MoMo -->
                             <div class="momo-net selected" data-net="mtn">
                                 <div
-                                    style="display:flex;align-items:center;justify-content:center;background:#FFCB00;border-radius:8px;padding:5px 10px;margin-bottom:6px;">
+                                    style="display:flex;align-items:center;justify-content:center;background:#FFCB00;border-radius:8px;padding:8px 14px;margin-bottom:6px;">
                                     <span
-                                        style="font-size:0.9rem;font-weight:900;color:#000;letter-spacing:0.5px;">MTN</span>
+                                        style="font-size:0.95rem;font-weight:900;color:#000;letter-spacing:0.5px;">MTN</span>
                                 </div>
                                 <div style="font-weight:700;font-size:.82rem;">MoMo</div>
-                                <div class="momo-network-badge" style="background:#FFCB00;color:#000;">024 · 025 ·
-                                    053–055 · 059</div>
                             </div>
-                            <!-- Telecel Cash — brand RED -->
+                            <!-- Telecel Cash -->
                             <div class="momo-net" data-net="telecel">
                                 <div
-                                    style="display:flex;align-items:center;justify-content:center;background:#E30613;border-radius:8px;padding:5px 10px;margin-bottom:6px;">
+                                    style="display:flex;align-items:center;justify-content:center;background:#E30613;border-radius:8px;padding:8px 14px;margin-bottom:6px;">
                                     <span
-                                        style="font-size:0.75rem;font-weight:900;color:#fff;letter-spacing:0.3px;">TELECEL</span>
+                                        style="font-size:0.78rem;font-weight:900;color:#fff;letter-spacing:0.3px;">TELECEL</span>
                                 </div>
                                 <div style="font-weight:700;font-size:.82rem;">Cash</div>
-                                <div class="momo-network-badge" style="background:#E30613;color:#fff;">020 · 050</div>
                             </div>
-                            <!-- AirtelTigo — Red + Blue brand -->
+                            <!-- AirtelTigo Money -->
                             <div class="momo-net" data-net="airteltigo">
                                 <div
-                                    style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#E30613 0%,#003087 100%);border-radius:8px;padding:5px 10px;margin-bottom:6px;">
+                                    style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#E30613 0%,#003087 100%);border-radius:8px;padding:8px 14px;margin-bottom:6px;">
                                     <span
-                                        style="font-size:0.6rem;font-weight:900;color:#fff;letter-spacing:0.2px;">AirtelTigo</span>
+                                        style="font-size:0.65rem;font-weight:900;color:#fff;letter-spacing:0.2px;">AirtelTigo</span>
                                 </div>
                                 <div style="font-weight:700;font-size:.82rem;">Money</div>
-                                <div class="momo-network-badge" style="background:#003087;color:#fff;">027 · 057 · 026 ·
-                                    056</div>
                             </div>
+                        </div>
+                        <!-- Network mismatch warning (hidden by default, shown by JS) -->
+                        <div id="networkMismatchWarning"
+                            style="display:none;background:rgba(255,193,7,.12);border:1px solid rgba(255,193,7,.35);border-radius:8px;padding:.6rem 1rem;font-size:.8rem;color:#b8860b;margin-bottom:.75rem">
+                            <i class="fas fa-exclamation-triangle" style="margin-right:.4rem"></i>
+                            <span id="networkMismatchText">This number appears to belong to a different network.</span>
                         </div>
                         <div class="fi">
                             <label>Mobile Money Number *</label>
@@ -1426,9 +1428,10 @@
 
                     <!-- Bank Transfer Pane -->
                     <div class="pm-pane" id="pm-bank">
-                        <p style="font-size:.88rem;color:#555;margin-bottom:1.25rem">Use the details below to make a
+                        <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:1.25rem">Use the details
+                            below to make a
                             direct bank transfer. Send your proof of payment to <a href="mailto:glicampus05@gmail.com"
-                                style="color:#7a5c00;font-weight:700">glicampus05@gmail.com</a>.</p>
+                                style="color:var(--color-yellow);font-weight:700">glicampus05@gmail.com</a>.</p>
                         <div
                             style="border:1.5px solid #f0f0f0;border-radius:14px;overflow:hidden;margin-bottom:1.25rem">
                             <table class="bank-table">
@@ -1461,7 +1464,8 @@
                         </div>
                         <div class="fi"><label>Upload transfer receipt (optional)</label><input type="file" id="receipt"
                                 accept="image/*,.pdf" style="font-size:.82rem;padding:.5rem"></div>
-                        <div style="background:#fff8e1;border-radius:12px;padding:1rem;font-size:.82rem;color:#5a4200">
+                        <div class="light-inner-container"
+                            style="background:#fff8e1;border-radius:12px;padding:1rem;font-size:.82rem;color:#5a4200">
                             <strong><i class="fas fa-exclamation-circle"></i> Important:</strong> Include your full name
                             and course name in the transfer reference. Your enrolment will be confirmed within 24 hours
                             of receipt verification.
@@ -1475,12 +1479,12 @@
                             <div
                                 style="font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:#FFD700;font-weight:700;margin-bottom:.5rem">
                                 Visit Our Office</div>
-                            <div style="font-size:1.05rem;font-weight:700">Lashibi Com 17 Junction</div>
+                            <div style="font-size:1.05rem;font-weight:700;color:#fff">Lashibi Com 17 Junction</div>
                             <div style="color:rgba(255,255,255,.6);font-size:.88rem;margin-top:4px">Accra, Ghana — near
                                 Lashibi Estate</div>
                         </div>
-                        <div
-                            style="border:1.5px solid #f0f0f0;border-radius:14px;overflow:hidden;margin-bottom:1.25rem">
+                        <div class="light-inner-container"
+                            style="border:1.5px solid #f0f0f0;border-radius:14px;overflow:hidden;margin-bottom:1.25rem;background:#fff">
                             <table class="bank-table">
                                 <tr>
                                     <td>Monday – Friday</td>
@@ -1497,17 +1501,17 @@
                             </table>
                         </div>
                         <div style="display:flex;flex-direction:column;gap:.75rem">
-                            <div
+                            <div class="light-inner-container"
                                 style="display:flex;align-items:center;gap:.75rem;background:#f7f7f8;border-radius:12px;padding:1rem;font-size:.85rem;color:#555">
                                 <i class="fas fa-id-card" style="color:#FFD700;font-size:1.1rem"></i>
                                 <span>Bring a valid government-issued ID</span>
                             </div>
-                            <div
+                            <div class="light-inner-container"
                                 style="display:flex;align-items:center;gap:.75rem;background:#f7f7f8;border-radius:12px;padding:1rem;font-size:.85rem;color:#555">
                                 <i class="fas fa-receipt" style="color:#FFD700;font-size:1.1rem"></i>
                                 <span>Official receipt issued immediately on payment</span>
                             </div>
-                            <div
+                            <div class="light-inner-container"
                                 style="display:flex;align-items:center;gap:.75rem;background:#f7f7f8;border-radius:12px;padding:1rem;font-size:.85rem;color:#555">
                                 <i class="fas fa-phone" style="color:#FFD700;font-size:1.1rem"></i>
                                 <span>Call ahead: +233 50 979 6187</span>
@@ -1761,91 +1765,52 @@
             document.getElementById('finalBtnText').textContent = labels[method];
         }
         function selectMomo(net) {
-            ['mtn', 'voda', 'airtel'].forEach(n => {
-                const el = document.getElementById('mn-' + n);
-                if (el) el.classList.remove('selected');
+            // Map internal keys to data-net attribute values used in the HTML
+            const netMap = { mtn: 'mtn', voda: 'telecel', airtel: 'airteltigo' };
+            const dataNetVal = netMap[net] || net;
+            document.querySelectorAll('.momo-net').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.momo-net').forEach(el => {
+                if (el.getAttribute('data-net') === dataNetVal) el.classList.add('selected');
             });
-            const active = document.getElementById('mn-' + net);
-            if (active) active.classList.add('selected');
             state.momoNet = net;
         }
 
         function detectMomoFromNumber(rawVal) {
             if (!rawVal) return null;
-            const match = rawVal.match(/0\d{2}/);
+            // Strip spaces/dashes and look for a 0XX prefix
+            const cleaned = rawVal.replace(/[\s\-()]/g, '');
+            const match = cleaned.match(/^0(\d{2})/);
             if (!match) return null;
-            const prefix = match[0];
+            const prefix = '0' + match[1];
             if (MOMO_PREFIXES.mtn.includes(prefix)) return 'mtn';
             if (MOMO_PREFIXES.voda.includes(prefix)) return 'voda';
             if (MOMO_PREFIXES.airtel.includes(prefix)) return 'airtel';
             return null;
         }
 
-        function validateMomoNumber() {
-            const input = document.getElementById('momoNum');
-            const hint = document.getElementById('momoNetworkHint');
-            if (!input) return true;
-            const raw = input.value.trim();
-            const net = detectMomoFromNumber(raw);
-            if (!raw) {
-                if (hint) {
-                    hint.classList.add('phone-error-text');
-                    hint.style.display = 'block';
-                    hint.textContent = 'Please enter a valid Ghana mobile money number (e.g. 024, 050, 027).';
-                }
-                return false;
-            }
-            if (!net) {
-                if (hint) {
-                    hint.classList.add('phone-error-text');
-                    hint.style.display = 'block';
-                    hint.textContent = 'Phone prefix not recognised. Use a Ghana mobile number starting with 024, 025, 053, 054, 055, 059, 020, 050, 026, 027, 056 or 057.';
-                }
-                return false;
-            }
-            if (net !== state.momoNet) {
-                selectMomo(net);
-                if (hint) {
-                    hint.classList.remove('phone-error-text');
-                    hint.style.display = 'block';
-                    const providerLabel = net === 'mtn' ? 'MTN MoMo' : (net === 'voda' ? 'Telecel Cash' : 'AirtelTigo');
-                    hint.textContent = 'We detected a ' + providerLabel + ' number and switched the network for you.';
-                }
-            } else if (hint) {
-                hint.style.display = 'block';
-                hint.classList.remove('phone-error-text');
-                hint.textContent = 'Network and number look good for mobile money.';
-            }
-            return true;
-        }
-
+        // Silent auto-detection on phone input — never display prefixes on screen
         (function attachMomoAutoDetect() {
-            const input = document.getElementById('momoNum');
+            const input = document.getElementById('momoNumber');
             if (!input) return;
             input.addEventListener('input', function () {
                 const raw = this.value.trim();
                 const detected = detectMomoFromNumber(raw);
-                const hint = document.getElementById('momoNetworkHint');
-                if (!detected) {
-                    if (hint) {
-                        hint.style.display = 'block';
-                        hint.classList.remove('phone-error-text');
-                        hint.textContent = 'Enter a Ghana mobile number (e.g. 024, 050, 027). We’ll match it to MTN, Telecel or AirtelTigo.';
-                    }
+                const warn = document.getElementById('networkMismatchWarning');
+                const warnText = document.getElementById('networkMismatchText');
+                if (!detected || !warn) {
+                    if (warn) warn.style.display = 'none';
                     return;
                 }
+                // Auto-select the correct network silently
                 if (detected !== state.momoNet) {
+                    const label = detected === 'mtn' ? 'MTN MoMo' : (detected === 'voda' ? 'Telecel Cash' : 'AirtelTigo');
+                    // Show subtle mismatch warning instead of auto-switching
+                    warn.style.display = 'block';
+                    warnText.textContent = 'This number appears to belong to ' + label + '. Tap the correct network above, or we will use it automatically.';
+                    // Auto-select after brief display
                     selectMomo(detected);
-                    if (hint) {
-                        hint.style.display = 'block';
-                        hint.classList.remove('phone-error-text');
-                        const label = detected === 'mtn' ? 'MTN MoMo' : (detected === 'voda' ? 'Telecel Cash' : 'AirtelTigo');
-                        hint.textContent = 'Number prefix matches ' + label + '; network updated.';
-                    }
-                } else if (hint) {
-                    hint.style.display = 'block';
-                    hint.classList.remove('phone-error-text');
-                    hint.textContent = 'Network and number look consistent.';
+                } else {
+                    warn.style.display = 'none';
                 }
             });
         })();
