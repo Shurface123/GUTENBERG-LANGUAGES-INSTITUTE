@@ -1100,6 +1100,74 @@
             color: rgba(255, 255, 255, .7)
         }
 
+        /* ─── MoMo section — dark mode text white ─── */
+        :root:not([data-theme="light"]) #pm-momo>p,
+        :root:not([data-theme="light"]) #pm-momo .fi label,
+        :root:not([data-theme="light"]) #pm-momo .fi small,
+        :root:not([data-theme="light"]) #pm-momo .momo-net div {
+            color: #FFFFFF !important;
+        }
+
+        :root:not([data-theme="light"]) #pm-momo>div:last-child {
+            color: rgba(255, 255, 255, .85) !important;
+        }
+
+        :root:not([data-theme="light"]) #pm-momo>div:last-child strong {
+            color: #FFFFFF !important;
+        }
+
+        /* ─── Bank section — dark mode text white ─── */
+        :root:not([data-theme="light"]) #pm-bank>p {
+            color: rgba(255, 255, 255, .85) !important;
+        }
+
+        :root:not([data-theme="light"]) #pm-bank .bank-table {
+            background: #1a1a1a;
+        }
+
+        :root:not([data-theme="light"]) #pm-bank .copy-btn {
+            color: #FFD700;
+        }
+
+        /* ─── Cash section — light inner containers → BLACK text ─── */
+        :root:not([data-theme="light"]) #pm-cash .light-inner-container {
+            background: #fff !important;
+        }
+
+        :root:not([data-theme="light"]) #pm-cash .light-inner-container,
+        :root:not([data-theme="light"]) #pm-cash .light-inner-container td,
+        :root:not([data-theme="light"]) #pm-cash .light-inner-container span,
+        :root:not([data-theme="light"]) #pm-cash .light-inner-container p {
+            color: #000000 !important;
+        }
+
+        :root:not([data-theme="light"]) #pm-cash .light-inner-container td[style*="color:#999"] {
+            color: #999 !important;
+        }
+
+        /* ─── Confirm summary rows — dark mode ─── */
+        :root:not([data-theme="light"]) #confirmSummary>div {
+            background: #1e1e1e !important;
+            color: #FFFFFF !important;
+        }
+
+        :root:not([data-theme="light"]) #confirmSummary>div span:first-child {
+            color: rgba(255, 255, 255, .65) !important;
+        }
+
+        :root:not([data-theme="light"]) #confirmSummary>div span:last-child {
+            color: #FFFFFF !important;
+        }
+
+        /* ─── MoMo network logo images ─── */
+        .momo-net .network-logo {
+            width: 60px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+
         :root:not([data-theme="light"]) .conf-value {
             color: #FFFFFF
         }
@@ -1379,29 +1447,17 @@
                         <div class="momo-networks" style="display:flex;gap:.75rem;margin-bottom:1.25rem;">
                             <!-- MTN MoMo -->
                             <div class="momo-net selected" data-net="mtn">
-                                <div
-                                    style="display:flex;align-items:center;justify-content:center;background:#FFCB00;border-radius:8px;padding:8px 14px;margin-bottom:6px;">
-                                    <span
-                                        style="font-size:0.95rem;font-weight:900;color:#000;letter-spacing:0.5px;">MTN</span>
-                                </div>
+                                <img src="images/mtn-momo-logo.png" alt="MTN Mobile Money" class="network-logo">
                                 <div style="font-weight:700;font-size:.82rem;">MoMo</div>
                             </div>
                             <!-- Telecel Cash -->
                             <div class="momo-net" data-net="telecel">
-                                <div
-                                    style="display:flex;align-items:center;justify-content:center;background:#E30613;border-radius:8px;padding:8px 14px;margin-bottom:6px;">
-                                    <span
-                                        style="font-size:0.78rem;font-weight:900;color:#fff;letter-spacing:0.3px;">TELECEL</span>
-                                </div>
+                                <img src="images/telecel-logo.png" alt="Telecel Ghana" class="network-logo">
                                 <div style="font-weight:700;font-size:.82rem;">Cash</div>
                             </div>
                             <!-- AirtelTigo Money -->
                             <div class="momo-net" data-net="airteltigo">
-                                <div
-                                    style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#E30613 0%,#003087 100%);border-radius:8px;padding:8px 14px;margin-bottom:6px;">
-                                    <span
-                                        style="font-size:0.65rem;font-weight:900;color:#fff;letter-spacing:0.2px;">AirtelTigo</span>
-                                </div>
+                                <img src="images/airteltigo-logo.png" alt="AirtelTigo Ghana" class="network-logo">
                                 <div style="font-weight:700;font-size:.82rem;">Money</div>
                             </div>
                         </div>
