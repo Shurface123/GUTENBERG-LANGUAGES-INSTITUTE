@@ -172,6 +172,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color .3s ease, color .3s ease;
+  position: relative;
+}
+
+/* ── Subtle fixed background image (all pages) ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1920') center / cover no-repeat;
+  background-attachment: fixed;
+  opacity: 0.10;
+  pointer-events: none;
+}
+
+[data-theme="light"] body::after {
+  opacity: 0.08;
 }
 
 a {
@@ -432,6 +449,11 @@ p {
   letter-spacing: .4px;
   text-transform: uppercase;
   min-height: 32px;
+}
+
+/* Hide the mobile-drawer toggle on desktop (shown only inside mobile breakpoint) */
+.nav-theme-slot {
+  display: none;
 }
 
 .theme-toggle-nav:hover {
@@ -1352,6 +1374,7 @@ body.nav-open {
 
   /* Theme toggle sits inside the nav drawer as a list item */
   .nav-theme-slot {
+    display: block;
     list-style: none;
     border-top: 1px solid var(--border-color);
     border-bottom: none !important;

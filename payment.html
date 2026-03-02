@@ -1209,6 +1209,9 @@
             padding: 0 0 4rem
         }
     </style>
+
+    <!-- Paystack Inline Payment SDK -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
 </head>
 
 <body>
@@ -1612,9 +1615,36 @@
                 <div class="pay-panel" id="step5">
                     <div class="success-screen">
                         <div class="success-icon"><i class="fas fa-check"></i></div>
-                        <h2 style="font-size:1.6rem;font-weight:900;color:#111;margin:0 0 .5rem">Payment Submitted!</h2>
-                        <p style="color:#666;font-size:.95rem;max-width:380px;margin:0 auto">Thank you! Your payment has
-                            been received. Our team will contact you within 24 hours to confirm your enrolment.</p>
+                        <h2 style="font-size:1.6rem;font-weight:900;color:#111;margin:0 0 .5rem" id="successTitle">
+                            Payment Successful!</h2>
+                        <p style="color:#666;font-size:.95rem;max-width:420px;margin:0 auto" id="successMsg">Thank you!
+                            Your payment has been received and confirmed.</p>
+
+                        <!-- Dynamic confirmation details -->
+                        <div id="successDetails"
+                            style="max-width:400px;margin:1.25rem auto;text-align:left;display:flex;flex-direction:column;gap:.6rem">
+                            <div
+                                style="display:flex;justify-content:space-between;background:#f7f7f8;border-radius:10px;padding:.75rem 1rem;font-size:.88rem">
+                                <span style="color:#777;font-weight:600">Transaction Ref</span>
+                                <strong style="color:#111" id="successTxRef">—</strong>
+                            </div>
+                            <div
+                                style="display:flex;justify-content:space-between;background:#f7f7f8;border-radius:10px;padding:.75rem 1rem;font-size:.88rem">
+                                <span style="color:#777;font-weight:600">Amount Paid</span>
+                                <strong style="color:#111" id="successAmount">—</strong>
+                            </div>
+                            <div
+                                style="display:flex;justify-content:space-between;background:#f7f7f8;border-radius:10px;padding:.75rem 1rem;font-size:.88rem">
+                                <span style="color:#777;font-weight:600">Student Name</span>
+                                <strong style="color:#111" id="successStudent">—</strong>
+                            </div>
+                            <div
+                                style="display:flex;justify-content:space-between;background:#f7f7f8;border-radius:10px;padding:.75rem 1rem;font-size:.88rem">
+                                <span style="color:#777;font-weight:600">Course Enrolled</span>
+                                <strong style="color:#111" id="successCourse">—</strong>
+                            </div>
+                        </div>
+
                         <div class="success-ref" id="successRef">GLI-2026-XXXX</div>
                         <p style="font-size:.82rem;color:#999">Save this reference number for your records</p>
                         <div class="success-next">
@@ -1725,6 +1755,10 @@
             normal: { name: 'Normal Course', sub: '16–20 Weeks · Flexible', fee: 4000, total: 4050 }
         };
         let state = { course: null, lang: null, method: 'card', momoNet: 'mtn' };
+
+        // ─── Paystack Configuration ───────────────────────────────────────────────
+        // ⚠️ Replace with your actual Paystack public key (pk_live_XXXX or pk_test_XXXX)
+        const PAYSTACK_PUBLIC_KEY = 'pk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
 
         // Ghana mobile money prefixes (0XX)
         const MOMO_PREFIXES = {
@@ -1899,16 +1933,95 @@
                 alert('Please accept the terms and conditions to proceed.');
                 return;
             }
+
             const btn = document.getElementById('finalPayBtn');
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
             btn.disabled = true;
 
-            setTimeout(() => {
-                document.querySelectorAll('.pay-panel').forEach(p => p.classList.remove('active'));
-                document.getElementById('step5').classList.add('active');
-                document.querySelectorAll('.pay-step').forEach(s => s.classList.add('done'));
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 2200);
+            const c = COURSES[state.course];
+            const email = document.getElementById('infEmail')?.value?.trim() || '';
+            const firstName = document.getElementById('infFirstName')?.value?.trim() || '';
+            const lastName = document.getElementById('infLastName')?.value?.trim() || '';
+            const fullName = (firstName + ' ' + lastName).trim();
+            const phone = document.getElementById('infPhone')?.value?.trim() || '';
+            const ref = document.getElementById('successRef')?.textContent || generateRef();
+
+            // ── Cash: manual flow (no Paystack) ──
+            if (state.method === 'cash') {
+                showSuccessScreen({
+                    reference: ref,
+                    amount: c.total,
+                    studentName: fullName,
+                    courseName: c.name,
+                    title: 'Reservation Confirmed!',
+                    message: 'Your spot has been reserved. Please visit our office at Lashibi Com 17 Junction, Accra to complete your cash payment. Bring your reference number and a valid ID.'
+                });
+                return;
+            }
+
+            // ── Paystack channels based on selected method ──
+            let channels = ['card'];  // default
+            if (state.method === 'momo') channels = ['mobile_money'];
+            if (state.method === 'bank') channels = ['bank_transfer'];
+            // For 'card', Paystack handles card UI automatically
+
+            // ── Launch Paystack Popup ──
+            const handler = PaystackPop.setup({
+                key: PAYSTACK_PUBLIC_KEY,
+                email: email,
+                amount: c.total * 100, // Paystack expects amount in pesewas (kobo)
+                currency: 'GHS',
+                ref: ref,
+                channels: channels,
+                metadata: {
+                    custom_fields: [
+                        { display_name: 'Student Name', variable_name: 'student_name', value: fullName },
+                        { display_name: 'Course', variable_name: 'course', value: c.name },
+                        { display_name: 'Language', variable_name: 'language', value: state.lang || 'N/A' },
+                        { display_name: 'Phone', variable_name: 'phone', value: phone }
+                    ]
+                },
+                callback: function (response) {
+                    // Payment successful
+                    showSuccessScreen({
+                        reference: response.reference,
+                        amount: c.total,
+                        studentName: fullName,
+                        courseName: c.name,
+                        title: 'Payment Successful!',
+                        message: 'Thank you, ' + firstName + '! Your payment has been confirmed. Our team will contact you within 24 hours to finalise your enrolment.'
+                    });
+                },
+                onClose: function () {
+                    // User closed the Paystack popup without completing payment
+                    btn.innerHTML = '<i class="fas fa-lock"></i><span id="finalBtnText">Complete Payment</span>';
+                    btn.disabled = false;
+                }
+            });
+
+            handler.openIframe();
+        }
+
+        // ─── Show Success Screen ──────────────────────────────────────────────────
+        function showSuccessScreen({ reference, amount, studentName, courseName, title, message }) {
+            // Populate dynamic fields
+            document.getElementById('successTitle').textContent = title || 'Payment Successful!';
+            document.getElementById('successMsg').textContent = message || 'Your payment has been received.';
+            document.getElementById('successTxRef').textContent = reference;
+            document.getElementById('successAmount').textContent = fmt(amount);
+            document.getElementById('successStudent').textContent = studentName;
+            document.getElementById('successCourse').textContent = courseName;
+            document.getElementById('successRef').textContent = reference;
+
+            // Navigate to step 5
+            document.querySelectorAll('.pay-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('step5').classList.add('active');
+            document.querySelectorAll('.pay-step').forEach(s => s.classList.add('done'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Re-enable button for safety
+            const btn = document.getElementById('finalPayBtn');
+            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-lock"></i><span id="finalBtnText">Complete Payment</span>'; }
         }
 
         // ─── Utils ────────────────────────────────────────────────────────────────
