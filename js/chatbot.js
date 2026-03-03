@@ -94,13 +94,30 @@
     ══════════════════════════════════════════ */
     const INTENTS = [
 
-        /* ─── Greeting ─── */
+        /* ─── Greeting (FIX: AI assistant enhancement — time-aware) ─── */
         {
             id: 'greeting',
             patterns: ['hello', 'hi ', 'hey', 'good morning', 'good afternoon', 'good evening', 'howdy', "what's up", 'greetings', 'hiya'],
+            handler: () => {
+                const h = new Date().getHours();
+                let timeGreet = '👋 Hi there!';
+                if (h >= 5 && h < 12) timeGreet = 'Good morning! ☀️';
+                else if (h >= 12 && h < 17) timeGreet = 'Good afternoon! 🌤️';
+                else if (h >= 17 || h < 5) timeGreet = 'Good evening! 🌙';
+                return {
+                    text: `${timeGreet} Welcome to **Gutenberg Languages Institute**!\n\nI'm your virtual assistant — here to make your journey with us easy and enjoyable! 😊 I can help you with:\n\n📚 Course info & pricing\n🌍 Languages we teach\n📅 Booking & enrolment\n💳 Payment options\n📍 Location & hours\n🎓 Certificates & levels\n\nFeel free to ask me anything — I'm happy to help!`,
+                    chips: ['Browse Courses', 'Languages Offered', 'Calculate Fees', 'Book a Session'],
+                };
+            },
+        },
+
+        /* ─── How are you (FIX: AI assistant — new intent) ─── */
+        {
+            id: 'how_are_you',
+            patterns: ['how are you', "how's it going", 'how do you do', 'how you dey', 'are you okay', 'you good'],
             handler: () => ({
-                text: `👋 Hi there! Welcome to **Gutenberg Languages Institute**!\n\nI'm your virtual assistant — powered by GLI's knowledge base. I can help you with:\n\n📚 Course info & pricing\n🌍 Languages we teach\n📅 Booking & enrolment\n💳 Payment options\n📍 Location & hours\n🎓 Certificates & levels\n\nWhat would you like to explore?`,
-                chips: ['Browse Courses', 'Languages Offered', 'Calculate Fees', 'Book a Session'],
+                text: `I'm doing great, thank you for asking! 😊 I'm here and ready to assist you with whatever you need.\n\nWhat can I help you with today?`,
+                chips: ['Browse Courses', 'Calculate Fees', 'Book a Session', 'Contact Us'],
             }),
         },
 
@@ -347,22 +364,22 @@
             handler: () => faqAnswer('When do courses start?'),
         },
 
-        /* ─── Thanks ─── */
+        /* ─── Thanks (FIX: AI assistant — warmer response) ─── */
         {
             id: 'thanks',
             patterns: ['thank', 'thanks', 'appreciate', 'helpful', 'great', 'awesome', 'perfect', 'brilliant'],
             handler: () => ({
-                text: `You're very welcome! 😊 It's our pleasure to help.\n\nIs there anything else you'd like to know about GLI?`,
+                text: `You're very welcome! 😊 It's been a real pleasure helping you.\n\nIs there anything else I can assist you with? I'm always here for you!`,
                 chips: ['Browse Courses', 'Book a Session', 'Contact Us'],
             }),
         },
 
-        /* ─── Goodbye ─── */
+        /* ─── Goodbye (FIX: AI assistant — warmer farewell) ─── */
         {
             id: 'bye',
             patterns: ['bye', 'goodbye', 'see you', 'ciao', 'take care', 'farewell', 'later', 'quit', 'exit'],
             handler: () => ({
-                text: `Goodbye! 👋 Thank you for visiting Gutenberg Languages Institute.\n\nWe hope to see you in class soon! Feel free to chat anytime or visit us in Accra. 🇬🇭\n\n*Powered by GLI Assistant v3*`,
+                text: `Goodbye! 👋✨ Thank you so much for chatting with us today!\n\nWe truly hope to see you in one of our classes soon. Remember, we're just a message away whenever you need us.\n\nHave a wonderful day! 🌟\n\n*— Your friends at Gutenberg Languages Institute, Accra 🇬🇭*`,
                 chips: ['Book a Session', 'Contact Us'],
             }),
         },
@@ -378,17 +395,18 @@
     /* ══════════════════════════════════════════
        FALLBACKS
     ══════════════════════════════════════════ */
+    /* FIX: AI assistant — improved fallback with contact redirect */
     const FALLBACKS = [
         {
-            text: `Hmm, I'm not quite sure about that. Let me point you in the right direction:`,
+            text: `I'm not quite sure about that, but I'd love to help! 😊 Let me point you in the right direction:`,
             chips: ['Browse Courses', 'Languages Offered', 'Book a Session', 'Contact Us'],
         },
         {
-            text: `I may not have a direct answer, but our team definitely does! You can reach us by WhatsApp or phone:`,
+            text: `I'm not sure about that, but our team would love to help! 📞 Please contact us via the Contact page or visit us in person. Is there anything else I can assist you with?`,
             chips: ['WhatsApp Us', 'Contact Info', 'Send an Email'],
         },
         {
-            text: `Still stumped! Why not speak directly to our admissions team? They're super helpful. 😊`,
+            text: `That's a great question! 😊 I'd recommend speaking directly with our admissions team — they'll have the best answer for you.`,
             chips: ['Speak to a Human', 'WhatsApp Us', 'Book a Session'],
         },
     ];

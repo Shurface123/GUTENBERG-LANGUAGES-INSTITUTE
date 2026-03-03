@@ -1208,6 +1208,215 @@
             background: var(--bg-secondary, #f7f7f8);
             padding: 0 0 4rem
         }
+
+        /* FIX: payment step text visibility — light mode */
+        [data-theme="light"] .pay-hero {
+            background: linear-gradient(160deg, #f5f7fa 0%, #eef1f5 100%);
+        }
+
+        [data-theme="light"] .pay-hero h1 {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .pay-hero h1 span {
+            color: #b8860b;
+        }
+
+        [data-theme="light"] .pay-hero p {
+            color: #555;
+        }
+
+        [data-theme="light"] .secure-badge {
+            color: #444;
+        }
+
+        [data-theme="light"] .panel-title {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .pay-panel label {
+            color: #333;
+        }
+
+        [data-theme="light"] .pay-panel input,
+        [data-theme="light"] .pay-panel select {
+            background: #fff;
+            color: #1a1a1a;
+            border-color: #ccc;
+        }
+
+        [data-theme="light"] .pay-panel input::placeholder {
+            color: #999;
+        }
+
+        [data-theme="light"] .pay-panel p,
+        [data-theme="light"] .pay-panel span,
+        [data-theme="light"] .pay-panel div,
+        [data-theme="light"] .pay-panel small {
+            color: #333;
+        }
+
+        [data-theme="light"] .pay-panel a {
+            color: #b8860b;
+        }
+
+        [data-theme="light"] .cp-name {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .cp-sub {
+            color: #666;
+        }
+
+        [data-theme="light"] .cp-amount {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .course-pick {
+            background: #fff;
+            border-color: #ddd;
+        }
+
+        [data-theme="light"] .course-pick.selected {
+            border-color: #b8860b;
+        }
+
+        [data-theme="light"] .lang-chip {
+            color: #333;
+            border-color: #ccc;
+            background: #f9f9f9;
+        }
+
+        [data-theme="light"] .lang-chip.selected {
+            border-color: #b8860b;
+            background: rgba(184, 134, 11, .1);
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .pm-tab {
+            color: #555;
+        }
+
+        [data-theme="light"] .pm-tab.active {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .pay-step .step-num {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .pay-step .step-label {
+            color: #555;
+        }
+
+        [data-theme="light"] .pay-step.active .step-label {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .pay-step.done .step-label {
+            color: #b8860b;
+        }
+
+        [data-theme="light"] .summary-card {
+            background: #fff;
+            border-color: #e0e0e0;
+        }
+
+        [data-theme="light"] .summary-title {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .summary-row span {
+            color: #666;
+        }
+
+        [data-theme="light"] .summary-row strong {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .summary-total-label {
+            color: #333;
+        }
+
+        [data-theme="light"] .summary-total-amount {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .security-info .sec-row {
+            color: #666;
+        }
+
+        [data-theme="light"] .need-help p {
+            color: #555;
+        }
+
+        [data-theme="light"] .need-help a {
+            color: #b8860b;
+        }
+
+        [data-theme="light"] #confirmSummary>div {
+            background: #f7f7f8;
+        }
+
+        [data-theme="light"] #confirmSummary>div span:first-child {
+            color: #777;
+        }
+
+        [data-theme="light"] #confirmSummary>div strong {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .conf-value {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .success-screen h2 {
+            color: #1a1a1a !important;
+        }
+
+        [data-theme="light"] .success-screen p {
+            color: #555 !important;
+        }
+
+        [data-theme="light"] .success-ref {
+            background: #f5f5f5;
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] #successDetails>div {
+            background: #f7f7f8;
+        }
+
+        [data-theme="light"] #successDetails span {
+            color: #777;
+        }
+
+        [data-theme="light"] #successDetails strong {
+            color: #1a1a1a;
+        }
+
+        /* FIX: cash info box theme */
+        [data-theme="light"] #pm-cash .light-inner-container {
+            background: #fff !important;
+            border-color: #e0e0e0 !important;
+        }
+
+        [data-theme="light"] .bank-table td {
+            color: #333;
+        }
+
+        [data-theme="light"] .copy-btn {
+            color: #b8860b;
+            background: rgba(184, 134, 11, .1);
+            border-color: rgba(184, 134, 11, .3);
+        }
+
+        /* FIX: mobile money input limit styling */
+        .momo-length-hint {
+            font-size: .75rem;
+            color: var(--text-muted);
+            margin-top: .25rem;
+        }
     </style>
 
     <!-- Paystack Inline Payment SDK -->
@@ -1472,8 +1681,12 @@
                         </div>
                         <div class="fi">
                             <label>Mobile Money Number *</label>
-                            <input type="tel" id="momoNumber" placeholder="e.g. 024 XXX XXXX" required>
+                            <input type="tel" id="momoNumber" placeholder="e.g. 0241234567" maxlength="10"
+                                pattern="[0-9]{10}" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)"
+                                required>
                             <small id="momoError" class="phone-error-text"></small>
+                            <small class="momo-length-hint" id="momoLengthHint">Enter 10-digit Ghana mobile
+                                number</small>
                         </div>
                         <div class="fi"><label>Account Name</label><input type="text" id="momoName"
                                 placeholder="Name on MoMo account"></div>
@@ -1863,6 +2076,25 @@
                 if (el.getAttribute('data-net') === dataNetVal) el.classList.add('selected');
             });
             state.momoNet = net;
+        }
+
+        // FIX: mobile number input limit — validate 10 digits
+        function validateMomoNumber() {
+            const input = document.getElementById('momoNumber');
+            const error = document.getElementById('momoError');
+            const hint = document.getElementById('momoLengthHint');
+            if (!input) return true;
+            const val = input.value.replace(/[^0-9]/g, '');
+            if (val.length !== 10) {
+                if (error) { error.textContent = 'Please enter a valid 10-digit Ghana mobile number'; error.style.display = 'block'; }
+                if (hint) hint.style.color = '#e53e3e';
+                input.style.borderColor = '#e53e3e';
+                return false;
+            }
+            if (error) { error.textContent = ''; error.style.display = 'none'; }
+            if (hint) hint.style.color = '';
+            input.style.borderColor = '';
+            return true;
         }
 
         function detectMomoFromNumber(rawVal) {
