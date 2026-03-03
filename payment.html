@@ -826,16 +826,78 @@
         }
 
         .conf-label {
-            color: #888;
+            color: rgba(255, 255, 255, .60);
             font-weight: 600;
             white-space: nowrap;
             flex-shrink: 0
         }
 
         .conf-value {
-            color: #111;
+            color: #fff;
             text-align: right;
             word-break: break-word
+        }
+
+        /* FIX: confirm row visibility — JS-generated review rows */
+        .confirm-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .10);
+            border-radius: 10px;
+            padding: .85rem 1rem;
+            font-size: .88rem;
+            gap: 1rem;
+        }
+
+        .confirm-row-label {
+            color: rgba(255, 255, 255, .60);
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .confirm-row-value {
+            color: #ffffff;
+            text-align: right;
+            word-break: break-word;
+        }
+
+        /* FIX: confirm terms checkbox label */
+        .confirm-terms-label {
+            color: rgba(255, 255, 255, .90);
+        }
+
+        /* Light mode — confirm rows */
+        [data-theme="light"] .confirm-row {
+            background: #f5f5f5;
+            border-color: #e0e0e0;
+        }
+
+        [data-theme="light"] .confirm-row-label {
+            color: #555;
+        }
+
+        [data-theme="light"] .confirm-row-value {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .confirm-terms-label {
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .conf-row {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+        }
+
+        [data-theme="light"] .conf-label {
+            color: #555;
+        }
+
+        [data-theme="light"] .conf-value {
+            color: #1a1a1a;
         }
 
         /* ─── Field-level error messages ─── */
@@ -1805,8 +1867,8 @@
                         style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.75rem"></div>
                     <div
                         style="background:rgba(255,215,0,.07);border:1.5px solid rgba(255,215,0,.25);border-radius:14px;padding:1.25rem;margin-bottom:1.5rem">
-                        <label
-                            style="display:flex;align-items:flex-start;gap:.75rem;cursor:pointer;font-size:.85rem;color:#333">
+                        <label style="display:flex;align-items:flex-start;gap:.75rem;cursor:pointer;font-size:.85rem"
+                            class="confirm-terms-label">
                             <input type="checkbox" id="agreeTerms"
                                 style="width:auto;margin-top:2px;accent-color:#FFD700">
                             <span>I confirm the details above are correct and agree to Gutenberg Languages Institute's
@@ -2152,9 +2214,9 @@
                 ['Total Amount', fmt(c.total)],
             ];
             document.getElementById('confirmSummary').innerHTML = rows.map(([k, v]) => `
-        <div style="display:flex;justify-content:space-between;align-items:center;background:#f7f7f8;border-radius:10px;padding:.85rem 1rem;font-size:.88rem">
-            <span style="color:#777;font-weight:600">${k}</span>
-            <strong style="color:#111">${v}</strong>
+        <div class="confirm-row">
+            <span class="confirm-row-label">${k}</span>
+            <strong class="confirm-row-value">${v}</strong>
         </div>
     `).join('');
         }

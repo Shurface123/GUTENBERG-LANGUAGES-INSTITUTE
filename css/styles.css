@@ -1062,7 +1062,30 @@ mark.hero-accent {
 }
 
 [data-theme="light"] .section-dark {
-  background: linear-gradient(135deg, #0a0a0a 0%, #111 100%);
+  background: #f0f0f0;
+}
+
+/* FIX: light-mode section-dark text visibility */
+[data-theme="light"] .section-dark .section-title {
+  color: #b8860b;
+}
+
+[data-theme="light"] .section-dark .feature-title {
+  color: #1a1a1a !important;
+}
+
+[data-theme="light"] .section-dark .feature-description {
+  color: #3a3a3a !important;
+}
+
+[data-theme="light"] .section-dark .feature-icon {
+  background: linear-gradient(135deg, #b8860b, #d4a017);
+  color: #fff;
+}
+
+[data-theme="light"] .section-dark .feature-box {
+  background: #ffffff;
+  border-color: #e0e0e0;
 }
 
 .section-header {
@@ -2256,7 +2279,7 @@ textarea::placeholder {
 }
 
 [data-theme="light"] .section-dark {
-  background: linear-gradient(135deg, #0a0a0a 0%, #111 100%);
+  background: #f0f0f0;
 }
 
 /* ════════════════════════════════════════════
