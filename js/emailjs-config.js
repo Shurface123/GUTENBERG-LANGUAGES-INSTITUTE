@@ -6,8 +6,8 @@
 
 const EMAILJS_CONFIG = {
     serviceID: 'service_cp2oa4u',
-    templateID: 'template_a4ukcce',
-    bookingTemplateID: 'template_a4ukcce',
+    templateID: 'template_tg3ncmc',
+    bookingTemplateID: 'template_tg3ncmc',
     publicKey: 'gROi2f3Rk7txdGvvS'
 };
 
