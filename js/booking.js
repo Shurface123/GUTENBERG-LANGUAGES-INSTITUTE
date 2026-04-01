@@ -106,7 +106,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (typeof hideLoading === 'function' && submitButton) hideLoading(submitButton, originalButtonText);
                     const errorEl = document.getElementById('errorMessage');
                     if (errorEl) {
-                        errorEl.innerHTML = '<strong><i class="fas fa-exclamation-triangle"></i> Submission Error</strong><br>There was an error submitting your booking. Please try again or contact us directly.';
+                        const errorMsg = error.text || error.message || JSON.stringify(error) || 'Unknown API failure';
+                        errorEl.innerHTML = '<strong><i class="fas fa-exclamation-triangle"></i> Submission Error</strong><br>Details: ' + errorMsg + '<br><br>Please check your EmailJS dashboard settings or contact us directly.';
                         errorEl.style.display = 'block';
                         errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
