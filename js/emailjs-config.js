@@ -5,10 +5,10 @@
 // ============================================
 
 const EMAILJS_CONFIG = {
-    serviceID: 'service_t7a62uo',
-    templateID: 'template_msb888i',
-    bookingTemplateID: 'template_q5qy4a7',
-    publicKey: 'Qaz4Xvzh5itiQ0ZZu'
+    serviceID: 'service_cp2oa4u',
+    templateID: 'template_a4ukcce',
+    bookingTemplateID: 'template_a4ukcce',
+    publicKey: 'gROi2f3Rk7txdGvvS'
 };
 
 // Ensure config is available globally for all scripts
