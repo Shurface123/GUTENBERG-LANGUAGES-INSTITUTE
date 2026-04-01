@@ -67,17 +67,52 @@ document.addEventListener('DOMContentLoaded', function () {
             const body = bodyLines.join('\n');
             const subject = 'Booking Request — ' + fullNameVal;
 
-            const mailto = 'mailto:glicampus05@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-
-            document.getElementById('errorMessage').style.display = 'none';
-            const successEl = document.getElementById('successMessage');
-            if (successEl) {
-                successEl.innerHTML = '<strong><i class="fas fa-check-circle"></i> Almost done!</strong><br>Your email client will open with this booking request. Click <strong>Send</strong> to submit. We\'ll confirm within 24 hours.';
-                successEl.style.display = 'block';
-                successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (typeof emailjs === 'undefined') {
+                const errEl = document.getElementById('errorMessage');
+                if (errEl) {
+                    errEl.innerHTML = '<strong><i class="fas fa-exclamation-triangle"></i> ERROR</strong><br>Email service not configured. Please contact us directly.';
+                    errEl.style.display = 'block';
+                }
+                return;
             }
-            bookingForm.reset();
-            window.location.href = mailto;
+
+            const submitButton = bookingForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton ? submitButton.innerHTML : 'Submit';
+            if (typeof showLoading === 'function' && submitButton) showLoading(submitButton);
+
+            const templateParams = {
+                from_name: fullNameVal,
+                from_email: email,
+                subject: subject,
+                message: body,
+                to_name: 'Gutenberg Languages Institute',
+                to_email: 'glicampus05@gmail.com'
+            };
+
+            emailjs.send(EMAILJS_CONFIG.serviceID, EMAILJS_CONFIG.bookingTemplateID, templateParams, EMAILJS_CONFIG.publicKey)
+                .then(function (response) {
+                    console.log('Booking email sent!', response.status);
+                    if (typeof hideLoading === 'function' && submitButton) hideLoading(submitButton, originalButtonText);
+                    document.getElementById('errorMessage').style.display = 'none';
+                    const successEl = document.getElementById('successMessage');
+                    if (successEl) {
+                        successEl.innerHTML = '<strong><i class="fas fa-check-circle"></i> Booking Request Submitted!</strong><br>Thank you for choosing Gutenberg Languages Institute. We\'ve received your booking request and will contact you within 24 hours to confirm your session details.';
+                        successEl.style.display = 'block';
+                        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    bookingForm.reset();
+                }, function (error) {
+                    console.error('Booking email failed:', error);
+                    if (typeof hideLoading === 'function' && submitButton) hideLoading(submitButton, originalButtonText);
+                    const errorEl = document.getElementById('errorMessage');
+                    if (errorEl) {
+                        errorEl.innerHTML = '<strong><i class="fas fa-exclamation-triangle"></i> Submission Error</strong><br>There was an error submitting your booking. Please try again or contact us directly.';
+                        errorEl.style.display = 'block';
+                        errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    const successEl = document.getElementById('successMessage');
+                    if (successEl) successEl.style.display = 'none';
+                });
         });
     }
 });
