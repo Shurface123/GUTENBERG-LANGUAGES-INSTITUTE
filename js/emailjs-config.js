@@ -14,19 +14,21 @@ const EMAILJS_CONFIG = {
 // Ensure config is available globally for all scripts
 window.EMAILJS_CONFIG = EMAILJS_CONFIG;
 
-// Initialize EmailJS (safe-guarded)
-(function () {
+// Initialize EmailJS — retries until SDK is ready
+function initEmailJS() {
     if (typeof emailjs === 'undefined') {
-        console.warn('EmailJS SDK not loaded; email sending will be disabled until it loads.');
+        console.warn('EmailJS SDK not yet available, retrying in 300ms...');
+        setTimeout(initEmailJS, 300);
         return;
     }
     try {
         emailjs.init(EMAILJS_CONFIG.publicKey);
-        console.log('EmailJS initialised successfully with provided public key.');
+        console.log('EmailJS initialised successfully.');
     } catch (err) {
         console.error('EmailJS init error:', err);
     }
-})();
+}
+initEmailJS();
 
 
 // ============================================
@@ -75,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
 
             if (typeof emailjs === 'undefined') {
-                console.error('EmailJS is not loaded.');
                 showErrorMessage('formError', 'Email service is not configured. Please contact us directly at glicampus05@gmail.com');
                 return;
             }
@@ -86,17 +87,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const phoneVal = document.getElementById('phone') ? document.getElementById('phone').value.trim() : '';
 
+            const senderName  = document.getElementById('name').value.trim();
+            const senderEmail = document.getElementById('email').value.trim();
+
+            const contactMessageBlock = [
+                '👤 Name:    ' + senderName,
+                '📧 Email:   ' + senderEmail,
+                '📞 Phone:   ' + (phoneVal || 'Not provided'),
+                '📌 Subject: ' + document.getElementById('subject').value,
+                '',
+                '💬 Message:',
+                document.getElementById('message').value.trim()
+            ].join('\n');
+
             const templateParams = {
-                from_name: document.getElementById('name').value.trim(),
-                from_email: document.getElementById('email').value.trim(),
-                phone: phoneVal || 'Not provided',
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value.trim(),
-                to_name: 'Gutenberg Languages Institute',
-                to_email: 'glicampus05@gmail.com'
+                name:       senderName,   // matches {{name}} in EmailJS From Name field
+                from_name:  senderName,
+                from_email: senderEmail,
+                reply_to:   senderEmail,  // matches {{from_email}} in Reply To field
+                subject:    document.getElementById('subject').value,  // matches {{subject}}
+                message:    contactMessageBlock   // matches {{message}} in template body
             };
 
-            // Pass publicKey as 4th argument so send() still works even if init() is skipped
             emailjs.send(EMAILJS_CONFIG.serviceID, EMAILJS_CONFIG.templateID, templateParams, EMAILJS_CONFIG.publicKey)
                 .then(function (response) {
                     console.log('Contact email sent!', response.status);
@@ -117,15 +129,50 @@ document.addEventListener('DOMContentLoaded', function () {
     if (applicationForm) {
         applicationForm.addEventListener('submit', function (e) {
             e.preventDefault();
+
+            if (typeof emailjs === 'undefined') {
+                showErrorMessage('appError', 'Email service not configured. Please contact us directly at glicampus05@gmail.com');
+                return;
+            }
+
             const submitButton = applicationForm.querySelector('button[type="submit"]');
             const originalButtonText = submitButton.innerHTML;
             showLoading(submitButton);
-            setTimeout(() => {
-                hideLoading(submitButton, originalButtonText);
-                showSuccessMessage('appSuccess');
-                document.getElementById('appError').style.display = 'none';
-                applicationForm.style.display = 'none';
-            }, 2000);
+
+            const appEmail    = document.getElementById('email')     ? document.getElementById('email').value.trim()     : '';
+            const appFirst    = document.getElementById('firstName') ? document.getElementById('firstName').value.trim() : '';
+            const appLast     = document.getElementById('lastName')  ? document.getElementById('lastName').value.trim()  : '';
+            const appFullName = (appFirst + ' ' + appLast).trim();
+            const appPhone    = document.getElementById('phone')     ? document.getElementById('phone').value.trim()     : 'Not provided';
+
+            const appMessageBlock = [
+                '👤 Full Name: ' + appFullName,
+                '📧 Email:     ' + appEmail,
+                '📞 Phone:     ' + (appPhone || 'Not provided'),
+                '',
+                'Full application details submitted via the website application form.'
+            ].join('\n');
+
+            const templateParams = {
+                name:       appFullName,
+                from_name:  appFullName,
+                from_email: appEmail,
+                reply_to:   appEmail,
+                subject:    'New Application — Gutenberg Languages Institute',
+                message:    appMessageBlock
+            };
+
+            emailjs.send(EMAILJS_CONFIG.serviceID, EMAILJS_CONFIG.templateID, templateParams, EMAILJS_CONFIG.publicKey)
+                .then(function () {
+                    hideLoading(submitButton, originalButtonText);
+                    showSuccessMessage('appSuccess');
+                    document.getElementById('appError').style.display = 'none';
+                    applicationForm.style.display = 'none';
+                }, function (error) {
+                    console.error('Application email failed:', error);
+                    hideLoading(submitButton, originalButtonText);
+                    showErrorMessage('appError', 'There was an error submitting your application. Please try again or contact us at glicampus05@gmail.com');
+                });
         });
     }
 });

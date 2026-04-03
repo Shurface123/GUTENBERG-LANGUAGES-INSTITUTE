@@ -68,11 +68,18 @@ document.addEventListener('DOMContentLoaded', function () {
             const subject = 'Booking Request — ' + fullNameVal;
 
             if (typeof emailjs === 'undefined') {
-                const errEl = document.getElementById('errorMessage');
-                if (errEl) {
-                    errEl.innerHTML = '<strong><i class="fas fa-exclamation-triangle"></i> ERROR</strong><br>Email service not configured. Please contact us directly.';
-                    errEl.style.display = 'block';
-                }
+                // EmailJS SDK not yet loaded — retry once after 500ms before failing
+                setTimeout(function() {
+                    if (typeof emailjs !== 'undefined') {
+                        bookingForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+                    } else {
+                        const errEl = document.getElementById('errorMessage');
+                        if (errEl) {
+                            errEl.innerHTML = '<strong><i class="fas fa-exclamation-triangle"></i> ERROR</strong><br>Email service is loading. Please wait a moment and try again, or contact us at glicampus05@gmail.com';
+                            errEl.style.display = 'block';
+                        }
+                    }
+                }, 500);
                 return;
             }
 
@@ -80,13 +87,29 @@ document.addEventListener('DOMContentLoaded', function () {
             const originalButtonText = submitButton ? submitButton.innerHTML : 'Submit';
             if (typeof showLoading === 'function' && submitButton) showLoading(submitButton);
 
+            // Build a rich message block that renders inside {{message}} in the template
+            const messageBlock = [
+                '👤 Student Name:    ' + fullNameVal,
+                '📧 Email:           ' + email,
+                '📞 Phone:           ' + (phone || 'Not provided'),
+                '',
+                '📚 Course Type:     ' + courseLabel,
+                '🌍 Language:        ' + languageLabel,
+                '⏰ Time Preference: ' + timeLabel,
+                '📊 Current Level:   ' + levelLabel,
+                '📣 Heard About Us:  ' + referralLabel,
+                '',
+                '💬 Additional Message:',
+                message || '(none)'
+            ].join('\n');
+
             const templateParams = {
-                from_name: fullNameVal,
-                from_email: email,
-                subject: subject,
-                message: body,
-                to_name: 'Gutenberg Languages Institute',
-                to_email: 'glicampus05@gmail.com'
+                name:       fullNameVal,      // matches {{name}} in EmailJS From Name field
+                from_email: email,            // used internally by EmailJS
+                from_name:  fullNameVal,      // fallback
+                reply_to:   email,            // matches {{from_email}} in Reply To field
+                subject:    subject,          // matches {{subject}}
+                message:    messageBlock      // matches {{message}} in template body
             };
 
             emailjs.send(EMAILJS_CONFIG.serviceID, EMAILJS_CONFIG.bookingTemplateID, templateParams, EMAILJS_CONFIG.publicKey)
@@ -102,11 +125,24 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     bookingForm.reset();
                 }, function (error) {
-                    console.error('Booking email failed:', error);
+                    // Log full error for debugging — status + text tell us exactly why EmailJS rejected
+                    const errStatus = error && error.status ? error.status : 'unknown';
+                    const errText   = error && error.text   ? error.text   : JSON.stringify(error);
+                    console.error('Booking email failed — status:', errStatus, '| detail:', errText);
+
                     if (typeof hideLoading === 'function' && submitButton) hideLoading(submitButton, originalButtonText);
+
+                    // Show user-friendly message with the actual error code for support
                     const errorEl = document.getElementById('errorMessage');
                     if (errorEl) {
-                        errorEl.innerHTML = '<strong><i class="fas fa-exclamation-triangle"></i> Submission Error</strong><br>There was an error submitting your booking. Please try again or contact us directly.';
+                        let userMsg = 'There was an error submitting your booking. Please try again or contact us directly at glicampus05@gmail.com';
+                        if (errStatus === 400) userMsg = 'Booking could not be sent — form data issue (code 400). Please contact us at glicampus05@gmail.com';
+                        if (errStatus === 401) userMsg = 'Email service authentication failed (code 401). Please contact us at glicampus05@gmail.com — we will fix this shortly.';
+                        if (errStatus === 403) userMsg = 'Email service blocked (code 403). Please contact us at glicampus05@gmail.com';
+                        if (errStatus === 404) userMsg = 'Email template not found (code 404). Please contact us at glicampus05@gmail.com';
+                        if (errStatus === 422) userMsg = 'Invalid template variables (code 422). Please contact us at glicampus05@gmail.com';
+                        if (errStatus === 429) userMsg = 'Too many requests — email limit reached (code 429). Please email us directly at glicampus05@gmail.com';
+                        errorEl.innerHTML = '<strong><i class="fas fa-exclamation-triangle"></i> Submission Error (code ' + errStatus + ')</strong><br>' + userMsg;
                         errorEl.style.display = 'block';
                         errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
