@@ -58,7 +58,7 @@
         levels: ['Beginner (A1)', 'Elementary (A2)', 'Intermediate (B1)', 'Upper-Intermediate (B2)', 'Advanced (C1)', 'Proficient (C2)'],
         contact: {
             phone1: '+233 50 979 6187',
-            phone2: '+233 53 520 3749',
+            phone2: '+233 53 530 3749',
             email: 'glicampus05@gmail.com',
             address: 'Lashibi Com 17 Junction, Accra, Ghana',
             hours: 'Mon–Fri: 8 AM – 8 PM · Sat–Sun: 9 AM – 5 PM',
